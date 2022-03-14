@@ -9,12 +9,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #2C73D2;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane prefHeight="720.0" prefWidth="640.0" style="-fx-background-color: #E5F0FF;" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="20.0" layoutY="35.0" prefHeight="650.0" prefWidth="600.0">
+            <TableView fx:id="ReceivedItemList" layoutX="20.0" layoutY="35.0" prefHeight="650.0" prefWidth="600.0">
               <columns>
                 <TableColumn prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Received Item" />
                 <TableColumn prefWidth="100.0" style="-fx-background-color: #95A7DD;" text="Quantity" />
@@ -34,9 +33,9 @@
             </Label>
             <AnchorPane layoutX="135.0" layoutY="185.0" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: #2C73D2;">
                <children>
-                  <TextField layoutX="100.0" layoutY="98.0" prefWidth="200.0" />
-                  <TextField layoutX="102.0" layoutY="184.0" prefWidth="200.0" />
-                  <Button layoutX="139.0" layoutY="259.0" mnemonicParsing="false" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Request">
+                  <TextField fx:id="requestItemName" layoutX="100.0" layoutY="98.0" prefWidth="200.0" />
+                  <TextField fx:id="requestItemQty" layoutX="102.0" layoutY="184.0" prefWidth="200.0" />
+                  <Button fx:id="requestBtn" layoutX="139.0" layoutY="259.0" mnemonicParsing="false" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Request">
                      <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
@@ -53,7 +52,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Button layoutX="259.0" layoutY="598.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out">
+            <Button fx:id="logoutBtn" layoutX="259.0" layoutY="598.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out">
                <font>
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
