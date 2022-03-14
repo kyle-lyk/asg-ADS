@@ -50,12 +50,12 @@
                   <Label text="Identity" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <Hyperlink fx:id="loginLink" layoutX="373.0" layoutY="605.0" text="Login" AnchorPane.bottomAnchor="79.79999999999995">
+            <Hyperlink fx:id="loginLink" layoutX="375.0" layoutY="605.0" onAction="#switch_to_LoginPage" text="Login here." AnchorPane.bottomAnchor="79.79999999999995">
                <font>
                   <Font size="18.0" />
                </font>
             </Hyperlink>
-            <Text layoutX="172.0" layoutY="630.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?           here.">
+            <Text layoutX="172.0" layoutY="630.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?">
                <font>
                   <Font size="18.0" />
                </font>
