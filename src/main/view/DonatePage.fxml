@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.DonatePageController">
+<BorderPane fx:id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.DonatePageController">
    <right>
       <AnchorPane prefHeight="720.0" prefWidth="640.0" style="-fx-background-color: #E5F0FF;" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane layoutX="120.0" layoutY="185.0" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: #2C73D2;">
                <children>
-                  <TextField fx:id="itemName" layoutX="100.0" layoutY="98.0" prefWidth="200.0" />
-                  <TextField fx:id="itemQty" layoutX="102.0" layoutY="184.0" prefWidth="200.0" />
-                  <Button fx:id="donateBtn" layoutX="142.0" layoutY="257.0" mnemonicParsing="false" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Donate">
+                  <TextField fx:id="donateItemName" layoutX="100.0" layoutY="98.0" prefWidth="200.0" />
+                  <TextField fx:id="donateItemQty" layoutX="102.0" layoutY="184.0" prefWidth="200.0" />
+                  <Button fx:id="donateBtn" layoutX="142.0" layoutY="257.0" mnemonicParsing="false" onAction="#donateItem" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Donate">
                      <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
@@ -34,7 +34,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Button fx:id="logoutBtn" layoutX="245.0" layoutY="596.0" mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out">
+            <Button fx:id="logoutBtn" layoutX="245.0" layoutY="596.0" mnemonicParsing="false" onAction="#logout" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out">
                <font>
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
@@ -55,7 +55,7 @@
    <left>
       <AnchorPane prefHeight="720.0" prefWidth="640.0" style="-fx-background-color: #E5F0FF;" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="20.0" layoutY="34.0" prefHeight="650.0" prefWidth="600.0">
+            <TableView fx:id="donatedItemList" layoutX="20.0" layoutY="34.0" prefHeight="650.0" prefWidth="600.0">
               <columns>
                 <TableColumn prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Donated Item" />
                 <TableColumn prefWidth="100.0" style="-fx-background-color: #95A7DD;" text="Quantity" />
