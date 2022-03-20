@@ -19,7 +19,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.model.Database;
-import main.model.Manager;
+import main.model.GlobalState;
 
 public class LoginPageController implements Initializable{
 
@@ -57,7 +57,7 @@ public class LoginPageController implements Initializable{
     @FXML
     void switch_to_RegisterPage(ActionEvent event) {
         try{
-            Stage mainStage = Manager.getInstance().getStage();
+            Stage mainStage = GlobalState.getInstance().getStage();
             Parent root = FXMLLoader.load(getClass().getResource("/main/view/RegisterPage.fxml"));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
@@ -76,22 +76,10 @@ public class LoginPageController implements Initializable{
             // If all fields are filled, check if the passwords match
             if (passwordField.getText().equals(c_passwordField.getText())) {
                 // Obtain selected identity from choicebox and convert it to database file name
+                GlobalState state = GlobalState.getInstance();
                 String identity = identityBox.getValue();
-                String filename;
-                switch (identity) {
-                    case "Donor":
-                        filename = "donor_acc";
-                        break;
-                    case "NGO":
-                        filename = "ngo_acc";
-                        break;
-                    case "DC Admin":
-                        filename = "dc_admin_acc";
-                        break;
-                    default:
-                        filename = "";
-                        break;
-                }
+                String filename = state.getDataFileName(identity);
+                String viewpath = state.getViewPath(identity);
                 
                 List<List<String>> Acc_Info = Database.readData(filename);
                 // If database is not empty, check if the username and password entered match any of the accounts
@@ -115,6 +103,15 @@ public class LoginPageController implements Initializable{
                     // If account is found, switch to the main page
                     if(userIsExist){
                         statusLabel.setText("Account found");
+                        state.setSession(usernameField.getText(),identity);
+
+                        try{
+                            Stage mainStage = GlobalState.getInstance().getStage();
+                            Parent root = FXMLLoader.load(getClass().getResource(viewpath));
+                            mainStage.setScene(new Scene(root, 1280, 720));
+                        }catch (IOException ioe){
+                            ioe.printStackTrace();
+                        }
                     }
                 }
                 // If database is empty, set the status label to error

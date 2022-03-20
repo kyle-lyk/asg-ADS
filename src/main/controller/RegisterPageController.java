@@ -19,7 +19,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.model.Database;
-import main.model.Manager;
+import main.model.GlobalState;
 
 public class RegisterPageController implements Initializable {
 
@@ -29,7 +29,7 @@ public class RegisterPageController implements Initializable {
     @FXML
     private ChoiceBox<String> identityBox;
 
-    private String[] identityList = {"Donor", "NGO", "DC Admin"};
+    private String[] identityList = {"Donor", "NGO"};
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -58,7 +58,7 @@ public class RegisterPageController implements Initializable {
     @FXML
     void switch_to_LoginPage(ActionEvent e) {
         try{
-            Stage mainStage = Manager.getInstance().getStage();
+            Stage mainStage = GlobalState.getInstance().getStage();
             Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
@@ -107,13 +107,13 @@ public class RegisterPageController implements Initializable {
                     }
                     // If username is not exist in the database, write a new data to the database
                     if(!usernameIsExist){
-                        Database.writeData(filename, List.of(usernameField.getText(), passwordField.getText()));
+                        Database.writeData(filename, List.of(usernameField.getText(), passwordField.getText(), " ", " "));
                         statusLabel.setText("Registration Successful!");
                     }
                 }
                 // If database is empty, write data without checking anything
                 else{
-                    Database.writeData(filename, List.of(usernameField.getText(), passwordField.getText()));
+                    Database.writeData(filename, List.of(usernameField.getText(), passwordField.getText(), " ", " "));
                     statusLabel.setText("Registration Successful!");
                 }
                 

@@ -75,5 +75,31 @@ public class Database {
         }
         return dataList;
     }
+
+    public static void updateData(String filename, List<List<String>> Datalist){
+        String filepath = "src/main/db/" + filename + ".csv";
+        File file = new File(filepath);
+        if (file.exists()) {
+            try {
+                FileWriter writer = new FileWriter(filepath);
+                for (int i=0; i < Datalist.size(); i++) {
+                    for (int j=0; j < Datalist.get(i).size(); j++) {
+                        writer.append(Datalist.get(i).get(j));
+                        if(j == Datalist.get(i).size()-1){
+                            writer.append("\n");
+                        }
+                        else{
+                            writer.append(",");
+                        }
+                    }
+                }
+                writer.flush();
+                writer.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     
 }

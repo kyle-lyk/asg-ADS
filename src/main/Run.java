@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import main.model.Manager;
+import main.model.GlobalState;
  
 public class Run extends Application {
     @Override
@@ -15,7 +15,7 @@ public class Run extends Application {
         
         try {
             // Singleton Design Pattern
-            Manager mainScreen = Manager.getInstance();
+            GlobalState mainScreen = GlobalState.getInstance();
             mainScreen.saveStage(primaryStage);
             Parent root = FXMLLoader.load(getClass().getResource("view/LoginPage.fxml"));
 
