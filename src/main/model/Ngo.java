@@ -1,21 +1,32 @@
 package main.model;
 
-import java.util.List;
-
 public class Ngo extends User{
         
-    private String ngoUsername;
-    private String ngoPassword;
+    private String ngoName;
+    private String manpower;
 
-    public Ngo(String ngoUsername, String ngoPassword) {
-        super(ngoUsername, ngoPassword, "NGO");
-        this.ngoUsername = ngoUsername;
-        this.ngoPassword = ngoPassword;
+    public Ngo(String username, String password, String identity, String ngoName, String manpower) {
+        super(username, password, identity);
+        this.ngoName = ngoName;
+        this.manpower = manpower;
     }
 
-    public static Ngo createNgo(String ngoUsername, String ngoPassword) {
-        Database.writeData("ngo_acc", List.of(ngoUsername, ngoPassword));
-        return new Ngo(ngoUsername, ngoPassword);
+    public String getName() {
+        return ngoName;
     }
+
+    public void setName(String ngoName) {
+        this.ngoName = ngoName;
+    }
+
+    public String getManpower() {
+        return manpower;
+    }
+
+    public void setManpower(String manpower) {
+        this.manpower = manpower;
+    }
+
+    //requestAids
         
 }

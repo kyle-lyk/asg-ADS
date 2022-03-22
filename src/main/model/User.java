@@ -13,29 +13,29 @@ public abstract class User {
 
     // Getters
 
-    public String get_username() {
+    public String getUsername() {
         return this.username;
     }
 
-    public String get_password() {
+    public String getPassword() {
         return this.password;
     }
 
-    public String get_identity() {
+    public String getIdentity() {
         return this.identity;
     }
 
     // Setters
 
-    public void set_username(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public void set_password(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public void set_identity(String identity) {
+    public void setIdentity(String identity) {
         this.identity = identity;
     }
     

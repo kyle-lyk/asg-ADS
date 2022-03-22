@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.model.Database;
 import main.model.GlobalState;
+import main.model.Ngo;
 
 public class LoginPageController implements Initializable{
 
@@ -80,6 +81,11 @@ public class LoginPageController implements Initializable{
                 String identity = identityBox.getValue();
                 String filename = state.getDataFileName(identity);
                 String viewpath = state.getViewPath(identity);
+
+                String username = "";
+                String password = "";
+                String name = "";
+                String info = "";
                 
                 List<List<String>> Acc_Info = Database.readData(filename);
                 // If database is not empty, check if the username and password entered match any of the accounts
@@ -88,6 +94,10 @@ public class LoginPageController implements Initializable{
                     for(int i=0; i < Acc_Info.size(); i++){
                         if(usernameField.getText().equals(Acc_Info.get(i).get(0))){
                             if(passwordField.getText().equals(Acc_Info.get(i).get(1))) {
+                                username = Acc_Info.get(i).get(0);
+                                password = Acc_Info.get(i).get(1);
+                                name = Acc_Info.get(i).get(2);
+                                info = Acc_Info.get(i).get(3);
                                 userIsExist = true;
                                 break;
                             }
@@ -103,7 +113,7 @@ public class LoginPageController implements Initializable{
                     // If account is found, switch to the main page
                     if(userIsExist){
                         statusLabel.setText("Account found");
-                        state.setSession(usernameField.getText(),identity);
+                        state.setSession(username, password, identity, name, info);
 
                         try{
                             Stage mainStage = GlobalState.getInstance().getStage();

@@ -10,10 +10,14 @@ import javafx.stage.Stage;
 
 public class GlobalState {
     private Stage publicStage;
-    
-    String username;
-    String identity;
 
+    String username;
+    String password;
+    String identity;
+    String name;
+    String info;
+
+    Ngo ngoUserInfo = new Ngo(null, null, null, null, null);
 
     // Static Varible reference to the Singleton instance
     private static GlobalState instance = null;
@@ -34,9 +38,38 @@ public class GlobalState {
         this.publicStage = s;
     }
 
-    public void setSession(String username, String identity){
+    private GlobalState() {
+        Init();
+    }
+
+    public void Init(){
+        this.username = "";
+        this.identity = "";
+    }
+
+    public void setSession(String username, String password ,String identity, String name, String info){
         this.username = username;
+        this.password = password;
         this.identity = identity;
+        this.name = name;
+        this.info = info;
+
+        if(identity == "NGO"){
+            this.ngoUserInfo.setUsername(username);
+            this.ngoUserInfo.setPassword(password);
+            this.ngoUserInfo.setIdentity(identity);
+            this.ngoUserInfo.setName(name);
+            this.ngoUserInfo.setManpower(info);
+        }
+        System.out.println(this.identity);
+    }
+
+    public Ngo getNgoSession(){
+        return this.ngoUserInfo;
+    }
+
+    public void setNgoSession(Ngo ngoUserInfo){
+        this.ngoUserInfo = ngoUserInfo;
     }
 
     public String getDataFileName(String identity){
@@ -71,45 +104,6 @@ public class GlobalState {
         return viewpath;
     }
 
-    public String getUsername(){
-        return this.username;
-    }
 
-    public String getIdentity(){
-        return this.identity;
-    }
-
-    public String getName(){
-        String Name = "";
-        List<List<String>> Acc_Info = Database.readData(getDataFileName(identity));
-        for(int i=0; i < Acc_Info.size(); i++){
-            if(username.equals(Acc_Info.get(i).get(0))){
-                Name = Acc_Info.get(i).get(2);
-            }
-        }
-        return Name;
-    }
-
-    public String getManPower(){
-        String ManPower = "";
-        List<List<String>> Acc_Info = Database.readData(getDataFileName(identity));
-        for(int i=0; i < Acc_Info.size(); i++){
-            if(username.equals(Acc_Info.get(i).get(0))){
-                ManPower = Acc_Info.get(i).get(3);
-            }
-        }
-        return ManPower;
-    }
-
-    public String getPhoneNumber(){
-        String PhoneNumber = "";
-        List<List<String>> Acc_Info = Database.readData(getDataFileName(identity));
-        for(int i=0; i < Acc_Info.size(); i++){
-            if(username.equals(Acc_Info.get(i).get(0))){
-                PhoneNumber = Acc_Info.get(i).get(3);
-            }
-        }
-        return PhoneNumber;
-    }
 
 }
