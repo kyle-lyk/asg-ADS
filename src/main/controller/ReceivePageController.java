@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,8 +115,8 @@ public class ReceivePageController implements Initializable{
         DataList = Database.readData("requested_Info");
         if (DataList != null){
             for (List<String> Data : DataList){
-                if(Data.get(0).equals(ngoUserInfo.getUsername())){
-                    RequestInfo info = new RequestInfo(Data.get(1), Integer.parseInt(Data.get(2)), Data.get(3), Integer.parseInt(Data.get(4)), Data.get(5));
+                if(Data.get(1).equals(ngoUserInfo.getUsername())){
+                    RequestInfo info = new RequestInfo(Data.get(2), Integer.parseInt(Data.get(3)), Data.get(4), Integer.parseInt(Data.get(5)), Data.get(6));
                     DataInfo.add(info);
                 }     
             }
@@ -136,6 +137,7 @@ public class ReceivePageController implements Initializable{
                     }
                     else {
                         List<String> Data = new ArrayList<String>();
+                        Data.add(UUID.randomUUID().toString());
                         Data.add(ngoUserInfo.getUsername());
                         Data.add(ngoUserInfo.getName());
                         Data.add(ngoUserInfo.getManpower());
@@ -203,9 +205,9 @@ public class ReceivePageController implements Initializable{
                         }
                     }
                     for(int i=0; i < Req_Info.size(); i++){
-                        if(username.equals(Req_Info.get(i).get(0))){
-                            Req_Info.get(i).set(1, NewName);
-                            Req_Info.get(i).set(2, NewManpower.toString());
+                        if(username.equals(Req_Info.get(i).get(1))){
+                            Req_Info.get(i).set(2, NewName);
+                            Req_Info.get(i).set(3, NewManpower.toString());
                         }
                     }
                     Database.updateData(DataFileName, Acc_Info);

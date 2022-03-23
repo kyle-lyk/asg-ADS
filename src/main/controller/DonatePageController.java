@@ -26,6 +26,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
+
 import main.model.Database;
 import main.model.DonateInfo;
 import main.model.Donor;
@@ -93,8 +95,8 @@ public class DonatePageController implements Initializable{
         List<List<String>> ItemList = Database.readData("donated_Info");
         if(ItemList != null){
             for(List<String> item : ItemList){
-                if(item.get(0).equals(donorUserInfo.getUsername())){
-                    DonateInfo info = new DonateInfo(item.get(1), item.get(2),item.get(3),Integer.parseInt(item.get(4)), item.get(5));
+                if(item.get(1).equals(donorUserInfo.getUsername())){
+                    DonateInfo info = new DonateInfo(item.get(2), item.get(3),item.get(4),Integer.parseInt(item.get(5)), item.get(6));
                     itemlist.add(info);
                 }
             }
@@ -114,6 +116,7 @@ public class DonatePageController implements Initializable{
                     }
                     else {
                         List<String> Data = new ArrayList<String>();
+                        Data.add(UUID.randomUUID().toString());
                         Data.add(donorUserInfo.getUsername());
                         Data.add(donorUserInfo.getName());
                         Data.add(donorUserInfo.getPhonenum());
@@ -177,13 +180,12 @@ public class DonatePageController implements Initializable{
                         }
                     }
                     for(int i=0; i < Donate_Info.size(); i++){
-                        if(username.equals(Donate_Info.get(i).get(0))){
-                            Donate_Info.get(i).set(1, NewName);
-                            Donate_Info.get(i).set(2, NewPhoneNum.toString());
+                        if(username.equals(Donate_Info.get(i).get(1))){
+                            Donate_Info.get(i).set(2, NewName);
+                            Donate_Info.get(i).set(3, NewPhoneNum.toString());
                         }
                     }
                     Database.updateData(DataFileName, Acc_Info);
-    
                     Database.updateData("donated_Info", Donate_Info);
                     donorUserInfo.setName(NewName);
                     donorUserInfo.setPhonenum(NewPhoneNum.toString());
