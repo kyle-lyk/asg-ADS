@@ -17,6 +17,7 @@ public class GlobalState {
     String name;
     String info;
 
+    Donor donorUserInfo = new Donor(null, null, null, null, null);
     Ngo ngoUserInfo = new Ngo(null, null, null, null, null);
 
     // Static Varible reference to the Singleton instance
@@ -60,8 +61,23 @@ public class GlobalState {
             this.ngoUserInfo.setIdentity(identity);
             this.ngoUserInfo.setName(name);
             this.ngoUserInfo.setManpower(info);
+
+        }else if(identity == "Donor"){
+            this.donorUserInfo.setUsername(username);
+            this.donorUserInfo.setPassword(password);
+            this.donorUserInfo.setIdentity(identity);
+            this.donorUserInfo.setName(name);
+            this.donorUserInfo.setPhonenum(info);            
         }
         System.out.println(this.identity);
+    }
+
+    public Donor getDonorSession(){
+        return this.donorUserInfo;
+    }
+
+    public void setDonorSession(Donor donorUserInfo){
+        this.donorUserInfo = donorUserInfo;
     }
 
     public Ngo getNgoSession(){
