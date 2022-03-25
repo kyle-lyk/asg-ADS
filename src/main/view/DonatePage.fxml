@@ -105,7 +105,7 @@
    <left>
       <AnchorPane prefHeight="720.0" prefWidth="640.0" style="-fx-background-color: #E5F0FF;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="donatedItemTable" layoutX="20.0" layoutY="34.0" prefHeight="650.0" prefWidth="600.0">
+            <TableView fx:id="donatedItemTable" layoutX="20.0" layoutY="50.0" prefHeight="630.0" prefWidth="600.0">
               <columns>
                 <TableColumn fx:id="donorCol" prefWidth="85.60000610351562" text="Donor" />
                 <TableColumn fx:id="phoneCol" prefWidth="100.0" text="Phone Number" />
@@ -115,6 +115,7 @@
                   <TableColumn fx:id="ngoCol" prefWidth="189.5999755859375" text="NGO Received" />
               </columns>
             </TableView>
+            <Button fx:id="refreshBtn" layoutX="532.0" layoutY="14.0" mnemonicParsing="false" onAction="#reloadTableInfo" text="Refresh Table" />
          </children>
       </AnchorPane>
    </left>
