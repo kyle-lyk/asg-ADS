@@ -6,13 +6,15 @@ public class DonateInfo{
     private String phoneNum;
     private String donatedItem;
     private Integer donatedItemQty;
+    private Integer remainQty;
     private String NGOReceived;
 
-    public DonateInfo(String donorName, String phoneNum, String donatedItem, Integer donatedItemQty, String NGOReceived) {
+    public DonateInfo(String donorName, String phoneNum, String donatedItem, Integer donatedItemQty, Integer remainQty, String NGOReceived) {
         this.donorName = donorName;
         this.phoneNum = phoneNum;
         this.donatedItem = donatedItem;
         this.donatedItemQty = donatedItemQty;
+        this.remainQty = remainQty;
         this.NGOReceived = NGOReceived;
     }
     public String getDonorName(){
@@ -44,6 +46,14 @@ public class DonateInfo{
 
     public void setDonatedItemQty(Integer donatedItemQty){
         this.donatedItemQty = donatedItemQty;
+    }
+
+    public Integer getRemainQty(){
+        return remainQty;
+    }
+
+    public void setRemainQty(Integer remainQty){
+        this.remainQty = remainQty;
     }
 
     public String getNGOReceived() {

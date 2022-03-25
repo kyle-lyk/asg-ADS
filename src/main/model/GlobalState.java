@@ -114,7 +114,7 @@ public class GlobalState {
                 viewpath = "/main/view/ReceivePage.fxml";
                 break;
             case "DC Admin":
-                viewpath = "/main/view/DistributeePage.fxml";
+                viewpath = "/main/view/DistributePage.fxml";
                 break;
         }
         return viewpath;

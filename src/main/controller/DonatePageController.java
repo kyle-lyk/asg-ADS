@@ -65,6 +65,8 @@ public class DonatePageController implements Initializable{
     @FXML
     private TableColumn<DonateInfo,Integer> qtyCol;
     @FXML
+    private TableColumn<DonateInfo,Integer> remainQtyCol;
+    @FXML
     private TableColumn<DonateInfo,String> ngoCol;
 
     private GlobalState state = GlobalState.getInstance();
@@ -90,13 +92,21 @@ public class DonatePageController implements Initializable{
         phoneCol.setCellValueFactory(new PropertyValueFactory<DonateInfo, String>("phoneNum"));
         donatedCol.setCellValueFactory(new PropertyValueFactory<DonateInfo, String>("donatedItem"));
         qtyCol.setCellValueFactory(new PropertyValueFactory<DonateInfo, Integer>("donatedItemQty"));
+        remainQtyCol.setCellValueFactory(new PropertyValueFactory<DonateInfo, Integer>("remainQty"));
         ngoCol.setCellValueFactory(new PropertyValueFactory<DonateInfo, String>("NGOReceived"));
 
         List<List<String>> ItemList = Database.readData("donated_Info");
         if(ItemList != null){
             for(List<String> item : ItemList){
                 if(item.get(1).equals(donorUserInfo.getUsername())){
-                    DonateInfo info = new DonateInfo(item.get(2), item.get(3),item.get(4),Integer.parseInt(item.get(5)), item.get(6));
+                    DonateInfo info = new DonateInfo(
+                                                item.get(2), 
+                                                item.get(3),
+                                                item.get(4),
+                                                Integer.parseInt(item.get(5)), 
+                                                Integer.parseInt(item.get(6)), 
+                                                item.get(7)
+                                                );
                     itemlist.add(info);
                 }
             }
@@ -121,7 +131,8 @@ public class DonatePageController implements Initializable{
                         Data.add(donorUserInfo.getName());
                         Data.add(donorUserInfo.getPhonenum());
                         Data.add(donateItem);
-                        Data.add(itemQty.toString());
+                        Data.add(itemQty.toString()); // Total
+                        Data.add(itemQty.toString()); // Remaining
                         Data.add(" ");
                         Database.writeData("donated_Info", Data);
                         donate_statusLabel.setText("Successfully Donated");

@@ -19,11 +19,12 @@
          <children>
             <TableView fx:id="requestTable" layoutX="20.0" layoutY="50.0" prefHeight="630.0" prefWidth="600.0">
               <columns>
-                <TableColumn fx:id="ngonameCol" prefWidth="127.19997787475586" text="NGO Name" />
-                  <TableColumn fx:id="manpowerCol" prefWidth="77.5999755859375" text="Manpower" />
-                <TableColumn fx:id="aidsCol" prefWidth="128.8000030517578" text="Aids" />
-                  <TableColumn fx:id="qtyCol" prefWidth="67.199951171875" text="Quantity" />
-                  <TableColumn fx:id="donorCol" prefWidth="200.800048828125" text="Donated by" />
+                <TableColumn fx:id="ngonameCol" prefWidth="100.0" text="NGO Name" />
+                  <TableColumn fx:id="manpowerCol" prefWidth="74.39999389648438" text="Manpower" />
+                <TableColumn fx:id="aidsCol" prefWidth="85.60000610351562" text="Aids" />
+                  <TableColumn fx:id="qtyCol" prefWidth="66.39996337890625" text="Quantity" />
+                  <TableColumn fx:id="remainQtyCol" minWidth="8.0" prefWidth="66.4000244140625" text="Remained" />
+                  <TableColumn fx:id="donorCol" prefWidth="209.5999755859375" text="Donated by" />
               </columns>
             </TableView>
             <Button fx:id="refreshTableBtn" layoutX="532.0" layoutY="14.0" mnemonicParsing="false" onAction="#reloadTableInfo" text="Refresh Table" />

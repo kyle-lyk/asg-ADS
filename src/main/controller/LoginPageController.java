@@ -96,8 +96,11 @@ public class LoginPageController implements Initializable{
                             if(passwordField.getText().equals(Acc_Info.get(i).get(1))) {
                                 username = Acc_Info.get(i).get(0);
                                 password = Acc_Info.get(i).get(1);
-                                name = Acc_Info.get(i).get(2);
-                                info = Acc_Info.get(i).get(3);
+                                if(identity != "DC Admin")
+                                {
+                                    name = Acc_Info.get(i).get(2);
+                                    info = Acc_Info.get(i).get(3);
+                                }
                                 userIsExist = true;
                                 break;
                             }
@@ -113,7 +116,8 @@ public class LoginPageController implements Initializable{
                     // If account is found, switch to the main page
                     if(userIsExist){
                         statusLabel.setText("Account found");
-                        state.setSession(username, password, identity, name, info);
+                        if(identity != "DC Admin")
+                            state.setSession(username, password, identity, name, info);
 
                         try{
                             Stage mainStage = GlobalState.getInstance().getStage();

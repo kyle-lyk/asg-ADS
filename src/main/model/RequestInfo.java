@@ -7,13 +7,15 @@ public class RequestInfo {
     Integer manpower;
     String aids;
     Integer qty;
+    Integer remainQty;
     String donorName;
 
-    public RequestInfo(String ngoName, Integer manpower, String aids, Integer qty, String donorName) {
+    public RequestInfo(String ngoName, Integer manpower, String aids, Integer qty, Integer remainQty, String donorName) {
         this.ngoName = ngoName;
         this.manpower = manpower;
         this.aids = aids;
         this.qty = qty;
+        this.remainQty = remainQty;
         this.donorName = donorName;
     }
 
@@ -47,6 +49,14 @@ public class RequestInfo {
 
     public void setQty(Integer qty) {
         this.qty = qty;
+    }
+
+    public Integer getRemainQty() {
+        return remainQty;
+    }
+
+    public void setRemainQty(Integer remainQty) {
+        this.remainQty = remainQty;
     }
 
     public String getDonorName() {

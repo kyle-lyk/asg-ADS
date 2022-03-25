@@ -107,11 +107,12 @@
          <children>
             <TableView fx:id="donatedItemTable" layoutX="20.0" layoutY="34.0" prefHeight="650.0" prefWidth="600.0">
               <columns>
-                <TableColumn fx:id="donorCol" prefWidth="100.0" text="Donor" />
-                <TableColumn fx:id="phoneCol" prefWidth="110.0" text="Phone Number" />
-                  <TableColumn fx:id="donatedCol" prefWidth="180.0" text="Donated Item" />
-                  <TableColumn fx:id="qtyCol" prefWidth="75.0" text="Quantity" />
-                  <TableColumn fx:id="ngoCol" prefWidth="135.0" text="NGO Received" />
+                <TableColumn fx:id="donorCol" prefWidth="85.60000610351562" text="Donor" />
+                <TableColumn fx:id="phoneCol" prefWidth="100.0" text="Phone Number" />
+                  <TableColumn fx:id="donatedCol" prefWidth="99.20001220703125" text="Donated Item" />
+                  <TableColumn fx:id="qtyCol" prefWidth="57.60003662109375" text="Quantity" />
+                  <TableColumn fx:id="remainQtyCol" prefWidth="66.4000244140625" text="Remained" />
+                  <TableColumn fx:id="ngoCol" prefWidth="189.5999755859375" text="NGO Received" />
               </columns>
             </TableView>
          </children>

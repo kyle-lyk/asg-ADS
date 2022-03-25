@@ -48,6 +48,9 @@ public class ReceivePageController implements Initializable{
     private TableColumn<RequestInfo, Integer> qtyCol;
 
     @FXML
+    private TableColumn<RequestInfo, Integer> remainQtyCol;
+
+    @FXML
     private TableColumn<RequestInfo, List<String>> donorCol;
 
     @FXML
@@ -109,6 +112,7 @@ public class ReceivePageController implements Initializable{
         manpowerCol.setCellValueFactory(new PropertyValueFactory<RequestInfo, Integer>("manpower"));
         aidsCol.setCellValueFactory(new PropertyValueFactory<RequestInfo, String>("aids"));
         qtyCol.setCellValueFactory(new PropertyValueFactory<RequestInfo, Integer>("qty"));
+        remainQtyCol.setCellValueFactory(new PropertyValueFactory<RequestInfo, Integer>("remainQty"));
         donorCol.setCellValueFactory(new PropertyValueFactory<RequestInfo, List<String>>("donorName"));
 
         List<List<String>> DataList;
@@ -116,7 +120,14 @@ public class ReceivePageController implements Initializable{
         if (DataList != null){
             for (List<String> Data : DataList){
                 if(Data.get(1).equals(ngoUserInfo.getUsername())){
-                    RequestInfo info = new RequestInfo(Data.get(2), Integer.parseInt(Data.get(3)), Data.get(4), Integer.parseInt(Data.get(5)), Data.get(6));
+                    RequestInfo info = new RequestInfo( 
+                                                Data.get(2), 
+                                                Integer.parseInt(Data.get(3)), 
+                                                Data.get(4), 
+                                                Integer.parseInt(Data.get(5)), 
+                                                Integer.parseInt(Data.get(6)), 
+                                                Data.get(7)
+                                                );
                     DataInfo.add(info);
                 }     
             }
@@ -142,7 +153,8 @@ public class ReceivePageController implements Initializable{
                         Data.add(ngoUserInfo.getName());
                         Data.add(ngoUserInfo.getManpower());
                         Data.add(itemName);
-                        Data.add(itemQty.toString());
+                        Data.add(itemQty.toString()); // Total Qty
+                        Data.add(itemQty.toString()); // Remain Qty
                         Data.add(" ");
                         Database.writeData("requested_Info", Data);
                         req_statusLabel.setText("Request added successfully");
