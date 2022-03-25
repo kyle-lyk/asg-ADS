@@ -37,6 +37,8 @@ public class DonatePageController implements Initializable{
     @FXML
     private Button logoutBtn;
     @FXML
+    private Button refreshTableBtn;
+    @FXML
     private Label nameLabel;
     @FXML
     private Label phonenumLabel;    
