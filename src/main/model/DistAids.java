@@ -1,71 +1,51 @@
 package main.model;
 
-import java.util.ArrayList;
-
 public class DistAids {
     
-    private String donorNames; 
-    private String donorPhones;
-    private String Aids;
-    private int quantity;
-    private String ngoNames;
-    private String ngoManpower;
+    private DonateInfo donateInfo;
+    private RequestInfo requestInfo;
 
-    public DistAids(String donorNames, String donorPhones, String Aids, int quantity, String ngoNames, String ngoManpower) {
-        this.donorNames = donorNames;
-        this.donorPhones = donorPhones;
-        this.Aids = Aids;
-        this.quantity = quantity;
-        this.ngoNames = ngoNames;
-        this.ngoManpower = ngoManpower;
+    public DistAids(DonateInfo donateInfo, RequestInfo requestInfo) {
+        this.donateInfo = donateInfo;
+        this.requestInfo = requestInfo;
     }
 
-    public String getDonorNames() {
-        return donorNames;
+
+    public RequestInfo getRequestInfo() {
+        return requestInfo;
     }
 
-    public void setDonorNames(String donorNames) {
-        this.donorNames = donorNames;
+    public void setRequestInfo(RequestInfo requestInfo) {
+        this.requestInfo = requestInfo;
     }
 
-    public String getDonorPhones() {
-        return donorPhones;
+    public DonateInfo getDonateInfo() {
+        return donateInfo;
     }
 
-    public void setDonorPhones(String donorPhones) {
-        this.donorPhones = donorPhones;
+    public void setDonateInfo(DonateInfo donateInfo) {
+        this.donateInfo = donateInfo;
     }
 
-    public String getAids() {
-        return Aids;
-    }
+    ////////////////////////////////////////////////////////////////
 
-    public void setAids(String Aids) {
-        this.Aids = Aids;
-    }
+    public void matchAids(){
+        // 6 // 3
+        if( donateInfo.getRemainQty() >= requestInfo.getRemainQty() ){
+            int donateRemainQty = donateInfo.getRemainQty();
+            int requestRemainQty = requestInfo.getRemainQty();
 
-    public int getQuantity() {
-        return quantity;
-    }
+            donateInfo.setRemainQty(donateInfo.getRemainQty() - requestRemainQty);
+            requestInfo.setRemainQty(requestInfo.getRemainQty() - donateRemainQty);
+        }
+        // 3 // 6
+        else if (donateInfo.getRemainQty() < requestInfo.getRemainQty()){
+            int donateRemainQty = donateInfo.getRemainQty();
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getNgoNames() {
-        return ngoNames;
-    }
-
-    public void setNgoNames(String ngoNames) {
-        this.ngoNames = ngoNames;
-    }
-
-    public String getNgoManpower() {
-        return ngoManpower;
-    }
-
-    public void setNgoManpower(String ngoManpower) {
-        this.ngoManpower = ngoManpower;
+            donateInfo.setRemainQty(0);
+            requestInfo.setRemainQty(requestInfo.getRemainQty() - donateRemainQty);
+        }
+            
     }
 
 }

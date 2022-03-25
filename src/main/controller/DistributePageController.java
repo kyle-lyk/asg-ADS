@@ -27,7 +27,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import main.model.Database;
+import main.model.DistAids;
+import main.model.DonateInfo;
 import main.model.GlobalState;
+import main.model.RequestInfo;
 import main.model.AidList;
 
 import java.io.BufferedReader;
@@ -348,10 +351,23 @@ public class DistributePageController implements Initializable{
 
         System.out.println(selected_donatedList);
         System.out.println(selected_requestedList);
-
-
+        
+        
         if ((donorSelectedList.size()) == 1 && ((ngoSelectedList.size())) == 1) {
             System.out.println("One-to-one"); // pass model function here
+
+            DonateInfo donateInfo = loadDonateInfo(selected_donatedList,0);
+            RequestInfo requestInfo = loadRequestInfo(selected_requestedList,0);
+
+            DistAids distAids = new DistAids(donateInfo, requestInfo);
+            System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+            System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+            distAids.matchAids();
+            System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+            System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+
+            
+
         }
         else if ((donorSelectedList.size()) == 1 && ((ngoSelectedList.size()) >= 1)) {
             System.out.println("One-to-many"); // pass model function here
@@ -365,6 +381,32 @@ public class DistributePageController implements Initializable{
         }
 
         return isMatch;
+    }
+
+    private DonateInfo loadDonateInfo( List<List<String>>selectedList ,int i){
+        String donorName = selectedList.get(i).get(2);
+        String phoneNum = selectedList.get(i).get(3);
+        String donatedItem = selectedList.get(i).get(4);
+        Integer donatedItemQty = Integer.parseInt(selectedList.get(i).get(5));
+        Integer remainDonateQty = Integer.parseInt(selectedList.get(i).get(6));
+        String NGOReceived = selectedList.get(i).get(7);
+
+        DonateInfo donateInfo = new DonateInfo(donorName, phoneNum, donatedItem, donatedItemQty, remainDonateQty, NGOReceived);
+
+        return donateInfo;
+    }
+
+    private RequestInfo loadRequestInfo( List<List<String>>selectedList ,int i){
+        String ngoName = selectedList.get(i).get(2);
+        Integer manpower = Integer.parseInt(selectedList.get(i).get(3));
+        String requestedItem = selectedList.get(i).get(4);
+        Integer requestedItemQty = Integer.parseInt(selectedList.get(i).get(5));
+        Integer remainRequestQty = Integer.parseInt(selectedList.get(i).get(6));
+        String donorDonated = selectedList.get(i).get(7);
+
+        RequestInfo requestInfo = new RequestInfo(ngoName, manpower, requestedItem, requestedItemQty, remainRequestQty, donorDonated);
+
+        return requestInfo;
     }
 
 
