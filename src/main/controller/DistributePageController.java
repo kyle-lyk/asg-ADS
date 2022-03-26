@@ -431,17 +431,36 @@ public class DistributePageController implements Initializable{
                 System.out.println("Illegal many to many");
             }
             else{
-                for (int i=0; i< selected_requestedList.size(); i++) {
-                    RequestInfo requestInfo = loadRequestInfo(selected_requestedList,i);
-                    for (int j=0; j< selected_donatedList.size(); j++) {
-                        DonateInfo donateInfo = loadDonateInfo(selected_donatedList,j);
-                        DistAids distAids = new DistAids(donateInfo, requestInfo);
-                        System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                        System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
-                        distAids.matchAids();
-                        System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                        System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                int i = 0;
+                int j = 0;
+                RequestInfo requestInfo = loadRequestInfo(selected_requestedList,i);
+                DonateInfo donateInfo = loadDonateInfo(selected_donatedList,j);
+                while(i < selected_requestedList.size() && j < selected_donatedList.size()){
+                    DistAids distAids = new DistAids(donateInfo, requestInfo);
+                    System.out.println("pre-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    System.out.println("pre-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    distAids.matchAids();
+                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    if (distAids.getDonateInfo().getRemainQty() == 0){
+                        j++;
+                        if (j < selected_donatedList.size()){
+                            donateInfo = loadDonateInfo(selected_donatedList,j);
+                        }
                     }
+                    else if (distAids.getRequestInfo().getRemainQty() == 0){
+                        i++;
+                        if (i < selected_requestedList.size()){
+                            requestInfo = loadRequestInfo(selected_requestedList,i);
+                        }
+                    }
+                    else{
+                        j++;
+                        if (j < selected_donatedList.size()){
+                            donateInfo = loadDonateInfo(selected_donatedList,j);
+                        }
+                    }
+                    
                 }
             }
         }

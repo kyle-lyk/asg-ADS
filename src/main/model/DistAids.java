@@ -44,6 +44,7 @@ public class DistAids {
             donateInfo.setRemainQty(0);
             requestInfo.setRemainQty(requestInfo.getRemainQty() - donateRemainQty);
         }
+
             
     }
 
