@@ -62,6 +62,11 @@
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
                   </Text>
+                  <Button fx:id="logoutBtn" layoutX="100.0" layoutY="356.0" mnemonicParsing="false" onAction="#logoutBtnClicked" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </children>

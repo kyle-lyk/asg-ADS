@@ -11,27 +11,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.model.Database;
 import main.model.GlobalState;
 import main.model.AidList;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -95,6 +86,20 @@ public class DCHistoryPageController implements Initializable{
             }
     }
 
+    @FXML
+    void logoutBtnClicked(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You are about to logout");
+        alert.setContentText("Confirm to log out?");
+
+        if(alert.showAndWait().get() == ButtonType.OK) {
+            switch_to_LoginPage();
+            state.Init();        
+            System.out.println("Successfully logged out");
+        }
+    }
+
     public void btnNameChange(String newName) {
         btnNGODonorClicked3.setText(newName);
     }
@@ -106,6 +111,8 @@ public class DCHistoryPageController implements Initializable{
     public void showGeneralText(String newString) {
         tGeneralText3.setText(newString);;
     }
+
+    private GlobalState state = GlobalState.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -134,6 +141,16 @@ public class DCHistoryPageController implements Initializable{
         }
 
         tvMainAidHistory.setItems(matchedAidHistoryList);
+    }
+
+    void switch_to_LoginPage() {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            mainStage.setScene(new Scene(root, 1280, 720));
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
 }
