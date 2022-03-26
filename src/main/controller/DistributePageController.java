@@ -362,17 +362,12 @@ public class DistributePageController implements Initializable{
             RequestInfo requestInfo = loadRequestInfo(selected_requestedList,0);
 
             DistAids distAids = new DistAids(donateInfo, requestInfo);
-            // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-            // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
             distAids.matchAids();
-            // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-            // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+
+            save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
 
         }
         else if ((donorSelectedList.size()) == 1 && ((ngoSelectedList.size()) >= 1)) {
-            // 6 // 2 3 -> /
-            // 2 // 1 3 -> /
-            // 2 // 3 1 -> X 
             System.out.println("One-to-many"); // pass model function here
             DonateInfo donateInfo = loadDonateInfo(selected_donatedList,0);
             if (donateInfo.getRemainQty() <= (loadRequestInfo(selected_requestedList,0)).getRemainQty()){
@@ -492,6 +487,60 @@ public class DistributePageController implements Initializable{
         RequestInfo requestInfo = new RequestInfo(ngoName, manpower, requestedItem, requestedItemQty, remainRequestQty, donorDonated);
 
         return requestInfo;
+    }
+
+    private void save_matchAidsResult(DistAids distAids, ArrayList<String> selected_donorUUIDList, ArrayList<String> selected_ngoUUIDList) {
+        //save data to distributed_Info.csv
+        String donorName = distAids.getDonateInfo().getDonorName();
+        String donorPhone = distAids.getDonateInfo().getPhoneNum();
+        String aid = distAids.getDonateInfo().getDonatedItem();
+        Integer donateRemainQty = distAids.getDonateInfo().getRemainQty();
+        Integer donatedQty = distAids.getDonatedQty();
+        String ngoName = distAids.getRequestInfo().getNgoName();
+        Integer manpower = distAids.getRequestInfo().getManpower();
+
+        List<String> distInfo = new ArrayList<String>(
+                                                    Arrays.asList(
+                                                        donorName,
+                                                        donorPhone,
+                                                        aid,
+                                                        String.valueOf(donatedQty),
+                                                        ngoName,
+                                                        String.valueOf(manpower)
+                                                    )
+        );
+
+        Database.writeData("distributed_Info", distInfo);
+
+        // read request_Info.csv and donatedInfo.csv
+        Integer requestRemainQty = distAids.getRequestInfo().getRemainQty();
+        Integer receivedQty = donatedQty;
+
+        List<List<String>> requestList = Database.readData("requested_Info");
+        List<List<String>> donateList = Database.readData("donated_Info");
+        
+        System.out.println(donatedQty);
+
+        for (int i = 0; i < requestList.size(); i++) {
+            for (int j = 0; j < selected_ngoUUIDList.size(); j++) {
+                if (selected_ngoUUIDList.get(j).equals(requestList.get(i).get(j))) {
+                    requestList.get(i).set(6, String.valueOf((requestRemainQty)));
+                    requestList.get(i).set(7, donorName);
+                }
+            }      
+        }
+        System.out.println(requestList);
+        
+        for (int i = 0; i < donateList.size(); i++) {
+            for (int j = 0; j < selected_donorUUIDList.size(); j++) {
+                if (selected_donorUUIDList.get(j).equals(donateList.get(i).get(j))) {
+                    donateList.get(i).set(6, String.valueOf((donateRemainQty)));
+                    donateList.get(i).set(7, ngoName);
+                }
+            }      
+        }
+        Database.updateData("requested_Info", requestList);
+        Database.updateData("donated_Info", donateList);
     }
 
 

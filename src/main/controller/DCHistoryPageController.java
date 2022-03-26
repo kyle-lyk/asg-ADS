@@ -115,7 +115,7 @@ public class DCHistoryPageController implements Initializable{
 
     }
 
-    public void updateMatchedAidHistory() {
+    public void updateMatchedAidHistory() { 
         ObservableList<AidList> matchedAidHistoryList = FXCollections.observableArrayList();
 
         donorColumn5.setCellValueFactory(new PropertyValueFactory<AidList, String>("donor"));
