@@ -319,8 +319,8 @@ public class DistributePageController implements Initializable{
 
         List<List<String>> donatedList = Database.readData("donated_Info");
         List<List<String>> requestedList = Database.readData("requested_Info");
-        List<List<String>> selected_requestedList = new ArrayList<List<String>>();
-        List<List<String>> selected_donatedList = new ArrayList<List<String>>();
+        ArrayList<List<String>> selected_requestedList = new ArrayList<List<String>>();
+        ArrayList<List<String>> selected_donatedList = new ArrayList<List<String>>();
         ArrayList<String> selected_donorUUIDList = new ArrayList<String>();
         ArrayList<String> selected_ngoUUIDList = new ArrayList<String>();
 
@@ -332,22 +332,24 @@ public class DistributePageController implements Initializable{
         }
 
         // Add selected donate row into a list
-        for (int i=0; i < donatedList.size(); i++) {
-            for (int j=0; j < selected_donorUUIDList.size(); j++) {
-                if (donatedList.get(i).get(0).equals(selected_donorUUIDList.get(j))) {
-                    selected_donatedList.add(donatedList.get(i));
+        for (int i=0; i < selected_donorUUIDList.size(); i++) {
+            for (int j=0; j < donatedList.size(); j++) {
+                if (selected_donorUUIDList.get(i).equals(donatedList.get(j).get(0))) {
+                    selected_donatedList.add(donatedList.get(j));
                 }
             }
         }
 
+
         // Add selected request row into a list
-        for (int i=0; i < requestedList.size(); i++) {
-            for (int j=0; j < selected_ngoUUIDList.size(); j++) {
-                if (requestedList.get(i).get(0).equals(selected_ngoUUIDList.get(j))) {
-                    selected_requestedList.add(requestedList.get(i));
+        for (int i=0; i < selected_ngoUUIDList.size(); i++) {
+            for (int j=0; j < requestedList.size(); j++) {
+                if (selected_ngoUUIDList.get(i).equals(requestedList.get(j).get(0))) {
+                    selected_requestedList.add(requestedList.get(j));
                 }
             }
         }
+
 
         System.out.println(selected_donatedList);
         System.out.println(selected_requestedList);
@@ -360,24 +362,88 @@ public class DistributePageController implements Initializable{
             RequestInfo requestInfo = loadRequestInfo(selected_requestedList,0);
 
             DistAids distAids = new DistAids(donateInfo, requestInfo);
-            System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-            System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+            // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+            // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
             distAids.matchAids();
-            System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-            System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
-
-            
+            // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+            // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
 
         }
         else if ((donorSelectedList.size()) == 1 && ((ngoSelectedList.size()) >= 1)) {
+            // 6 // 2 3 -> /
+            // 2 // 1 3 -> /
+            // 2 // 3 1 -> X 
             System.out.println("One-to-many"); // pass model function here
+            DonateInfo donateInfo = loadDonateInfo(selected_donatedList,0);
+            if (donateInfo.getRemainQty() <= (loadRequestInfo(selected_requestedList,0)).getRemainQty()){
+                System.out.println("Illegal one to many");
+            }
+            else{
+                for (int j=0; j < selected_requestedList.size(); j++) {
+                    RequestInfo requestInfo = loadRequestInfo(selected_requestedList,j);
+    
+                    DistAids distAids = new DistAids(donateInfo, requestInfo);
+                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    distAids.matchAids();
+                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                }
+            }
+
         }
         else if ((donorSelectedList.size()) >= 1 && ((ngoSelectedList.size()) == 1)) {
+            // 2 3 // 6 -> /
+            // 1 3 // 2 -> /
+            // 3 1 // 2 -> X 
             System.out.println("Many-to-one"); // pass model function here
+
+            RequestInfo requestInfo = loadRequestInfo(selected_requestedList,0);
+            if (requestInfo.getRemainQty() <= (loadDonateInfo(selected_donatedList,0)).getRemainQty()){
+                System.out.println("Illegal many to one");
+            }
+            else{
+                for (int j=0; j < selected_donatedList.size(); j++) {
+                    DonateInfo donateInfo = loadDonateInfo(selected_donatedList,j);
+    
+                    DistAids distAids = new DistAids(donateInfo, requestInfo);
+                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    distAids.matchAids();
+                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                }
+            }
 
         }
         else if ((donorSelectedList.size()) >= 1 && ((ngoSelectedList.size()) >= 1)) {
             System.out.println("Many-to-many"); // pass model function here
+            int donorQty = 0;
+            int ngoQty = 0;
+            for (List<String> Data : selected_donatedList) {
+                donorQty += Integer.parseInt(Data.get(6));
+            }
+            for (int data =0; data < (selected_requestedList.size() - 1); data++) {
+                ngoQty += Integer.parseInt(selected_requestedList.get(data).get(6));
+            }
+                
+            if (donorQty <= ngoQty){
+                System.out.println("Illegal many to many");
+            }
+            else{
+                for (int i=0; i< selected_requestedList.size(); i++) {
+                    RequestInfo requestInfo = loadRequestInfo(selected_requestedList,i);
+                    for (int j=0; j< selected_donatedList.size(); j++) {
+                        DonateInfo donateInfo = loadDonateInfo(selected_donatedList,j);
+                        DistAids distAids = new DistAids(donateInfo, requestInfo);
+                        System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                        System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                        distAids.matchAids();
+                        System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                        System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    }
+                }
+            }
         }
 
         return isMatch;

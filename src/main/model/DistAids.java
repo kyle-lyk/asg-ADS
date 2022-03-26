@@ -32,11 +32,10 @@ public class DistAids {
     public void matchAids(){
         // 6 // 3
         if( donateInfo.getRemainQty() >= requestInfo.getRemainQty() ){
-            int donateRemainQty = donateInfo.getRemainQty();
             int requestRemainQty = requestInfo.getRemainQty();
 
             donateInfo.setRemainQty(donateInfo.getRemainQty() - requestRemainQty);
-            requestInfo.setRemainQty(requestInfo.getRemainQty() - donateRemainQty);
+            requestInfo.setRemainQty(0);
         }
         // 3 // 6
         else if (donateInfo.getRemainQty() < requestInfo.getRemainQty()){
