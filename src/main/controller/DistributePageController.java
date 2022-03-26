@@ -377,13 +377,9 @@ public class DistributePageController implements Initializable{
             else{
                 for (int j=0; j < selected_requestedList.size(); j++) {
                     RequestInfo requestInfo = loadRequestInfo(selected_requestedList,j);
-    
                     DistAids distAids = new DistAids(donateInfo, requestInfo);
-                    // System.out.println("p-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    // System.out.println("p-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+
                     distAids.matchAids();
-                    // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
                     save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                     updateUserList(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                 
@@ -406,12 +402,9 @@ public class DistributePageController implements Initializable{
                     DonateInfo donateInfo = loadDonateInfo(selected_donatedList,j);
     
                     DistAids distAids = new DistAids(donateInfo, requestInfo);
-                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
                     distAids.matchAids();
-                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
-                    
+                    save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
+                    updateUserList(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                 }
             }
 
@@ -556,6 +549,9 @@ public class DistributePageController implements Initializable{
                     String ngoNameList = donateList.get(i).get(7);
                     if (ngoNameList.isBlank()) {
                         donateList.get(i).set(7, ngoName);
+                    }
+                    else if(ngoNameList.contains(ngoName)){
+                        continue;
                     }
                     else{
                         donateList.get(i).set(7, ngoNameList + "-" + ngoName);
