@@ -365,6 +365,7 @@ public class DistributePageController implements Initializable{
             distAids.matchAids();
 
             save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
+            updateUserList(distAids, selected_donorUUIDList, selected_ngoUUIDList);
 
         }
         else if ((donorSelectedList.size()) == 1 && ((ngoSelectedList.size()) >= 1)) {
@@ -378,11 +379,14 @@ public class DistributePageController implements Initializable{
                     RequestInfo requestInfo = loadRequestInfo(selected_requestedList,j);
     
                     DistAids distAids = new DistAids(donateInfo, requestInfo);
-                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    System.out.println("p-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    System.out.println("p-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
                     distAids.matchAids();
                     System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
                     System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
+                    updateUserList(distAids, selected_donorUUIDList, selected_ngoUUIDList);
+                
                 }
             }
 
@@ -407,6 +411,7 @@ public class DistributePageController implements Initializable{
                     distAids.matchAids();
                     System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
                     System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    
                 }
             }
 
@@ -432,11 +437,11 @@ public class DistributePageController implements Initializable{
                 DonateInfo donateInfo = loadDonateInfo(selected_donatedList,j);
                 while(i < selected_requestedList.size() && j < selected_donatedList.size()){
                     DistAids distAids = new DistAids(donateInfo, requestInfo);
-                    System.out.println("pre-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    System.out.println("pre-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    // System.out.println("pre-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    // System.out.println("pre-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
                     distAids.matchAids();
-                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
                     if (distAids.getDonateInfo().getRemainQty() == 0){
                         j++;
                         if (j < selected_donatedList.size()){
@@ -494,7 +499,6 @@ public class DistributePageController implements Initializable{
         String donorName = distAids.getDonateInfo().getDonorName();
         String donorPhone = distAids.getDonateInfo().getPhoneNum();
         String aid = distAids.getDonateInfo().getDonatedItem();
-        Integer donateRemainQty = distAids.getDonateInfo().getRemainQty();
         Integer donatedQty = distAids.getDonatedQty();
         String ngoName = distAids.getRequestInfo().getNgoName();
         Integer manpower = distAids.getRequestInfo().getManpower();
@@ -512,33 +516,49 @@ public class DistributePageController implements Initializable{
 
         Database.writeData("distributed_Info", distInfo);
 
-        // read request_Info.csv and donatedInfo.csv
+
+    }
+
+    private void updateUserList(DistAids distAids, ArrayList<String> selected_donorUUIDList, ArrayList<String> selected_ngoUUIDList){
         Integer requestRemainQty = distAids.getRequestInfo().getRemainQty();
-        Integer receivedQty = donatedQty;
+        Integer donateRemainQty = distAids.getDonateInfo().getRemainQty();
+
+        String donorName = distAids.getDonateInfo().getDonorName();
+        String ngoName = distAids.getRequestInfo().getNgoName();
 
         List<List<String>> requestList = Database.readData("requested_Info");
         List<List<String>> donateList = Database.readData("donated_Info");
-        
-        System.out.println(donatedQty);
 
         for (int i = 0; i < requestList.size(); i++) {
             for (int j = 0; j < selected_ngoUUIDList.size(); j++) {
                 if (selected_ngoUUIDList.get(j).equals(requestList.get(i).get(j))) {
                     requestList.get(i).set(6, String.valueOf((requestRemainQty)));
-                    requestList.get(i).set(7, donorName);
-                }
+                    String donorNameList = requestList.get(i).get(7);
+                    if (donorNameList.isBlank()) {
+                        requestList.get(i).set(7, donorName);
+                    }
+                    else{
+                        requestList.get(i).set(7, donorNameList + "-" + donorName);
+                    }
+                } 
             }      
         }
-        System.out.println(requestList);
         
         for (int i = 0; i < donateList.size(); i++) {
             for (int j = 0; j < selected_donorUUIDList.size(); j++) {
                 if (selected_donorUUIDList.get(j).equals(donateList.get(i).get(j))) {
                     donateList.get(i).set(6, String.valueOf((donateRemainQty)));
-                    donateList.get(i).set(7, ngoName);
+                    String ngoNameList = donateList.get(i).get(7);
+                    if (ngoNameList.isBlank()) {
+                        donateList.get(i).set(7, ngoName);
+                    }
+                    else{
+                        donateList.get(i).set(7, ngoNameList + "-" + ngoName);
+                    }
                 }
-            }      
+            }
         }
+        
         Database.updateData("requested_Info", requestList);
         Database.updateData("donated_Info", donateList);
     }
