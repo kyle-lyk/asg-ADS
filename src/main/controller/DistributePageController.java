@@ -443,18 +443,13 @@ public class DistributePageController implements Initializable{
                             donateInfo = loadDonateInfo(selected_donatedList,j);
                         }
                     }
-                    else if (distAids.getRequestInfo().getRemainQty() == 0){
+                    if (distAids.getRequestInfo().getRemainQty() == 0){
                         i++;
                         if (i < selected_requestedList.size()){
                             requestInfo = loadRequestInfo(selected_requestedList,i);
                         }
                     }
-                    else{
-                        j++;
-                        if (j < selected_donatedList.size()){
-                            donateInfo = loadDonateInfo(selected_donatedList,j);
-                        }
-                    }
+
                     
                 }
             }

@@ -41,7 +41,7 @@ public class DistAids {
 
     public void matchAids(){
         // 6 // 3
-        if( donateInfo.getRemainQty() >= requestInfo.getRemainQty() ){
+        if( donateInfo.getRemainQty() > requestInfo.getRemainQty() ){
             int donateRemainQty = donateInfo.getRemainQty();
             int requestRemainQty = requestInfo.getRemainQty();
 
@@ -59,6 +59,15 @@ public class DistAids {
             donateInfo.setRemainQty(0);
 
             requestInfo.setRemainQty(requestRemainQty - donateRemainQty);
+        }
+        else if (donateInfo.getRemainQty() == requestInfo.getRemainQty()){
+            int donateRemainQty = donateInfo.getRemainQty();
+            int requestRemainQty = requestInfo.getRemainQty();
+
+            this.donatedQty = donateInfo.getRemainQty();
+
+            donateInfo.setRemainQty(0);
+            requestInfo.setRemainQty(0);
         }
 
             
