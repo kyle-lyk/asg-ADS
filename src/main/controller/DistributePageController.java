@@ -379,11 +379,11 @@ public class DistributePageController implements Initializable{
                     RequestInfo requestInfo = loadRequestInfo(selected_requestedList,j);
     
                     DistAids distAids = new DistAids(donateInfo, requestInfo);
-                    System.out.println("p-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    System.out.println("p-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    // System.out.println("p-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    // System.out.println("p-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
                     distAids.matchAids();
-                    System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
+                    // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
                     save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                     updateUserList(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                 
@@ -516,7 +516,6 @@ public class DistributePageController implements Initializable{
 
         Database.writeData("distributed_Info", distInfo);
 
-
     }
 
     private void updateUserList(DistAids distAids, ArrayList<String> selected_donorUUIDList, ArrayList<String> selected_ngoUUIDList){
@@ -525,28 +524,34 @@ public class DistributePageController implements Initializable{
 
         String donorName = distAids.getDonateInfo().getDonorName();
         String ngoName = distAids.getRequestInfo().getNgoName();
+        String donorNameList = "";
 
         List<List<String>> requestList = Database.readData("requested_Info");
         List<List<String>> donateList = Database.readData("donated_Info");
 
-        for (int i = 0; i < requestList.size(); i++) {
-            for (int j = 0; j < selected_ngoUUIDList.size(); j++) {
-                if (selected_ngoUUIDList.get(j).equals(requestList.get(i).get(j))) {
+        for (int i = 0; i < requestList.size(); i++) { // iterate database
+            for (int j = 0; j < selected_ngoUUIDList.size(); j++) { // iterate selected uuid list
+                if (selected_ngoUUIDList.get(j).equals(requestList.get(i).get(0))) { // match uuid with database
                     requestList.get(i).set(6, String.valueOf((requestRemainQty)));
-                    String donorNameList = requestList.get(i).get(7);
+                    donorNameList = requestList.get(i).get(7);
                     if (donorNameList.isBlank()) {
                         requestList.get(i).set(7, donorName);
+                    }
+                    else if(donorNameList.contains(donorName)){
+                        continue;
                     }
                     else{
                         requestList.get(i).set(7, donorNameList + "-" + donorName);
                     }
+                    
                 } 
-            }      
+            }
+            System.out.println(i);      
         }
         
         for (int i = 0; i < donateList.size(); i++) {
             for (int j = 0; j < selected_donorUUIDList.size(); j++) {
-                if (selected_donorUUIDList.get(j).equals(donateList.get(i).get(j))) {
+                if (selected_donorUUIDList.get(j).equals(donateList.get(i).get(0))) {
                     donateList.get(i).set(6, String.valueOf((donateRemainQty)));
                     String ngoNameList = donateList.get(i).get(7);
                     if (ngoNameList.isBlank()) {
@@ -562,6 +567,7 @@ public class DistributePageController implements Initializable{
         Database.updateData("requested_Info", requestList);
         Database.updateData("donated_Info", donateList);
     }
+    
 
 
     @FXML
