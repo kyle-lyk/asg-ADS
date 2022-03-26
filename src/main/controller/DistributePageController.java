@@ -435,6 +435,8 @@ public class DistributePageController implements Initializable{
                     distAids.matchAids();
                     // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
                     // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
+                    updateUserList(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                     if (distAids.getDonateInfo().getRemainQty() == 0){
                         j++;
                         if (j < selected_donatedList.size()){
