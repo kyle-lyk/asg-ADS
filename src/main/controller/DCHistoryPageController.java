@@ -26,6 +26,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This controller will handle the user interaction logic
+ * for DCHistoryPage.fxml 
+ */
 public class DCHistoryPageController implements Initializable{
 
     @FXML
@@ -67,8 +71,28 @@ public class DCHistoryPageController implements Initializable{
     @FXML
     private TableView<AidList> tvMainAidHistory;
 
+    private GlobalState state = GlobalState.getInstance();
+
+    @Override
+    /**
+     * Populates MatchedAidHistory table when DCHistoryPage is initialized (JavaFX method).
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        // load data from CSV and populates table
+        updateMatchedAidHistory();
+
+    }
+
     @FXML
-    void btnNGODonorClicked3(ActionEvent event) {
+    /**
+     * When button is clicked, scene will be
+     * changed to DistributePage 
+     * @param event mouse click action from user
+     */
+    private void btnNGODonorClicked3(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DistributePage.fxml"));
@@ -76,10 +100,7 @@ public class DCHistoryPageController implements Initializable{
             mainStage.setScene(new Scene(root, 1280, 720));
 
             DistributePageController dcItemController = loader.getController();
-            dcItemController.resetFlag();
-
-            // get instance of controller
-            // DCEnterItemController dcItemController = loader.getController();         
+            dcItemController.resetFlag();        
 
         } catch (IOException ioe){
             ioe.printStackTrace();
@@ -87,7 +108,12 @@ public class DCHistoryPageController implements Initializable{
     }
 
     @FXML
-    void logoutBtnClicked(ActionEvent event) {
+    /**
+     * When button is clicked, an alert window will pop up
+     * to confirm log out process
+     * @param event mouse click action from user
+     */
+    private void logoutBtnClicked(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You are about to logout");
@@ -100,29 +126,19 @@ public class DCHistoryPageController implements Initializable{
         }
     }
 
-    public void btnNameChange(String newName) {
-        btnNGODonorClicked3.setText(newName);
-    }
-
-    public void tableTitleName(String newName) {
-        tTableName3.setText(newName);
-    }
-
+    @FXML
+    /**
+     * Changes the content of the text component
+     * @param newString new text
+     */
     public void showGeneralText(String newString) {
         tGeneralText3.setText(newString);;
     }
 
-    private GlobalState state = GlobalState.getInstance();
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-        // load test data from csv
-        updateMatchedAidHistory();
-
-    }
-
-    public void updateMatchedAidHistory() { 
+    /**
+     * Updates and populates the MatchedAidHistory table
+     */
+    private void updateMatchedAidHistory() { 
         ObservableList<AidList> matchedAidHistoryList = FXCollections.observableArrayList();
 
         donorColumn5.setCellValueFactory(new PropertyValueFactory<AidList, String>("donor"));
@@ -143,7 +159,10 @@ public class DCHistoryPageController implements Initializable{
         tvMainAidHistory.setItems(matchedAidHistoryList);
     }
 
-    void switch_to_LoginPage() {
+    /**
+     * Change scene to LoginPage.
+     */
+    private void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
             Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));

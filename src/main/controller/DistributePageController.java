@@ -37,6 +37,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
 
+/**
+ * This controller will handle the user interaction logic
+ * for DistributePage.fxml 
+ */
 public class DistributePageController implements Initializable{
 
     @FXML
@@ -112,9 +116,14 @@ public class DistributePageController implements Initializable{
     ArrayList<String> ngoUUIDList = new ArrayList<String>();
 
     @Override
+    /**
+     * Populates both NGO and Donor table when DistributePage is initialized (JavaFX method).
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     public void initialize(URL url, ResourceBundle rb) {
 
-        // load test data from csv
+        // load data from CSV and populate both tables
         updateNGOTable();
         updateDonorTable();
 
@@ -122,6 +131,10 @@ public class DistributePageController implements Initializable{
         donorPerRowEventHandler();
     }
 
+    /**
+     * Updates and populates NGO table based on relevant CSV file.
+     * @param Title_Cased_filterItem filter item name
+     */
     private void updateNGOTable(String Title_Cased_filterItem) {
         ObservableList<AidList> ngoList = FXCollections.observableArrayList();
 
@@ -137,7 +150,7 @@ public class DistributePageController implements Initializable{
             Integer rowNum = 0;
             for (List<String> Data: DataList) {
                 if ((Integer.parseInt(Data.get(6))) != 0) {
-                    if (Title_Cased_filterItem.isBlank() || Title_Cased_filterItem.equals(Data.get(4))) {
+                    if (Title_Cased_filterItem.isBlank() || Title_Cased_filterItem.equalsIgnoreCase(Data.get(4))) {
                         rowNum++;
                         AidList info = new AidList(
                                                 rowNum, Data.get(2), 
@@ -160,11 +173,17 @@ public class DistributePageController implements Initializable{
         
     }
 
-    // Method Overloading
+    /**
+     * Method overloading to refresh NGO table.
+     */
     private void updateNGOTable(){
         updateNGOTable("");
     }
     
+    /**
+     * Updates and populates Donor table based on relevant CSV file.
+     * @param Title_Cased_filterItem filter item name
+     */
     public void updateDonorTable(String Title_Cased_filterItem) {
         ObservableList<AidList> donorList = FXCollections.observableArrayList();
         tvMainDonor.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -181,7 +200,7 @@ public class DistributePageController implements Initializable{
             Integer rowNum = 0;
             for (List<String> Data: DataList) {
                 if ((Integer.parseInt(Data.get(6))) != 0) {
-                    if (Title_Cased_filterItem.isBlank() || Title_Cased_filterItem.equals(Data.get(4))) {
+                    if (Title_Cased_filterItem.isBlank() || Title_Cased_filterItem.equalsIgnoreCase(Data.get(4))) {
                         rowNum++;
                         AidList info = new AidList(
                                                 rowNum, 
@@ -204,7 +223,9 @@ public class DistributePageController implements Initializable{
         
     }
 
-    // Method Overloading
+    /**
+     * Method overloading to refresh Donor table.
+     */
     private void updateDonorTable(){
         updateDonorTable("");
     }
@@ -212,7 +233,12 @@ public class DistributePageController implements Initializable{
     ///////////////// ///////////////////
 
     @FXML
-    void logoutBtnClicked(ActionEvent event) {
+    /**
+     * When button is clicked, an alert window will pop up
+     * to confirm log out process
+     * @param event mouse click action from user
+     */
+    private void logoutBtnClicked(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You are about to logout");
@@ -227,7 +253,12 @@ public class DistributePageController implements Initializable{
 
 
     @FXML
-    void btnAidHistoryClicked3(ActionEvent event) {
+    /**
+     * When button is clicked, scene will be 
+     * changed to DCHistoryPage.
+     * @param event mouse click action from user
+     */
+    private void btnAidHistoryClicked3(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DCHistoryPage.fxml"));
@@ -244,7 +275,14 @@ public class DistributePageController implements Initializable{
     }
 
     @FXML
-    void filterItem(ActionEvent event) {
+    /**
+     * When button is clicked, text from itemNameField
+     * will be obtained as filterItem.
+     * Error message is displayed when filterItem
+     * does not meet the required conditions.
+     * @param event mouse click action from user
+     */
+    private void filterItem(ActionEvent event) {
         String filterItem = itemNameField.getText();
         System.out.println("filterItem: " + filterItem);
         
@@ -270,7 +308,12 @@ public class DistributePageController implements Initializable{
 
 
     @FXML
-    void showAll(ActionEvent event) {
+    /**
+     * When button is clicked, tables will be
+     * refreshed to display unfiltered content.
+     * @param event mouse click action from user
+     */
+    private void showAll(ActionEvent event) {
         updateDonorTable();
         updateNGOTable();
         tErrorMsg3.setText("");
@@ -281,7 +324,13 @@ public class DistributePageController implements Initializable{
     }
 
     @FXML
-    void matchAids(ActionEvent event) {
+    /**
+     * When button is clicked, scene will be 
+     * changed to DCHistoryPage with updated aid matching results
+     * if all the conditions are met.
+     * @param event mouse click action from user
+     */
+    private void matchAids(ActionEvent event) {
         // System.out.println("ngoSelectedList: " + ngoSelectedList);
         // System.out.println("donorSelectedList: " + donorSelectedList);
         // System.out.println("ngoUUIDList: " + ngoUUIDList.get( ngoSelectedList.get(0) - 1 ));
@@ -303,7 +352,6 @@ public class DistributePageController implements Initializable{
                     DCHistoryPageController dcHistoryController = loader.getController();
         
                     // pass data from original scene to new scene here / modify view
-                    dcHistoryController.tableTitleName("           Result");
                     dcHistoryController.showGeneralText("Aid matched successfully!");
         
                 } catch (IOException ioe){
@@ -313,6 +361,13 @@ public class DistributePageController implements Initializable{
         }
     }
 
+    /**
+     * This function will return a false boolean value if
+     * the aid matching is rejected (illegal matching).
+     * If the aid matching is accepted, display the results
+     * in another scene and update the relevant CSV files
+     * @return isMatch boolean
+     */
     private boolean associationFlag() {
         boolean isMatch = true; // set to false for illegal matching
 
@@ -330,7 +385,7 @@ public class DistributePageController implements Initializable{
             selected_ngoUUIDList.add(ngoUUIDList.get(rowIndex - 1));
         }
 
-        // Add selected donate row into a list
+        // Add selected donate row into a list by comparing UUID
         for (int i=0; i < selected_donorUUIDList.size(); i++) {
             for (int j=0; j < donatedList.size(); j++) {
                 if (selected_donorUUIDList.get(i).equals(donatedList.get(j).get(0))) {
@@ -340,7 +395,7 @@ public class DistributePageController implements Initializable{
         }
 
 
-        // Add selected request row into a list
+        // Add selected request row into a list by comparing UUID
         for (int i=0; i < selected_ngoUUIDList.size(); i++) {
             for (int j=0; j < requestedList.size(); j++) {
                 if (selected_ngoUUIDList.get(i).equals(requestedList.get(j).get(0))) {
@@ -463,6 +518,12 @@ public class DistributePageController implements Initializable{
         return isMatch;
     }
 
+    /**
+     * Creates DonateInfo object based on rows that user have selected.
+     * @param selectedList contains rows that user selected
+     * @param i index for selectedList
+     * @return DonateInfo object
+     */
     private DonateInfo loadDonateInfo( List<List<String>>selectedList ,int i){
         String donorName = selectedList.get(i).get(2);
         String phoneNum = selectedList.get(i).get(3);
@@ -476,6 +537,12 @@ public class DistributePageController implements Initializable{
         return donateInfo;
     }
 
+    /**
+     * Creates RequestInfo object based on rows that user have selected.
+     * @param selectedList list containing rows that user selected
+     * @param i index for selectedList
+     * @return RequestInfo object
+     */
     private RequestInfo loadRequestInfo( List<List<String>>selectedList ,int i){
         String ngoName = selectedList.get(i).get(2);
         Integer manpower = Integer.parseInt(selectedList.get(i).get(3));
@@ -489,6 +556,12 @@ public class DistributePageController implements Initializable{
         return requestInfo;
     }
 
+    /**
+     * Saves the result of aid matching in relevant CSV file.
+     * @param distAids DistAids object
+     * @param selected_donorUUIDList list containing UUIDs of selected Donors 
+     * @param selected_ngoUUIDList list containing UUIDs of selected NGOs 
+     */
     private void save_matchAidsResult(DistAids distAids, ArrayList<String> selected_donorUUIDList, ArrayList<String> selected_ngoUUIDList) {
         //save data to distributed_Info.csv
         String donorName = distAids.getDonateInfo().getDonorName();
@@ -513,6 +586,12 @@ public class DistributePageController implements Initializable{
 
     }
 
+    /**
+     * Updates user data in relevant CSV files based on aid matching result.
+     * @param distAids DistAids object
+     * @param selected_donorUUIDList list containing UUIDs of selected Donors 
+     * @param selected_ngoUUIDList list containing UUIDs of selected NGOs 
+     */
     private void updateUserList(DistAids distAids, ArrayList<String> selected_donorUUIDList, ArrayList<String> selected_ngoUUIDList){
         Integer requestRemainQty = distAids.getRequestInfo().getRemainQty();
         Integer donateRemainQty = distAids.getDonateInfo().getRemainQty();
@@ -566,6 +645,9 @@ public class DistributePageController implements Initializable{
         Database.updateData("donated_Info", donateList);
     }
 
+    /**
+     * Resets the boolean value for item filter checking.
+     */
     public void resetFlag() {
         itemFilterExistNgo = false;
         itemFilterExistDonor = false;
@@ -576,18 +658,9 @@ public class DistributePageController implements Initializable{
     ArrayList<Integer> donorSelectedList = new ArrayList();
 
 
-    public void ngoResetRowColour () {
-        tvMainDonor.setRowFactory(tv -> new TableRow<AidList>() {
-            @Override
-            protected void updateItem(AidList item, boolean empty) {
-            super.updateItem(item, empty);
-            if (item != null) {
-                setStyle("-fx-background-color: -fx-background");
-            }};
-        });
-    }
-
-    // handles row factory for NGO table
+    /**
+     * Event handler for per row selection in NGO table.
+     */
     private void ngoPerRowEventHandler() {
         EventHandler<MouseEvent> onClick = this::ngoTableRowMouseClickHandler;
 
@@ -598,7 +671,9 @@ public class DistributePageController implements Initializable{
         });    
     }
 
-    // handles row factory for Donor table
+    /**
+     * Event handler for per row selection in Donor table.
+     */
     private void donorPerRowEventHandler() {
         EventHandler<MouseEvent> onClick = this::donorTableRowMouseClickHandler;
 
@@ -609,6 +684,11 @@ public class DistributePageController implements Initializable{
         });
     }
 
+    /**
+     * This function will change the NGO table row colour 
+     * that users click on to green.
+     * @param event mouse click action from user
+     */
     private void ngoTableRowMouseClickHandler(MouseEvent event) {
         if (rowselectable){
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 1) {
@@ -643,6 +723,11 @@ public class DistributePageController implements Initializable{
         }       
       }
 
+    /**
+     * This function will change the Donor table row colour 
+     * that users click on to green.
+     * @param event mouse click action from user
+     */
     private void donorTableRowMouseClickHandler(MouseEvent event) {
         if (rowselectable){
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() >= 1) {
@@ -676,7 +761,10 @@ public class DistributePageController implements Initializable{
         
     }
 
-    void switch_to_LoginPage() {
+    /**
+     * Change scene to LoginPage.
+     */
+    private void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
             Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
@@ -686,7 +774,10 @@ public class DistributePageController implements Initializable{
         }
     }
 
-    void refreshScene() {
+    /**
+     * Refresh the current scene.
+     */
+    private void refreshScene() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
             Parent root = FXMLLoader.load(getClass().getResource("/main/view/DistributePage.fxml"));
@@ -699,14 +790,12 @@ public class DistributePageController implements Initializable{
     ////////////////////////////////////////////////////////////////
 
     
-
+    /**
+     * Reset value for for selected lists
+     */
     public void resetVar() {
         ngoSelectedList = new ArrayList();
         donorSelectedList = new ArrayList();
-        // filterItem = "";
-        // itemFilterExist = false;
-        // selectedNgoRows = new ArrayList<List<String>>();
-        // selectedDonorRows = new ArrayList<List<String>>();
     }
 
 }
