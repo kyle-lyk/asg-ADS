@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
@@ -14,14 +13,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -33,13 +29,8 @@ import main.model.GlobalState;
 import main.model.RequestInfo;
 import main.model.AidList;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -111,7 +102,7 @@ public class DistributePageController implements Initializable{
     @FXML
     private TableView<AidList> tvMainNGO;
 
-
+    private GlobalState state = GlobalState.getInstance();
     boolean itemFilterExistNgo = false;
     boolean itemFilterExistDonor = false;
     
@@ -220,6 +211,20 @@ public class DistributePageController implements Initializable{
 
     ///////////////// ///////////////////
 
+    @FXML
+    void logoutBtnClicked(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You are about to logout");
+        alert.setContentText("Confirm to log out?");
+
+        if(alert.showAndWait().get() == ButtonType.OK) {
+            switch_to_LoginPage();
+            state.Init();        
+            System.out.println("Successfully logged out");
+        }
+    }
+
 
     @FXML
     void btnAidHistoryClicked3(ActionEvent event) {
@@ -252,9 +257,6 @@ public class DistributePageController implements Initializable{
             if (itemFilterExistDonor && itemFilterExistNgo) {               
                 resetFlag();
                 rowselectable = true;
-
-                
-
             } 
             else {
                 tErrorMsg3.setText("Please enter an item that exists in both tables!");
@@ -272,7 +274,10 @@ public class DistributePageController implements Initializable{
         updateDonorTable();
         updateNGOTable();
         tErrorMsg3.setText("");
+        matchAidsText.setText("");
+        resetVar();
         rowselectable = false;
+        refreshScene();
     }
 
     @FXML
@@ -304,18 +309,12 @@ public class DistributePageController implements Initializable{
                 } catch (IOException ioe){
                     ioe.printStackTrace();
                     }
-                // output and update to all 3 database (donatedInfo, requestedInfo, distributedInfo)
-
-                // switch back to original scene
-                updateNGOTable();
-                updateDonorTable();
-
             }
         }
     }
 
     private boolean associationFlag() {
-        boolean isMatch = true; // set to true for testing, default will be false
+        boolean isMatch = true; // set to false for illegal matching
 
         List<List<String>> donatedList = Database.readData("donated_Info");
         List<List<String>> requestedList = Database.readData("requested_Info");
@@ -373,6 +372,8 @@ public class DistributePageController implements Initializable{
             DonateInfo donateInfo = loadDonateInfo(selected_donatedList,0);
             if (donateInfo.getRemainQty() <= (loadRequestInfo(selected_requestedList,0)).getRemainQty()){
                 System.out.println("Illegal one to many");
+                isMatch = false;
+                matchAidsText.setText("Aid matching is rejected!");
             }
             else{
                 for (int j=0; j < selected_requestedList.size(); j++) {
@@ -396,6 +397,8 @@ public class DistributePageController implements Initializable{
             RequestInfo requestInfo = loadRequestInfo(selected_requestedList,0);
             if (requestInfo.getRemainQty() <= (loadDonateInfo(selected_donatedList,0)).getRemainQty()){
                 System.out.println("Illegal many to one");
+                isMatch = false;
+                matchAidsText.setText("Aid matching is rejected!");
             }
             else{
                 for (int j=0; j < selected_donatedList.size(); j++) {
@@ -422,6 +425,8 @@ public class DistributePageController implements Initializable{
                 
             if (donorQty <= ngoQty){
                 System.out.println("Illegal many to many");
+                isMatch = false;
+                matchAidsText.setText("Aid matching is rejected!");
             }
             else{
                 int i = 0;
@@ -560,18 +565,6 @@ public class DistributePageController implements Initializable{
         Database.updateData("requested_Info", requestList);
         Database.updateData("donated_Info", donateList);
     }
-    
-
-
-    @FXML
-    void tableDonorSelected(MouseEvent event) {
-
-    }
-
-    @FXML
-    void tableNGOSelected(MouseEvent event) {
-
-    }
 
     public void resetFlag() {
         itemFilterExistNgo = false;
@@ -581,6 +574,18 @@ public class DistributePageController implements Initializable{
     ////////////////////////////////////////////////////////////////
     ArrayList<Integer> ngoSelectedList = new ArrayList();
     ArrayList<Integer> donorSelectedList = new ArrayList();
+
+
+    public void ngoResetRowColour () {
+        tvMainDonor.setRowFactory(tv -> new TableRow<AidList>() {
+            @Override
+            protected void updateItem(AidList item, boolean empty) {
+            super.updateItem(item, empty);
+            if (item != null) {
+                setStyle("-fx-background-color: -fx-background");
+            }};
+        });
+    }
 
     // handles row factory for NGO table
     private void ngoPerRowEventHandler() {
@@ -647,10 +652,7 @@ public class DistributePageController implements Initializable{
     
                 if (!row2.isEmpty() && rowList != null) {
                     if (!donorSelectedList.contains(rowList.getRowNum())) {
-                        //selectedNgoRows.add([[]]);
                         donorSelectedList.add(rowList.getRowNum());
-                        // list.get(2).get(0);
-                        // [rowList.getDonor(), rowList.getManpower(), rowList.getAid(), rowList.getQuantity()]
                         row2.setStyle("-fx-background-color:limegreen");
                     } 
                     else {
@@ -672,6 +674,26 @@ public class DistributePageController implements Initializable{
             }
         }
         
+    }
+
+    void switch_to_LoginPage() {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            mainStage.setScene(new Scene(root, 1280, 720));
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
+    void refreshScene() {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            Parent root = FXMLLoader.load(getClass().getResource("/main/view/DistributePage.fxml"));
+            mainStage.setScene(new Scene(root, 1280, 720));
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
     ////////////////////////////////////////////////////////////////
