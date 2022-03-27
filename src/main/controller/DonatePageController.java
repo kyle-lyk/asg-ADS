@@ -33,6 +33,9 @@ import main.model.DonateInfo;
 import main.model.Donor;
 import main.model.GlobalState;
 
+/**
+ * Controller for DonatePage to control logic in the DonatePage when user interact with it.
+ */
 public class DonatePageController implements Initializable{
     @FXML
     private Button donateBtn;
@@ -80,13 +83,19 @@ public class DonatePageController implements Initializable{
     List<List<String>> Acc_Info = Database.readData(DataFileName);
 
     @Override
+    /**
+     * Show the donate table and donor profile information when DonatePage is initialized.
+     */
     public void initialize(URL url, ResourceBundle rb) {
         reloadTableInfo();
         reloadProfileInfo();
     }
 
     @FXML
-    public void reloadTableInfo(){
+    /**
+     * To reload the donate table information after donor donated item.
+     */
+    private void reloadTableInfo(){
         ObservableList<DonateInfo> itemlist = FXCollections.observableArrayList();
         donatedItemTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -102,13 +111,13 @@ public class DonatePageController implements Initializable{
             for(List<String> item : ItemList){
                 if(item.get(1).equals(donorUserInfo.getUsername())){
                     DonateInfo info = new DonateInfo(
-                                                item.get(2), 
-                                                item.get(3),
-                                                item.get(4),
-                                                Integer.parseInt(item.get(5)), 
-                                                Integer.parseInt(item.get(6)), 
-                                                item.get(7)
-                                                );
+                                        item.get(2), 
+                                        item.get(3),
+                                        item.get(4),
+                                        Integer.parseInt(item.get(5)), 
+                                        Integer.parseInt(item.get(6)), 
+                                        item.get(7)
+                                    );
                     itemlist.add(info);
                 }
             }
@@ -117,7 +126,10 @@ public class DonatePageController implements Initializable{
     }
 
     @FXML
-    public void donateAids(){
+    /**
+     * Read donor input and check input validity only update the data to database as well as donate table.
+     */
+    private void donateAids(){
         if(!(donorUserInfo.getName().isBlank()) || !(donorUserInfo.getPhonenum().isBlank())){
             String donateItem = donateItemName.getText();
             if(!(donateItem.isBlank()) || !(donateItemQty.getText().isBlank())){
@@ -133,8 +145,8 @@ public class DonatePageController implements Initializable{
                         Data.add(donorUserInfo.getName());
                         Data.add(donorUserInfo.getPhonenum());
                         Data.add(donateItem);
-                        Data.add(itemQty.toString()); // Total
-                        Data.add(itemQty.toString()); // Remaining
+                        Data.add(itemQty.toString()); 
+                        Data.add(itemQty.toString()); 
                         Data.add(" ");
                         Database.writeData("donated_Info", Data);
                         donate_statusLabel.setText("Successfully Donated");
@@ -154,7 +166,10 @@ public class DonatePageController implements Initializable{
     }
 
     @FXML 
-    public void reloadProfileInfo(){
+    /**
+     * Reload the Donor Profile after donor updated their profile data.
+     */
+    private void reloadProfileInfo(){
         String name = donorUserInfo.getName();
         String phonenum = donorUserInfo.getPhonenum();
         if(name.isBlank()){
@@ -173,7 +188,11 @@ public class DonatePageController implements Initializable{
     }
 
     @FXML
-    public void updateProfile(ActionEvent e){
+    /**
+     * Update donor profile after validating the inputs.
+     * @param e mouse click action received from user
+     */
+    private void updateProfile(ActionEvent e){
         List<List<String>> Donate_Info = Database.readData("donated_Info");
         String NewName = new_nameField.getText();
 
@@ -215,7 +234,11 @@ public class DonatePageController implements Initializable{
     }
 
     @FXML
-    public void logout(ActionEvent e){
+    /**
+     * Log out from donor account.
+     * @param e mouse click action received from user
+     */
+    private void logout(ActionEvent e){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You are about to logout");
@@ -229,7 +252,10 @@ public class DonatePageController implements Initializable{
     }
 
     @FXML
-    void switch_to_LoginPage() {
+    /**
+     * Switch to LoginPage after logged out from donor account.
+     */
+    private void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
             Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
