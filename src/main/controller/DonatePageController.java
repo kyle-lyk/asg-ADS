@@ -195,7 +195,6 @@ public class DonatePageController implements Initializable{
      * @param e mouse click action received from user
      */
     private void updateProfile(ActionEvent e){
-        List<List<String>> Donate_Info = Database.readData("donated_Info");
         String NewName = new_nameField.getText();
 
         if ( (donorUserInfo.getName().isBlank()) && (donorUserInfo.getPhonenum().isBlank()) )
@@ -203,35 +202,37 @@ public class DonatePageController implements Initializable{
             if(NewName.isBlank() || new_phonenumField.getText().isBlank()){
                 prof_statusLabel.setText("No empty or whitespace characters");
             }
-            else if(new_phonenumField.getText().length() > 11){
-                prof_statusLabel.setText("Invalid phone number length");
-            }
             else{
                 try {
-                    String NewPhoneNum = new_phonenumField.getText();
-                    boolean donorNameIsExist = false;
+                    Integer NewPhoneNum = Integer.parseInt(new_phonenumField.getText());
+                    int length = NewPhoneNum.toString().length();
 
-                    for (int i = 0; i < Acc_Info.size(); i++){
-                        if(NewName.equals(Acc_Info.get(i).get(2))){
-                            prof_statusLabel.setText("Username already exists!");
-                            donorNameIsExist = true;
-                            break;
-                        }
-                    }
-                    if(!donorNameIsExist){
-                        for(int i=0; i < Acc_Info.size(); i++){
-                            if(username.equals(Acc_Info.get(i).get(0))){
-                                Acc_Info.get(i).set(2, NewName);
-                                Acc_Info.get(i).set(3, NewPhoneNum);
+                    if(length > 10 || length < 8){
+                        prof_statusLabel.setText("Invalid phone number length");
+
+                    }else{boolean donorNameIsExist = false;
+                    
+                        for (int i = 0; i < Acc_Info.size(); i++){
+                            if(NewName.equals(Acc_Info.get(i).get(2))){
+                                prof_statusLabel.setText("Username already exists!");
+                                donorNameIsExist = true;
+                                break;
                             }
                         }
-                        Database.updateData(DataFileName, Acc_Info);
-                        donorUserInfo.setName(NewName);
-                        donorUserInfo.setPhonenum(NewPhoneNum);
-                        reloadProfileInfo();
-                        prof_statusLabel.setText("Profile Updated");
+                        if(!donorNameIsExist){
+                            for(int i=0; i < Acc_Info.size(); i++){
+                                if(username.equals(Acc_Info.get(i).get(0))){
+                                    Acc_Info.get(i).set(2, NewName);
+                                    Acc_Info.get(i).set(3, "+60" + NewPhoneNum.toString());
+                                }
+                            }
+                            Database.updateData(DataFileName, Acc_Info);
+                            donorUserInfo.setName(NewName);
+                            donorUserInfo.setPhonenum(NewPhoneNum.toString());
+                            reloadProfileInfo();
+                            prof_statusLabel.setText("Profile Updated");
+                        }
                     }
-
                     
 
                 }
