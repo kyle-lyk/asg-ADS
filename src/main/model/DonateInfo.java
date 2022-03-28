@@ -15,7 +15,7 @@ public class DonateInfo{
     private String NGOReceived;
 
     /**
-     * Constructs the donor information.
+     * Constructs the aids donate information.
      * @param donorName Name of the donor
      * @param phoneNum Phone number of the donor
      * @param donatedItem Item donated by the donor
