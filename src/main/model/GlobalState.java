@@ -111,7 +111,7 @@ public class GlobalState {
                 viewpath = "/main/view/DonatePage.fxml";
                 break;
             case "NGO":
-                viewpath = "/main/view/ReceivePage.fxml";
+                viewpath = "/main/view/RequestPage.fxml";
                 break;
             case "DC Admin":
                 viewpath = "/main/view/DistributePage.fxml";

@@ -30,7 +30,7 @@ import main.model.GlobalState;
 import main.model.Ngo;
 import main.model.RequestInfo;
 
-public class ReceivePageController implements Initializable{
+public class RequestPageController implements Initializable{
 
     @FXML
     private TableView<RequestInfo> requestTable;
@@ -106,7 +106,7 @@ public class ReceivePageController implements Initializable{
     @FXML
     public void reloadTableInfo(){
         ObservableList<RequestInfo> DataInfo = FXCollections.observableArrayList();
-        requestTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        requestTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         ngonameCol.setCellValueFactory(new PropertyValueFactory<RequestInfo, String>("ngoName"));
         manpowerCol.setCellValueFactory(new PropertyValueFactory<RequestInfo, Integer>("manpower"));
@@ -199,46 +199,55 @@ public class ReceivePageController implements Initializable{
     public void updateProfile(ActionEvent e){
         List<List<String>> Req_Info = Database.readData("requested_Info");
         String NewName = new_nameField.getText();
+        System.out.println(ngoUserInfo.getName());
+        System.out.println(ngoUserInfo.getManpower());
 
-        if(NewName.isBlank() || new_manpowerField.getText().isBlank()){
-            prof_statusLabel.setText("No empty or whitespace characters");
+        if( (ngoUserInfo.getName().isBlank()) && (ngoUserInfo.getManpower().isBlank()) )
+        {
+            if(NewName.isBlank() || new_manpowerField.getText().isBlank()){
+                prof_statusLabel.setText("No empty or whitespace characters");
+            }
+            else{
+                try {
+                    Integer NewManpower = Integer.parseInt(new_manpowerField.getText());
+                    if (NewManpower <= 0){
+                        prof_statusLabel.setText("Manpower must be positive");
+                    }
+                    else{
+                        boolean ngoNameIsExist = false;
+    
+                        for(int i=0; i < Acc_Info.size(); i++){
+                            if(NewName.equals(Acc_Info.get(i).get(2))){
+                                prof_statusLabel.setText("Username already exists!");
+                                ngoNameIsExist = true;
+                                break;
+                            }
+                        }
+                        if(!ngoNameIsExist){
+                            for(int i=0; i < Acc_Info.size(); i++){
+                                if(username.equals(Acc_Info.get(i).get(0))){
+                                    Acc_Info.get(i).set(2, NewName);
+                                    Acc_Info.get(i).set(3, NewManpower.toString());
+                                }
+                            }
+                            Database.updateData(DataFileName, Acc_Info);
+                            ngoUserInfo.setName(NewName);
+                            ngoUserInfo.setManpower(NewManpower.toString());
+                            reloadProfileInfo();
+                            prof_statusLabel.setText("Profile updated successfully");
+                        }
+                    }
+                    
+                }
+                catch (NumberFormatException e1) {
+                    prof_statusLabel.setText("Manpower must be an integer");
+                }
+    
+            }
         }
         else{
-            try {
-                Integer NewManpower = Integer.parseInt(new_manpowerField.getText());
-                if (NewManpower <= 0){
-                    prof_statusLabel.setText("Manpower must be positive");
-                }
-                else{
-                    for(int i=0; i < Acc_Info.size(); i++){
-                        if(username.equals(Acc_Info.get(i).get(0))){
-                            Acc_Info.get(i).set(2, NewName);
-                            Acc_Info.get(i).set(3, NewManpower.toString());
-                        }
-                    }
-                    for(int i=0; i < Req_Info.size(); i++){
-                        if(username.equals(Req_Info.get(i).get(1))){
-                            Req_Info.get(i).set(2, NewName);
-                            Req_Info.get(i).set(3, NewManpower.toString());
-                        }
-                    }
-                    Database.updateData(DataFileName, Acc_Info);
-    
-                    Database.updateData("requested_Info", Req_Info);
-                    ngoUserInfo.setName(NewName);
-                    ngoUserInfo.setManpower(NewManpower.toString());
-                    reloadProfileInfo();
-                    reloadTableInfo();
-                    prof_statusLabel.setText("Profile Updated");
-                }
-                
-            }
-            catch (NumberFormatException e1) {
-                prof_statusLabel.setText("Manpower must be an integer");
-            }
-
+            prof_statusLabel.setText("You have already updated your profile");
         }
-
     }
 
 

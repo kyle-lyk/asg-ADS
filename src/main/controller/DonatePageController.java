@@ -99,7 +99,7 @@ public class DonatePageController implements Initializable{
      */
     private void reloadTableInfo(){
         ObservableList<DonateInfo> itemlist = FXCollections.observableArrayList();
-        donatedItemTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        donatedItemTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         donorCol.setCellValueFactory(new PropertyValueFactory<DonateInfo, String>("donorName"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<DonateInfo, String>("phoneNum"));
@@ -198,39 +198,52 @@ public class DonatePageController implements Initializable{
         List<List<String>> Donate_Info = Database.readData("donated_Info");
         String NewName = new_nameField.getText();
 
-        if(NewName.isBlank() || new_phonenumField.getText().isBlank()){
-            prof_statusLabel.setText("No empty or whitespace characters");
-        }
-        else if(new_phonenumField.getText().length() > 11){
-            prof_statusLabel.setText("Invalid phone number length");
-        }
-        else{
-            try {
-                Integer NewPhoneNum = Integer.parseInt(new_phonenumField.getText());
-                    for(int i=0; i < Acc_Info.size(); i++){
-                        if(username.equals(Acc_Info.get(i).get(0))){
-                            Acc_Info.get(i).set(2, NewName);
-                            Acc_Info.get(i).set(3, NewPhoneNum.toString());
+        if ( (donorUserInfo.getName().isBlank()) && (donorUserInfo.getPhonenum().isBlank()) )
+        {
+            if(NewName.isBlank() || new_phonenumField.getText().isBlank()){
+                prof_statusLabel.setText("No empty or whitespace characters");
+            }
+            else if(new_phonenumField.getText().length() > 11){
+                prof_statusLabel.setText("Invalid phone number length");
+            }
+            else{
+                try {
+                    String NewPhoneNum = new_phonenumField.getText();
+                    boolean donorNameIsExist = false;
+
+                    for (int i = 0; i < Acc_Info.size(); i++){
+                        if(NewName.equals(Acc_Info.get(i).get(2))){
+                            prof_statusLabel.setText("Username already exists!");
+                            donorNameIsExist = true;
+                            break;
                         }
                     }
-                    for(int i=0; i < Donate_Info.size(); i++){
-                        if(username.equals(Donate_Info.get(i).get(1))){
-                            Donate_Info.get(i).set(2, NewName);
-                            Donate_Info.get(i).set(3, NewPhoneNum.toString());
+                    if(!donorNameIsExist){
+                        for(int i=0; i < Acc_Info.size(); i++){
+                            if(username.equals(Acc_Info.get(i).get(0))){
+                                Acc_Info.get(i).set(2, NewName);
+                                Acc_Info.get(i).set(3, NewPhoneNum);
+                            }
                         }
+                        Database.updateData(DataFileName, Acc_Info);
+                        donorUserInfo.setName(NewName);
+                        donorUserInfo.setPhonenum(NewPhoneNum);
+                        reloadProfileInfo();
+                        prof_statusLabel.setText("Profile Updated");
                     }
-                    Database.updateData(DataFileName, Acc_Info);
-                    Database.updateData("donated_Info", Donate_Info);
-                    donorUserInfo.setName(NewName);
-                    donorUserInfo.setPhonenum(NewPhoneNum.toString());
-                    reloadProfileInfo();
-                    reloadTableInfo();
-                    prof_statusLabel.setText("Profile Updated");
+
+                    
+
                 }
                 catch (NumberFormatException e1) {
                     prof_statusLabel.setText("Phone number must be in integer");
                 }
+    
+            }
 
+        }
+        else{
+            prof_statusLabel.setText("You have already updated your profile");
         }
 
     }
