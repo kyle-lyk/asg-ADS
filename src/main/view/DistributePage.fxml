@@ -33,7 +33,7 @@
                <columns>
                   <TableColumn fx:id="rowNumColumn4" prefWidth="50.0" text="No." />
                   <TableColumn fx:id="donorColumn4" prefWidth="100.0" text="Donor" />
-                  <TableColumn fx:id="phoneColumn4" prefWidth="100.0" text="Phone" />
+                  <TableColumn fx:id="phoneColumn4" prefWidth="100.0" text="Phone(+60)" />
                   <TableColumn fx:id="aidColumn4" prefWidth="150.0" text="Remaining Aid" />
                   <TableColumn fx:id="quantityColumn4" prefWidth="100.0" text="Quantity" />
                </columns>
