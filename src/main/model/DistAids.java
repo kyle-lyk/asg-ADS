@@ -1,5 +1,8 @@
 package main.model;
 
+/**
+ * Format for aid matching result.
+ */
 public class DistAids {
     
     private DonateInfo donateInfo;
@@ -7,40 +10,73 @@ public class DistAids {
 
     private Integer donatedQty;
 
+    /**
+     * Constructs DistAids object which contains 
+     * the donation information and request information.
+     * @param donateInfo donation information
+     * @param requesntInfo request information
+     */
     public DistAids(DonateInfo donateInfo, RequestInfo requestInfo) {
         this.donateInfo = donateInfo;
         this.requestInfo = requestInfo;
     }
 
-
+    /**
+     * Gets the request information.
+     * @return request information
+     */
     public RequestInfo getRequestInfo() {
         return requestInfo;
     }
 
+    /**
+     * Sets the request information.
+     * @param requestInfo request information
+     */
     public void setRequestInfo(RequestInfo requestInfo) {
         this.requestInfo = requestInfo;
     }
 
+    /**
+     * Gets the donation information.
+     * @return donation information
+     */
     public DonateInfo getDonateInfo() {
         return donateInfo;
     }
 
+    /**
+     * Sets the donation information.
+     * @param donateInfo donation information
+     */
     public void setDonateInfo(DonateInfo donateInfo) {
         this.donateInfo = donateInfo;
     }
 
+    /**
+     * Gets the donated quantity.
+     * @return donated quantity
+     */
     public Integer getDonatedQty() {
         return donatedQty;
     }
 
+    /**
+     * Sets the donated quantity.
+     * @param donatedQty donated quantity
+     */
     public void setDonatedQty(Integer donatedQty) {
         this.donatedQty = donatedQty;
     }
 
     ////////////////////////////////////////////////////////////////
 
+    /**
+     * Performs aid matching and updates the remaining item quantity
+     * for both request information and donation information.
+     */
     public void matchAids(){
-        // 6 // 3
+        
         if( donateInfo.getRemainQty() > requestInfo.getRemainQty() ){
             int donateRemainQty = donateInfo.getRemainQty();
             int requestRemainQty = requestInfo.getRemainQty();
@@ -50,7 +86,6 @@ public class DistAids {
 
             requestInfo.setRemainQty(0);
         }
-        // 3 // 6
         else if (donateInfo.getRemainQty() < requestInfo.getRemainQty()){
             int donateRemainQty = donateInfo.getRemainQty();
             int requestRemainQty = requestInfo.getRemainQty();
