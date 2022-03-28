@@ -25,69 +25,59 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import main.model.Database;
 import main.model.GlobalState;
 import main.model.Ngo;
 import main.model.RequestInfo;
 
+/**
+ * Controller for RequestPage to control logic in the RequestPage.fxml when user interact with it.
+ */
 public class RequestPageController implements Initializable{
+
+    //////////////// start of JavaFX Components Variables ///////////////////
 
     @FXML
     private TableView<RequestInfo> requestTable;
-
     @FXML
     private TableColumn<RequestInfo, String> ngonameCol;
-
     @FXML
     private TableColumn<RequestInfo, Integer> manpowerCol;
-
     @FXML
     private TableColumn<RequestInfo, String> aidsCol;
-
     @FXML
     private TableColumn<RequestInfo, Integer> qtyCol;
-
     @FXML
     private TableColumn<RequestInfo, Integer> remainQtyCol;
-
     @FXML
     private TableColumn<RequestInfo, List<String>> donorCol;
-
     @FXML
     private TextField itemNameField;
-
     @FXML
     private TextField itemQtyField;
-
     @FXML
     private Button logoutBtn;
-
     @FXML
     private Button refreshTableBtn;
-
     @FXML
     private Label manpowerLabel;
-
     @FXML
     private Label nameLabel;
-
     @FXML
     private Label prof_statusLabel;
-
     @FXML
     private Label req_statusLabel;
-
     @FXML
     private TextField new_manpowerField;
-
     @FXML
     private TextField new_nameField;
-
     @FXML
     private Button requestBtn;
-
     @FXML
     private Button updateBtn;
+
+    //////////////// end of JavaFX Components Variables ///////////////////
 
     private GlobalState state = GlobalState.getInstance();
     private Ngo ngoUserInfo = state.getNgoSession();
@@ -98,12 +88,20 @@ public class RequestPageController implements Initializable{
     List<List<String>> Acc_Info = Database.readData(DataFileName);
 
     @Override
+    /**
+     * Show the request table and ngo profile information when RequestPage is initialized. Method from JavaFx.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     public void initialize(URL arg0, ResourceBundle arg1) {
         reloadProfileInfo();
         reloadTableInfo();
     }
 
     @FXML
+    /**
+     * To reload the donate table information after ngo requested item.
+     */
     public void reloadTableInfo(){
         ObservableList<RequestInfo> DataInfo = FXCollections.observableArrayList();
         requestTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -137,6 +135,9 @@ public class RequestPageController implements Initializable{
     }
 
     @FXML
+    /**
+     * Read ngo input and check input validity only update the data to database as well as request table.
+     */
     public void requestAids(){
         if (!(ngoUserInfo.getName().isBlank()) || !(ngoUserInfo.getManpower().isBlank())){
             String itemName = itemNameField.getText();
@@ -172,11 +173,12 @@ public class RequestPageController implements Initializable{
             req_statusLabel.setText("Update your Profile before request");
         }
         
-
     }
 
-   
     @FXML 
+    /**
+     * Reload the Ngo Profile after updated their profile data.
+     */
     public void reloadProfileInfo(){
         String name = ngoUserInfo.getName();
         String manpower = ngoUserInfo.getManpower();
@@ -196,6 +198,10 @@ public class RequestPageController implements Initializable{
     }
 
     @FXML
+    /**
+     * Update ngo profile after validating the inputs.
+     * @param e mouse click action received from user
+     */
     public void updateProfile(ActionEvent e){
         String NewName = new_nameField.getText();
         System.out.println(ngoUserInfo.getName());
@@ -241,7 +247,6 @@ public class RequestPageController implements Initializable{
                 catch (NumberFormatException e1) {
                     prof_statusLabel.setText("Manpower must be an integer");
                 }
-    
             }
         }
         else{
@@ -249,8 +254,11 @@ public class RequestPageController implements Initializable{
         }
     }
 
-
     @FXML
+    /**
+     * Log out from ngo account.
+     * @param e mouse click action received from user
+     */
     public void logout(ActionEvent e){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
@@ -265,6 +273,9 @@ public class RequestPageController implements Initializable{
     }
 
     @FXML
+    /**
+     * Switch to LoginPage after logged out from donor account.
+     */
     void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
@@ -274,5 +285,4 @@ public class RequestPageController implements Initializable{
             ioe.printStackTrace();
         }
     }
-
 }

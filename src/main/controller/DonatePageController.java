@@ -89,7 +89,7 @@ public class DonatePageController implements Initializable{
 
     @Override
     /**
-     * Show the donate table and donor profile information when DonatePage is initialized. Method from javafx.
+     * Show the donate table and donor profile information when DonatePage is initialized. Method from JavaFx.
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param rb The resources used to localize the root object, or null if the root object was not localized.
      */
@@ -174,7 +174,7 @@ public class DonatePageController implements Initializable{
 
     @FXML 
     /**
-     * Reload the Donor Profile after donor updated their profile data.
+     * Reload the Donor Profile after updated their profile data.
      */
     private void reloadProfileInfo(){
         String name = donorUserInfo.getName();
@@ -286,4 +286,3 @@ public class DonatePageController implements Initializable{
         }
     }    
 }
-

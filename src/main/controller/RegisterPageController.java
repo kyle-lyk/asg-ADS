@@ -49,7 +49,7 @@ public class RegisterPageController implements Initializable {
 
     @Override
     /**
-     * Initialize action for Register Page.
+     * Initialize action for Register Page. Method from JavaFx.
      * To assign Identity Choice Box Values.
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param rb The resources used to localize the root object, or null if the root object was not localized.
