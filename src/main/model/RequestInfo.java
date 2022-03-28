@@ -6,7 +6,7 @@ package main.model;
  * remaining donated item quantity and ngo who received the item.
  */
 public class RequestInfo {
-    
+     
     private String ngoName;
     private Integer manpower;
     private String aids;
