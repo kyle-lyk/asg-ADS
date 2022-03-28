@@ -35,7 +35,7 @@ import main.model.RequestInfo;
  * Controller for RequestPage to control logic in the RequestPage.fxml when user interact with it.
  */
 public class RequestPageController implements Initializable{
-
+     
     //////////////// start of JavaFX Components Variables ///////////////////
 
     @FXML

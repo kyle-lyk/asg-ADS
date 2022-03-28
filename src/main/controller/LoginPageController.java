@@ -46,7 +46,7 @@ public class LoginPageController implements Initializable{
     private TextField usernameField;
 
     //////////////// end of JavaFX Components Variables ///////////////////
-
+    
     @Override
     /**
      * Initialize action for Login Page. Method from JavaFx.

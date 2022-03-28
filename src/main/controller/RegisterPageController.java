@@ -26,7 +26,7 @@ import main.model.GlobalState;
  * Controller for RegisterPage to control logic in the RegisterPage.fxml when user interact with it.
  */
 public class RegisterPageController implements Initializable {
-
+     
     //////////////// start of JavaFX Components Variables ///////////////////
 
     @FXML

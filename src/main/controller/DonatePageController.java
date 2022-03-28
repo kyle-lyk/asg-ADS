@@ -37,7 +37,7 @@ import main.model.GlobalState;
  * Controller for DonatePage to control logic in the DonatePage.fxml when user interact with it.
  */
 public class DonatePageController implements Initializable{
-
+     
     //////////////// start of JavaFX Components Variables ///////////////////
 
     @FXML
