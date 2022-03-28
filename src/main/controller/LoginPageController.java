@@ -18,44 +18,52 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import main.model.Database;
 import main.model.GlobalState;
-import main.model.Ngo;
 
+/**
+ * Controller for LoginPage to control logic in the LoginPage.fxml when user interact with it.
+ */
 public class LoginPageController implements Initializable{
+
+    //////////////// start of JavaFX Components Variables ///////////////////
 
     @FXML
     private PasswordField c_passwordField;
-
     @FXML
     private ChoiceBox<String> identityBox;
-
     private String[] identityList = {"Donor", "NGO", "DC Admin"};
-
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        
-        identityBox.getItems().addAll(identityList);
-        identityBox.setValue("Donor");
-        
-    }
-
     @FXML
     private Button loginBtn;
-
     @FXML
     private PasswordField passwordField;
-
     @FXML
     private Hyperlink registerLink;
-
     @FXML
     private Label statusLabel;
-
     @FXML
     private TextField usernameField;
 
+    //////////////// end of JavaFX Components Variables ///////////////////
+
+    @Override
+    /**
+     * Initialize action for Login Page.
+     * To assign Identity Choice Box Values.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
+    public void initialize(URL arg0, ResourceBundle arg1) { 
+        identityBox.getItems().addAll(identityList);
+        identityBox.setValue("Donor");
+    }
+
     @FXML
+    /**
+     * Switch to Registration Page.
+     * @param event Mouse click action received from user
+     */
     void switch_to_RegisterPage(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
@@ -67,6 +75,10 @@ public class LoginPageController implements Initializable{
     }
 
     @FXML
+    /**
+     * Login Validation before User enter to the system.
+     * @param event Mouse click action received from user
+     */
     void loginValidate(ActionEvent e){
         // Check if any of the fields contain empty or whitespace characters, if yes set the status label to error
         if ((passwordField.getText().isBlank()) || (passwordField.getText().contains(" ")) ||
@@ -141,7 +153,5 @@ public class LoginPageController implements Initializable{
     
         }
     }
-
-
 
 }

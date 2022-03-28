@@ -34,9 +34,12 @@ import main.model.Donor;
 import main.model.GlobalState;
 
 /**
- * Controller for DonatePage to control logic in the DonatePage when user interact with it.
+ * Controller for DonatePage to control logic in the DonatePage.fxml when user interact with it.
  */
 public class DonatePageController implements Initializable{
+
+    //////////////// start of JavaFX Components Variables ///////////////////
+
     @FXML
     private Button donateBtn;
     @FXML
@@ -73,6 +76,8 @@ public class DonatePageController implements Initializable{
     private TableColumn<DonateInfo,Integer> remainQtyCol;
     @FXML
     private TableColumn<DonateInfo,String> ngoCol;
+
+    //////////////// end of JavaFX Components Variables ///////////////////
 
     private GlobalState state = GlobalState.getInstance();
     private Donor donorUserInfo = state.getDonorSession();
