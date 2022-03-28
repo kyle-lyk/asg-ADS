@@ -10,6 +10,11 @@ import java.util.List;
 
 public class Database {
 
+    /**
+     * Write new data into the database file.
+     * @param filename Database Filename
+     * @param Data Data to be added into Database
+     */
     public static void writeData(String filename, List<String> Data){
         String filepath = "src/main/db/" + filename + ".csv";
         File file = new File(filepath);
@@ -53,6 +58,11 @@ public class Database {
         }
     }
 
+    /**
+     * Read data from the database file.
+     * @param filename Database Filename
+     * @return Data List from the database file
+     */
     public static List<List<String>> readData(String filename){
         String filepath = "src/main/db/" + filename + ".csv";
         File file = new File(filepath);
@@ -76,6 +86,11 @@ public class Database {
         return dataList;
     }
 
+    /**
+     * Update new from the database file.
+     * @param filename Database Filename
+     * @param Datalist Data List to be added into Database
+     */
     public static void updateData(String filename, List<List<String>> Datalist){
         String filepath = "src/main/db/" + filename + ".csv";
         File file = new File(filepath);
@@ -102,6 +117,4 @@ public class Database {
         }
     }
 
-    
-    
 }
