@@ -331,9 +331,6 @@ public class DistributePageController implements Initializable{
      * @param event mouse click action from user
      */
     private void matchAids(ActionEvent event) {
-        // System.out.println("ngoSelectedList: " + ngoSelectedList);
-        // System.out.println("donorSelectedList: " + donorSelectedList);
-        // System.out.println("ngoUUIDList: " + ngoUUIDList.get( ngoSelectedList.get(0) - 1 ));
         if ((ngoSelectedList.isEmpty() || donorSelectedList.isEmpty())) {
             matchAidsText.setText("You must select at least one row from each table!");
         }
@@ -410,7 +407,7 @@ public class DistributePageController implements Initializable{
         
         
         if ((donorSelectedList.size()) == 1 && ((ngoSelectedList.size())) == 1) {
-            System.out.println("One-to-one"); // pass model function here
+            System.out.println("One-to-one");
 
             DonateInfo donateInfo = loadDonateInfo(selected_donatedList,0);
             RequestInfo requestInfo = loadRequestInfo(selected_requestedList,0);
@@ -423,7 +420,7 @@ public class DistributePageController implements Initializable{
 
         }
         else if ((donorSelectedList.size()) == 1 && ((ngoSelectedList.size()) >= 1)) {
-            System.out.println("One-to-many"); // pass model function here
+            System.out.println("One-to-many"); 
             DonateInfo donateInfo = loadDonateInfo(selected_donatedList,0);
             if (donateInfo.getRemainQty() <= (loadRequestInfo(selected_requestedList,0)).getRemainQty()){
                 System.out.println("Illegal one to many");
@@ -444,10 +441,8 @@ public class DistributePageController implements Initializable{
 
         }
         else if ((donorSelectedList.size()) >= 1 && ((ngoSelectedList.size()) == 1)) {
-            // 2 3 // 6 -> /
-            // 1 3 // 2 -> /
-            // 3 1 // 2 -> X 
-            System.out.println("Many-to-one"); // pass model function here
+
+            System.out.println("Many-to-one"); 
 
             RequestInfo requestInfo = loadRequestInfo(selected_requestedList,0);
             if (requestInfo.getRemainQty() <= (loadDonateInfo(selected_donatedList,0)).getRemainQty()){
@@ -468,7 +463,7 @@ public class DistributePageController implements Initializable{
 
         }
         else if ((donorSelectedList.size()) >= 1 && ((ngoSelectedList.size()) >= 1)) {
-            System.out.println("Many-to-many"); // pass model function here
+            System.out.println("Many-to-many"); 
             int donorQty = 0;
             int ngoQty = 0;
             for (List<String> Data : selected_donatedList) {
@@ -490,11 +485,9 @@ public class DistributePageController implements Initializable{
                 DonateInfo donateInfo = loadDonateInfo(selected_donatedList,j);
                 while(i < selected_requestedList.size() && j < selected_donatedList.size()){
                     DistAids distAids = new DistAids(donateInfo, requestInfo);
-                    // System.out.println("pre-donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    // System.out.println("pre-requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    
                     distAids.matchAids();
-                    // System.out.println("donateRemainQty: " + distAids.getDonateInfo().getRemainQty());
-                    // System.out.println("requestRemainQty: " + distAids.getRequestInfo().getRemainQty());
+                    
                     save_matchAidsResult(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                     updateUserList(distAids, selected_donorUUIDList, selected_ngoUUIDList);
                     if (distAids.getDonateInfo().getRemainQty() == 0){
@@ -707,16 +700,6 @@ public class DistributePageController implements Initializable{
                         // change green row colour to default colour when clicked on (deselect)
                         row1.setStyle("-fx-background-color: -fx-background");
                 }
-                
-                // debugging
-                ListIterator<Integer> listItr = ngoSelectedList.listIterator();
-                while(listItr.hasNext()) {
-                    Integer ele = listItr.next();
-                    System.out.print(ele + " ");
-                    }
-                System.out.println();
-                // debugging
-    
                 event.consume();
                 }
             }
@@ -744,16 +727,6 @@ public class DistributePageController implements Initializable{
                         donorSelectedList.remove(Integer.valueOf(rowList.getRowNum()));
                         row2.setStyle("-fx-background-color: -fx-background");
                     }
-                    
-                    // debugging
-                    ListIterator<Integer> listItr = donorSelectedList.listIterator();
-                    while(listItr.hasNext()) {
-                        Integer ele = listItr.next();
-                        System.out.print(ele + " ");
-                        }
-                    System.out.println();
-                    // debugging
-        
                     event.consume();
                     }
             }
