@@ -197,7 +197,6 @@ public class RequestPageController implements Initializable{
 
     @FXML
     public void updateProfile(ActionEvent e){
-        List<List<String>> Req_Info = Database.readData("requested_Info");
         String NewName = new_nameField.getText();
         System.out.println(ngoUserInfo.getName());
         System.out.println(ngoUserInfo.getManpower());
