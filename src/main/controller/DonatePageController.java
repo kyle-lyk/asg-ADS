@@ -84,7 +84,9 @@ public class DonatePageController implements Initializable{
 
     @Override
     /**
-     * Show the donate table and donor profile information when DonatePage is initialized.
+     * Show the donate table and donor profile information when DonatePage is initialized. Method from javafx.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
      */
     public void initialize(URL url, ResourceBundle rb) {
         reloadTableInfo();
