@@ -8,9 +8,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import main.model.GlobalState;
- 
+
+/**
+ * Run.java is the main file to run the whole program
+ */
 public class Run extends Application {
+
     @Override
+    /**
+     * Start method to start the JavaFx program.
+     * @param primaryStage The primary stage for this application.
+     */
     public void start(Stage primaryStage) {
         
         try {
@@ -29,7 +37,13 @@ public class Run extends Application {
             e.printStackTrace();
         }
     }
- 
+
+    /**
+     * The main() method is ignored in correctly deployed JavaFX application.
+     * main() serves only as fallback in case the application can not be
+     * launched through deployment artifacts
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
