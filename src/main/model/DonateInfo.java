@@ -128,4 +128,3 @@ public class DonateInfo{
         this.NGOReceived = NGOReceived;
     }
 }
-
