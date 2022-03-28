@@ -7,17 +7,17 @@
         {
             "vmArgs": "--module-path C:/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
             "type": "java",
-            "name": "Launch Current File",
+            "name": "Launch Main",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "main.Main",
+            "projectName": "Project_92fd050"
         },
         {
             "vmArgs": "--module-path C:/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
             "type": "java",
-            "name": "Launch Run",
+            "name": "Launch Current File",
             "request": "launch",
-            "mainClass": "main.Run",
-            "projectName": "Project_92fd050"
+            "mainClass": "${file}"
         }
     ]
 }

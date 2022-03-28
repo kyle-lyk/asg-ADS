@@ -10,9 +10,9 @@ import javafx.scene.Scene;
 import main.model.GlobalState;
 
 /**
- * Run.java is the main file to run the whole program
+ * Main.java is the main file to run the whole program
  */
-public class Run extends Application {
+public class Main extends Application {
 
     @Override
     /**
