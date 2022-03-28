@@ -3,16 +3,9 @@ package main.model;
 import javafx.stage.Stage;
 
 public class GlobalState {
+
+    ////// start of GlobalState Stage //////
     private Stage publicStage;
-
-    String username;
-    String password;
-    String identity;
-    String name;
-    String info;
-
-    Donor donorUserInfo = new Donor(null, null, null, null, null);
-    Ngo ngoUserInfo = new Ngo(null, null, null, null, null);
 
     // Static Varible reference to the Singleton instance
     private static GlobalState instance = null;
@@ -25,6 +18,10 @@ public class GlobalState {
         return instance;
     }
 
+    private GlobalState() {
+        Init();
+    }
+
     public Stage getStage(){
         return this.publicStage;
     }
@@ -33,14 +30,22 @@ public class GlobalState {
         this.publicStage = s;
     }
 
-    private GlobalState() {
-        Init();
-    }
-
     public void Init(){
         this.username = "";
         this.identity = "";
     }
+    ////// end of GlobalState Stage //////
+
+
+    ////// start of Set login Session //////
+    private String username;
+    private String password;
+    private String identity;
+    private String name;
+    private String info;
+
+    private Donor donorUserInfo = new Donor(null, null, null, null, null);
+    private Ngo ngoUserInfo = new Ngo(null, null, null, null, null);
 
     public void setSession(String username, String password ,String identity, String name, String info){
         this.username = username;
@@ -65,6 +70,7 @@ public class GlobalState {
         }
         System.out.println(this.identity);
     }
+    
 
     public Donor getDonorSession(){
         return this.donorUserInfo;
@@ -82,6 +88,10 @@ public class GlobalState {
         this.ngoUserInfo = ngoUserInfo;
     }
 
+    ////// end of Set login Session //////
+
+
+    ////// start of session Data and ViewPath //////
     public String getDataFileName(String identity){
         String filename = "";
         switch (identity) {
@@ -114,6 +124,7 @@ public class GlobalState {
         return viewpath;
     }
 
+    ////// end of session Data and ViewPath //////
 
 
 }
