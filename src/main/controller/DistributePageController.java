@@ -621,13 +621,6 @@ public class DistributePageController implements Initializable{
         Database.updateData("donated_Info", donateList);
     }
 
-    /**
-     * Resets the boolean value for item filter checking.
-     */
-    public void resetFlag() {
-        itemFilterExistNgo = false;
-        itemFilterExistDonor = false;
-    }
 
     ////////////////////////////////////////////////////////////////
     ArrayList<Integer> ngoSelectedList = new ArrayList();
@@ -745,11 +738,18 @@ public class DistributePageController implements Initializable{
 
     ////////////////////////////////////////////////////////////////
 
-    
+    /**
+     * Resets the boolean value for item filter checking.
+     */
+    public void resetFlag() {
+        itemFilterExistNgo = false;
+        itemFilterExistDonor = false;
+    }
+
     /**
      * Reset value for for selected lists
      */
-    public void resetVar() {
+    private void resetVar() {
         ngoSelectedList = new ArrayList();
         donorSelectedList = new ArrayList();
     }
