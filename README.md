@@ -3,7 +3,7 @@ Aid Distribution System built with JavaFX with MVC and Singleton Design Pattern.
 
 ## How to Run
 - Clone the repo `$ git clone .` 
-- Install JavaFx SDK 17.0.2
+- Install JavaFX SDK 17.0.2
 - Modify `Run.bat` according to your JavaFX SDK path
 - Modify "vmArgs" in `.vscode/launch.json` according to your JavaFX SDK path
 
