@@ -250,7 +250,7 @@ public class RequestPageController implements Initializable{
             }
         }
         else{
-            prof_statusLabel.setText("You have already updated your profile");
+            prof_statusLabel.setText("Failed to update profile");
         }
     }
 
