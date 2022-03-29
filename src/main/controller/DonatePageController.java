@@ -211,13 +211,9 @@ public class DonatePageController implements Initializable{
                 try {
                     Integer NewPhoneNum = Integer.parseInt(new_phonenumField.getText());
                     int length = NewPhoneNum.toString().length();
-                    char firstNum = NewPhoneNum.toString().charAt(0);
 
                     if(length > 10 || length < 9){
                         prof_statusLabel.setText("Invalid phone number length");
-                    }
-                    else if(firstNum != '1'){
-                        prof_statusLabel.setText("Invalid phone number");
                     }
                     else{boolean donorNameIsExist = false;
                     
