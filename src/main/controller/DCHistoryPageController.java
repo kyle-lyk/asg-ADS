@@ -27,8 +27,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * This controller will handle the user interaction logic
- * for DCHistoryPage.fxml 
+ * This controller will handle the user interaction logic for DCHistoryPage.fxml 
  */
 public class DCHistoryPageController implements Initializable{
 
@@ -80,7 +79,7 @@ public class DCHistoryPageController implements Initializable{
 
     /**
      * When button is clicked, scene will be
-     * changed to DistributePage 
+     * changed to DistributePage.
      * @param event mouse click action from user
      */
     @FXML
@@ -101,7 +100,7 @@ public class DCHistoryPageController implements Initializable{
 
     /**
      * When button is clicked, an alert window will pop up
-     * to confirm log out process
+     * to confirm log out process.
      * @param event mouse click action from user
      */
     @FXML
@@ -119,7 +118,7 @@ public class DCHistoryPageController implements Initializable{
     }
 
     /**
-     * Changes the content of the text component
+     * Changes the content of the text component.
      * @param newString new text
      */
     @FXML

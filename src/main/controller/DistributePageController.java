@@ -37,8 +37,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * This controller will handle the user interaction logic
- * for DistributePage.fxml 
+ * This controller will handle the user interaction logic for DistributePage.fxml 
  */
 public class DistributePageController implements Initializable{
 
