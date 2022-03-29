@@ -206,11 +206,15 @@ public class DonatePageController implements Initializable{
                 try {
                     Integer NewPhoneNum = Integer.parseInt(new_phonenumField.getText());
                     int length = NewPhoneNum.toString().length();
+                    char firstNum = NewPhoneNum.toString().charAt(0);
 
                     if(length > 10 || length < 9){
                         prof_statusLabel.setText("Invalid phone number length");
-
-                    }else{boolean donorNameIsExist = false;
+                    }
+                    else if(firstNum != '1'){
+                        prof_statusLabel.setText("Invalid phone number");
+                    }
+                    else{boolean donorNameIsExist = false;
                     
                         for (int i = 0; i < Acc_Info.size(); i++){
                             if(NewName.equals(Acc_Info.get(i).get(2))){
