@@ -34,7 +34,7 @@ import main.model.Donor;
 import main.model.GlobalState;
 
 /**
- * Controller for DonatePage to control logic in the DonatePage.fxml when user interact with it.
+ * This controller will handle the user interaction logic for DonatePage.fxml
  */
 public class DonatePageController implements Initializable{
      

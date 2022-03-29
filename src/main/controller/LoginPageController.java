@@ -23,7 +23,7 @@ import main.model.Database;
 import main.model.GlobalState;
 
 /**
- * Controller for LoginPage to control logic in the LoginPage.fxml when user interact with it.
+ * This controller will handle the user interaction logic for LoginPage.fxml
  */
 public class LoginPageController implements Initializable{
 

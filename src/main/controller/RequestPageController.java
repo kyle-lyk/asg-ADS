@@ -32,7 +32,7 @@ import main.model.Ngo;
 import main.model.RequestInfo;
 
 /**
- * Controller for RequestPage to control logic in the RequestPage.fxml when user interact with it.
+ * This controller will handle the user interaction logic for RequestPage.fxml
  */
 public class RequestPageController implements Initializable{
      

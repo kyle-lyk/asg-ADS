@@ -23,7 +23,7 @@ import main.model.Database;
 import main.model.GlobalState;
 
 /**
- * Controller for RegisterPage to control logic in the RegisterPage.fxml when user interact with it.
+ * This controller will handle the user interaction logic for RegisterPage.fxml
  */
 public class RegisterPageController implements Initializable {
      
