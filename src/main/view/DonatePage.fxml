@@ -83,7 +83,7 @@
                         <Label text="New Name" GridPane.rowIndex="2" />
                         <Label text="New Phone No(+60)" GridPane.rowIndex="3" />
                         <TextField fx:id="new_nameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="new_phonenumField" prefHeight="26.0" prefWidth="92.0" promptText="eg: 12345678" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="new_phonenumField" prefHeight="26.0" prefWidth="92.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
