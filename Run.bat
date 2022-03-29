@@ -1,1 +1,1 @@
-java --module-path C:/javafx-sdk-17.0.2/lib --add-modules=javafx.controls,javafx.fxml src/main
+java --module-path C:/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml --enable-preview -XX:+ShowCodeDetailsInExceptionMessages @C:\Users\User\AppData\Local\Temp\cp_2xsukb1yet1o8xkftr6aapd03.argfile main.Main
