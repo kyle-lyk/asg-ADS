@@ -92,6 +92,11 @@
                         <Label fx:id="phonenumLabel" prefHeight="18.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
+                  <Text layoutX="36.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="**You can only update profile once**">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
             <Text layoutX="118.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Donate">
