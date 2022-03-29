@@ -167,7 +167,7 @@ public class DistributePageController implements Initializable{
      * Updates and populates Donor table based on relevant CSV file.
      * @param Title_Cased_filterItem filter item name
      */
-    public void updateDonorTable(String Title_Cased_filterItem) {
+    private void updateDonorTable(String Title_Cased_filterItem) {
         ObservableList<AidList> donorList = FXCollections.observableArrayList();
         tvMainDonor.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 

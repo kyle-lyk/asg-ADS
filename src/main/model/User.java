@@ -1,7 +1,7 @@
 package main.model;
 
 /**
- * User is an abstract class that cannot be used to creat objects.
+ * User is an abstract class that cannot be used to create objects.
  * To access it, it mus be inherited from another class. (Eg. Donor, Ngo)
  * User class contains username, password, identity of an user.
  */
