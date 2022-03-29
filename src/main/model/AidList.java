@@ -3,7 +3,7 @@ package main.model;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * AidList Class is TableView formats for DistributionPage and DCHistoryPage.
+ * AidList Class is TableView formats for DistributePage and DCHistoryPage.
  * It contains information of aid list donated, requested by Donor and Ngo.
  */
 public class AidList {
