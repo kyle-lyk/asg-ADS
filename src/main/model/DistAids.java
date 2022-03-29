@@ -1,7 +1,8 @@
 package main.model;
 
 /**
- * Format for aid matching result.
+ * DistAids Class contains the Donate Info and Request Info.
+ * It is use to format the Matched Aids Result.
  */
 public class DistAids {
     

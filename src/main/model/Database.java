@@ -9,10 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Database class has the methods to manipulate with Database File such as:
- * 1) Write Data
- * 2) Read Data
- * 3) Update Data
+ * Database Class has the methods to manipulate with Database File.
+ * The methods are Write Data, Read Data and Update Data.
  */ 
 public class Database {
 

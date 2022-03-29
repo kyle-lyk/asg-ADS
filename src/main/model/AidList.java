@@ -3,7 +3,8 @@ package main.model;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * Table formats for Distribution System.
+ * AidList Class is TableView formats for DistributionPage and DCHistoryPage.
+ * It contains information of aid list donated, requested by Donor and Ngo.
  */
 public class AidList {
     private SimpleStringProperty donor, phone, aids, ngo;

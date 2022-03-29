@@ -3,8 +3,8 @@ package main.model;
 import javafx.stage.Stage;
 
 /**
- * GlobalState is a class where it use Singleton Design Pattern to store the Public Stage, 
- * User Information of current Login Session, and Utility Method such as to get Database and View Directory Path.
+ * GlobalState Class use Singleton Design Pattern to provide Global Access Point to only one instance.
+ * It is use to store the Public Stage, User Information of current Login Session, and Utility Method such as to get Database and View Directory Path.
  * This allow different classes to access to the same Stage, User Information, and Utility Method.
  */
 public class GlobalState {
