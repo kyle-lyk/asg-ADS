@@ -1,8 +1,8 @@
 package main.model;
 
 /**
- * Ngo class contains Ngo user information
- * such as username, password, identity, Ngo Name, Manpower
+ * Ngo class contains Ngo user information.
+ * It contains username, password, identity, Ngo Name, Manpower
  * where it inherits username, password and identity from User class.
  */
 public class Ngo extends User{

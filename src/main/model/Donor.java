@@ -1,8 +1,8 @@
 package main.model;
 
 /**
- * Donor class contains donor user information
- * such as username, password, identity, donor name, donor phone number
+ * Donor class contains donor user information.
+ * It contains username, password, identity, donor name, donor phone number
  * where it inherits username, password and identity from User class.
  */
 public class Donor extends User{

@@ -1,9 +1,9 @@
 package main.model;
 
 /**
- * Contains the donate information of donor 
- * such as donor name, donor phone number, donated item, donated item quantity, 
- * remaining donated item quantity and ngo who received the item.
+ * DonateInfo Class Contains the donate information of donor.
+ * It contains Donor name, Donor phone number, Donated item, Donated item quantity, 
+ * Remaining donated item quantity and Ngo who received the item.
  */
 public class DonateInfo{
     
