@@ -87,21 +87,21 @@ public class RequestPageController implements Initializable{
     String DataFileName = state.getDataFileName(identity);
     List<List<String>> Acc_Info = Database.readData(DataFileName);
 
-    @Override
     /**
      * Show the request table and ngo profile information when RequestPage is initialized. Method from JavaFx.
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param rb The resources used to localize the root object, or null if the root object was not localized.
      */
+    @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         reloadProfileInfo();
         reloadTableInfo();
     }
 
-    @FXML
     /**
      * To reload the donate table information after ngo requested item.
      */
+    @FXML
     public void reloadTableInfo(){
         ObservableList<RequestInfo> DataInfo = FXCollections.observableArrayList();
         requestTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
@@ -134,10 +134,10 @@ public class RequestPageController implements Initializable{
         requestTable.setItems(DataInfo);
     }
 
-    @FXML
     /**
      * Read ngo input and check input validity only update the data to database as well as request table.
      */
+    @FXML
     public void requestAids(){
         if (!(ngoUserInfo.getName().isBlank()) || !(ngoUserInfo.getManpower().isBlank())){
             String itemName = itemNameField.getText();
@@ -175,10 +175,10 @@ public class RequestPageController implements Initializable{
         
     }
 
-    @FXML 
     /**
      * Reload the Ngo Profile after updated their profile data.
      */
+    @FXML 
     public void reloadProfileInfo(){
         String name = ngoUserInfo.getName();
         String manpower = ngoUserInfo.getManpower();
@@ -197,11 +197,11 @@ public class RequestPageController implements Initializable{
         }
     }
 
-    @FXML
     /**
      * Update ngo profile after validating the inputs.
      * @param e mouse click action received from user
      */
+    @FXML
     public void updateProfile(ActionEvent e){
         String NewName = new_nameField.getText();
         System.out.println(ngoUserInfo.getName());
@@ -254,11 +254,11 @@ public class RequestPageController implements Initializable{
         }
     }
 
-    @FXML
     /**
      * Log out from ngo account.
      * @param e mouse click action received from user
      */
+    @FXML
     public void logout(ActionEvent e){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
@@ -271,11 +271,11 @@ public class RequestPageController implements Initializable{
             System.out.println("Successfully logged out");
         }
     }
-
-    @FXML
+    
     /**
      * Switch to LoginPage after logged out from donor account.
      */
+    @FXML
     void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();

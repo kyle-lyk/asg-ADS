@@ -34,7 +34,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 /**
@@ -43,68 +42,52 @@ import java.util.ResourceBundle;
  */
 public class DistributePageController implements Initializable{
 
+    //////////////// start of JavaFX Components Variables ///////////////////
+
     @FXML
     private TableColumn<AidList, Integer> rowNumColumn3;
-
     @FXML
     private TableColumn<AidList, Integer> rowNumColumn4;
-
     @FXML
     private TableColumn<AidList, String> aidColumn3;
-
     @FXML
     private TableColumn<AidList, String> aidColumn4;
-
     @FXML
     private Button selectItemBtn;
-
     @FXML
     private Button showAllBtn;
-
     @FXML
     private Button matchAidsBtn;
-
     @FXML
     private TableColumn<AidList, String> donorColumn4;
-
     @FXML
     private TableColumn<AidList, Integer> manpowerColumn3;
-
     @FXML
     private TableColumn<AidList, String> ngoColumn3;
-
     @FXML
     private TableColumn<AidList, String> phoneColumn4;
-
     @FXML
     private TableColumn<AidList, Integer> quantityColumn3;
-
     @FXML
     private TableColumn<AidList, Integer> quantityColumn4;
-
     @FXML
     private Text tErrorMsg3;
-
     @FXML
     private Text matchAidsText;
-
     @FXML
     private Text tGeneralText2;
-
     @FXML
     private Text tTableName1;
-
     @FXML
     private Text tTableName2;
-
     @FXML
     private TextField itemNameField;
-
     @FXML
     private TableView<AidList> tvMainDonor;
-
     @FXML
     private TableView<AidList> tvMainNGO;
+
+    //////////////// end of JavaFX Components Variables ///////////////////
 
     private GlobalState state = GlobalState.getInstance();
     boolean itemFilterExistNgo = false;
@@ -115,12 +98,12 @@ public class DistributePageController implements Initializable{
     ArrayList<String> donorUUIDList = new ArrayList<String>();
     ArrayList<String> ngoUUIDList = new ArrayList<String>();
 
-    @Override
     /**
      * Populates both NGO and Donor table when DistributePage is initialized (JavaFX method).
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param rb The resources used to localize the root object, or null if the root object was not localized.
      */
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         // load data from CSV and populate both tables
@@ -232,12 +215,12 @@ public class DistributePageController implements Initializable{
 
     ///////////////// ///////////////////
 
-    @FXML
     /**
      * When button is clicked, an alert window will pop up
      * to confirm log out process
      * @param event mouse click action from user
      */
+    @FXML
     private void logoutBtnClicked(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
@@ -252,12 +235,12 @@ public class DistributePageController implements Initializable{
     }
 
 
-    @FXML
     /**
      * When button is clicked, scene will be 
      * changed to DCHistoryPage.
      * @param event mouse click action from user
      */
+    @FXML
     private void btnAidHistoryClicked3(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
@@ -274,7 +257,6 @@ public class DistributePageController implements Initializable{
             }
     }
 
-    @FXML
     /**
      * When button is clicked, text from itemNameField
      * will be obtained as filterItem.
@@ -282,6 +264,7 @@ public class DistributePageController implements Initializable{
      * does not meet the required conditions.
      * @param event mouse click action from user
      */
+    @FXML
     private void filterItem(ActionEvent event) {
         String filterItem = itemNameField.getText();
         System.out.println("filterItem: " + filterItem);
@@ -307,12 +290,12 @@ public class DistributePageController implements Initializable{
     }
 
 
-    @FXML
     /**
      * When button is clicked, tables will be
      * refreshed to display unfiltered content.
      * @param event mouse click action from user
      */
+    @FXML
     private void showAll(ActionEvent event) {
         updateDonorTable();
         updateNGOTable();
@@ -323,13 +306,13 @@ public class DistributePageController implements Initializable{
         refreshScene();
     }
 
-    @FXML
     /**
      * When button is clicked, scene will be 
      * changed to DCHistoryPage with updated aid matching results
      * if all the conditions are met.
      * @param event mouse click action from user
      */
+    @FXML
     private void matchAids(ActionEvent event) {
         if ((ngoSelectedList.isEmpty() || donorSelectedList.isEmpty())) {
             matchAidsText.setText("You must select at least one row from each table!");

@@ -47,13 +47,13 @@ public class RegisterPageController implements Initializable {
 
     //////////////// end of JavaFX Components Variables ///////////////////
 
-    @Override
     /**
      * Initialize action for Register Page. Method from JavaFx.
      * To assign Identity Choice Box Values.
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param rb The resources used to localize the root object, or null if the root object was not localized.
      */
+    @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         
         identityBox.getItems().addAll(identityList);
@@ -61,11 +61,11 @@ public class RegisterPageController implements Initializable {
         
     }
     
-    @FXML
     /**
      * Switch to Login Page.
      * @param event Mouse click action received from user
      */
+    @FXML
     void switch_to_LoginPage(ActionEvent e) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
@@ -76,11 +76,11 @@ public class RegisterPageController implements Initializable {
         }
     }
 
-    @FXML
     /**
      * Register Validation before User register new User data to the Database.
      * @param event Mouse click action received from user
      */
+    @FXML
     void registerValidate(ActionEvent e){
         // Check if any of the fields contain empty or whitespace characters, if yes set the status label to error
         if ((passwordField.getText().isBlank()) || (passwordField.getText().contains(" ")) ||

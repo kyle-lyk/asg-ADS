@@ -32,53 +32,45 @@ import java.util.ResourceBundle;
  */
 public class DCHistoryPageController implements Initializable{
 
+    //////////////// start of JavaFX Components Variables ///////////////////
+
     @FXML
     private TableColumn<AidList, String> aidColumn5;
-
     @FXML
     private TableColumn<AidList, String> donorColumn5;
-
     @FXML
     private TableColumn<AidList, Integer> manpowerColumn5;
-
     @FXML
     private TableColumn<AidList, String> ngoColumn5;
-
     @FXML
     private TableColumn<AidList, String> phoneColumn5;
-
     @FXML
     private TableColumn<AidList, Integer> quantityColumn5;
-
     @FXML
     private Text tGeneralText3;
-
     @FXML
     private Text tErrorMsg3;
-
     @FXML
     private Text tSelectedDonor3;
-
     @FXML
     private Text tSelectedNGO3;
-
     @FXML
     private Text tTableName3;
-
     @FXML
     private Button btnNGODonorClicked3;
-
     @FXML
     private TableView<AidList> tvMainAidHistory;
 
+    //////////////// end of JavaFX Components Variables ///////////////////
+
     private GlobalState state = GlobalState.getInstance();
 
-    @Override
     /**
      * Populates MatchedAidHistory table when DCHistoryPage is initialized (JavaFX method).
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param rb The resources used to localize the root object, or null if the root object was not localized.
      */
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         // load data from CSV and populates table
@@ -86,12 +78,12 @@ public class DCHistoryPageController implements Initializable{
 
     }
 
-    @FXML
     /**
      * When button is clicked, scene will be
      * changed to DistributePage 
      * @param event mouse click action from user
      */
+    @FXML
     private void btnNGODonorClicked3(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
@@ -107,12 +99,12 @@ public class DCHistoryPageController implements Initializable{
             }
     }
 
-    @FXML
     /**
      * When button is clicked, an alert window will pop up
      * to confirm log out process
      * @param event mouse click action from user
      */
+    @FXML
     private void logoutBtnClicked(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
@@ -126,11 +118,11 @@ public class DCHistoryPageController implements Initializable{
         }
     }
 
-    @FXML
     /**
      * Changes the content of the text component
      * @param newString new text
      */
+    @FXML
     public void showGeneralText(String newString) {
         tGeneralText3.setText(newString);;
     }
