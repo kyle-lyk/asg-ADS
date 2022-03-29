@@ -1,7 +1,7 @@
 package main.model;
 
 /**
- * DonateInfo Class Contains the donate information of donor.
+ * DonateInfo Class Contains the donate information of Donor.
  * It contains Donor name, Donor phone number, Donated item, Donated item quantity, 
  * Remaining donated item quantity and Ngo who received the item.
  */
