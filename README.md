@@ -1,5 +1,5 @@
 ## Aid Distribution System Cyberjaya
-Aid Distribution System built with JavaFX with MVC and Singleton Design Pattern.
+Aid Distribution System built with JavaFX along with MVC and Singleton Design Pattern.
 
 ## How to Run
 - Clone the repo `$ git clone .` 
