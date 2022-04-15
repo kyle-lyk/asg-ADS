@@ -545,6 +545,7 @@ public class DistributePageController implements Initializable{
         Integer donatedQty = distAids.getDonatedQty();
         String ngoName = distAids.getRequestInfo().getNgoName();
         Integer manpower = distAids.getRequestInfo().getManpower();
+        String status = "Collected";
 
         List<String> distInfo = new ArrayList<String>(
                                                     Arrays.asList(
@@ -553,7 +554,8 @@ public class DistributePageController implements Initializable{
                                                         aid,
                                                         String.valueOf(donatedQty),
                                                         ngoName,
-                                                        String.valueOf(manpower)
+                                                        String.valueOf(manpower),
+                                                        status
                                                     )
         );
 

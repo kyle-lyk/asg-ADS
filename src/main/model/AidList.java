@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class AidList {
     private SimpleStringProperty donor, phone, aids, ngo;
+    private String status;
     private int quantity, manpower;
 
     private int rowNum;
@@ -23,6 +24,16 @@ public class AidList {
         this.quantity = quantity;
         this.ngo = new SimpleStringProperty(ngo);
         this.manpower = manpower;
+    }
+
+    public AidList(String donor, String phone, String aids, Integer quantity, String ngo, Integer manpower, String status) {
+        this.donor = new SimpleStringProperty(donor);
+        this.phone = new SimpleStringProperty(phone);
+        this.aids = new SimpleStringProperty(aids);
+        this.quantity = quantity;
+        this.ngo = new SimpleStringProperty(ngo);
+        this.manpower = manpower;
+        this.status = status;
     }
 
     /**
@@ -159,6 +170,14 @@ public class AidList {
      */
     public void setManpower(Integer manpower) {
         this.manpower = manpower;
+    }
+
+    public String getStatus(){
+        return this.status;
+    }
+
+    public void sestStatus(String status){
+        this.status = status;
     }
 
 }
