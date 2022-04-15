@@ -47,9 +47,7 @@ public class DonatePageController implements Initializable{
     @FXML
     private Button refreshTableBtn;
     @FXML
-    private Label nameLabel;
-    @FXML
-    private Label phonenumLabel;    
+    private Button checkStatusBtn;
     @FXML
     private Label donate_statusLabel;
     @FXML
@@ -58,10 +56,6 @@ public class DonatePageController implements Initializable{
     private TextField donateItemName;
     @FXML
     private TextField donateItemQty;
-    @FXML
-    private TextField new_nameField;
-    @FXML
-    private TextField new_phonenumField;
     @FXML
     private TableView<DonateInfo> donatedItemTable;
     @FXML
@@ -82,7 +76,6 @@ public class DonatePageController implements Initializable{
     private GlobalState state = GlobalState.getInstance();
     private Donor donorUserInfo = state.getDonorSession();
     private String identity = donorUserInfo.getIdentity();
-    private String username = donorUserInfo.getUsername();
     
     String DataFileName = state.getDataFileName(identity);
     List<List<String>> Acc_Info = Database.readData(DataFileName);
@@ -95,7 +88,6 @@ public class DonatePageController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         reloadTableInfo();
-        reloadProfileInfo();
     }
 
     /**
@@ -170,88 +162,6 @@ public class DonatePageController implements Initializable{
         }else{
             donate_statusLabel.setText("Update your profile before donate");
         }
-    }
-
-    /**
-     * Reload the Donor Profile after updated their profile data.
-     */
-    @FXML 
-    private void reloadProfileInfo(){
-        String name = donorUserInfo.getName();
-        String phonenum = donorUserInfo.getPhonenum();
-        if(name.isBlank()){
-            nameLabel.setText("No Data");
-        }
-        else{
-            nameLabel.setText(name);
-        }
-
-        if(phonenum.isBlank()){
-            phonenumLabel.setText("No Data");
-        }
-        else{
-            phonenumLabel.setText(phonenum);
-        }
-    }
-
-    /**
-     * Update donor profile after validating the inputs.
-     * @param e mouse click action received from user
-     */
-    @FXML
-    private void updateProfile(ActionEvent e){
-        String NewName = new_nameField.getText();
-
-        if ( (donorUserInfo.getName().isBlank()) && (donorUserInfo.getPhonenum().isBlank()) )
-        {
-            if(NewName.isBlank() || new_phonenumField.getText().isBlank()){
-                prof_statusLabel.setText("No empty or whitespace characters");
-            }
-            else{
-                try {
-                    Integer NewPhoneNum = Integer.parseInt(new_phonenumField.getText());
-                    int length = NewPhoneNum.toString().length();
-
-                    if(length > 10 || length < 9){
-                        prof_statusLabel.setText("Invalid phone number length");
-                    }
-                    else{boolean donorNameIsExist = false;
-                    
-                        for (int i = 0; i < Acc_Info.size(); i++){
-                            if(NewName.equals(Acc_Info.get(i).get(2))){
-                                prof_statusLabel.setText("Username already exists!");
-                                donorNameIsExist = true;
-                                break;
-                            }
-                        }
-                        if(!donorNameIsExist){
-                            for(int i=0; i < Acc_Info.size(); i++){
-                                if(username.equals(Acc_Info.get(i).get(0))){
-                                    Acc_Info.get(i).set(2, NewName);
-                                    Acc_Info.get(i).set(3, "+60" + NewPhoneNum.toString());
-                                }
-                            }
-                            Database.updateData(DataFileName, Acc_Info);
-                            donorUserInfo.setName(NewName);
-                            donorUserInfo.setPhonenum(NewPhoneNum.toString());
-                            reloadProfileInfo();
-                            prof_statusLabel.setText("Profile Updated");
-                        }
-                    }
-                    
-
-                }
-                catch (NumberFormatException e1) {
-                    prof_statusLabel.setText("Phone number must be in integer");
-                }
-    
-            }
-
-        }
-        else{
-            prof_statusLabel.setText("Failed to update profile");
-        }
-
     }
 
     /**
