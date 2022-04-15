@@ -23,7 +23,13 @@ import main.model.Donor;
 import main.model.Ngo;
 import main.model.GlobalState;
 
+/**
+ * This controller will handle the user interaction logic for CollectionStatus.fxml
+ */
 public class CollectionStatusController implements Initializable{
+
+    //////////////// start of JavaFX Components Variables ///////////////////
+
     @FXML
     private TableView<AidList> statusTable;
     @FXML
@@ -43,14 +49,24 @@ public class CollectionStatusController implements Initializable{
     @FXML
     private Button backBtn;
 
+    //////////////// end of JavaFX Components Variables ///////////////////
+
     private GlobalState state = GlobalState.getInstance();
     private String identity = state.getIdentity();
 
+    /**
+     * Show the donate table and donor profile information when DonatePage is initialized. Method from JavaFx.
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadCollectionStatusTable();
     }
 
+    /**
+     * To load the collection status table.
+     */
     @FXML
     private void loadCollectionStatusTable() { 
         ObservableList<AidList> collectionStatus = FXCollections.observableArrayList();
@@ -106,6 +122,10 @@ public class CollectionStatusController implements Initializable{
         statusTable.setItems(collectionStatus);
     }
 
+    /**
+     * Switch to the previous page according to current Login Session Identity.
+     */
+    @FXML
     public void switch_to_backPage(){
         String viewPath = "";
         if (identity == "Donor")
@@ -121,4 +141,5 @@ public class CollectionStatusController implements Initializable{
             ioe.printStackTrace();
         }        
     }
+    
 }
