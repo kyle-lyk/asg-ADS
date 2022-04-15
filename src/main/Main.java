@@ -14,11 +14,11 @@ import main.model.GlobalState;
  */
 public class Main extends Application {
 
-    @Override
     /**
      * Start method to start the JavaFx program.
      * @param primaryStage The primary stage for this application.
      */
+    @Override
     public void start(Stage primaryStage) {
         
         try {
