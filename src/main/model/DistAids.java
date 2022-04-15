@@ -11,6 +11,7 @@ public class DistAids {
     private String status;
 
     private Integer donatedQty;
+    private String status;
 
     /**
      * Constructs DistAids object which contains 
@@ -69,6 +70,14 @@ public class DistAids {
      */
     public void setDonatedQty(Integer donatedQty) {
         this.donatedQty = donatedQty;
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     ////////////////////////////////////////////////////////////////
