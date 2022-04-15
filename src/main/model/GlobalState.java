@@ -71,6 +71,21 @@ public class GlobalState {
     private Ngo ngoUserInfo = new Ngo(null, null, null, null, null);
 
     /**
+     * Set the Current Login Session Identity
+     * @param identity Identity of the User
+     */
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    /**
+     * Get the Current Login Session Identity
+     */
+    public String getIdentity() {
+        return this.identity;
+    }
+        
+    /**
      * Set the User Information of current Login Session.
      * @param username Username
      * @param password User Password
