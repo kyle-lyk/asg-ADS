@@ -61,28 +61,19 @@ public class RequestPageController implements Initializable{
     @FXML
     private Button refreshTableBtn;
     @FXML
-    private Label manpowerLabel;
-    @FXML
-    private Label nameLabel;
-    @FXML
     private Label prof_statusLabel;
     @FXML
     private Label req_statusLabel;
     @FXML
-    private TextField new_manpowerField;
-    @FXML
-    private TextField new_nameField;
-    @FXML
     private Button requestBtn;
     @FXML
-    private Button updateBtn;
+    private Button checkStatusBtn;
 
     //////////////// end of JavaFX Components Variables ///////////////////
 
     private GlobalState state = GlobalState.getInstance();
     private Ngo ngoUserInfo = state.getNgoSession();
     private String identity = ngoUserInfo.getIdentity();
-    private String username = ngoUserInfo.getUsername();
 
     String DataFileName = state.getDataFileName(identity);
     List<List<String>> Acc_Info = Database.readData(DataFileName);
@@ -94,7 +85,6 @@ public class RequestPageController implements Initializable{
      */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        reloadProfileInfo();
         reloadTableInfo();
     }
 
@@ -176,85 +166,6 @@ public class RequestPageController implements Initializable{
     }
 
     /**
-     * Reload the Ngo Profile after updated their profile data.
-     */
-    @FXML 
-    public void reloadProfileInfo(){
-        String name = ngoUserInfo.getName();
-        String manpower = ngoUserInfo.getManpower();
-        if(name.isBlank()){
-            nameLabel.setText("No Data");
-        }
-        else{
-            nameLabel.setText(name);
-        }
-
-        if(manpower.isBlank()){
-            manpowerLabel.setText("No Data");
-        }
-        else{
-            manpowerLabel.setText(manpower);
-        }
-    }
-
-    /**
-     * Update ngo profile after validating the inputs.
-     * @param e mouse click action received from user
-     */
-    @FXML
-    public void updateProfile(ActionEvent e){
-        String NewName = new_nameField.getText();
-        System.out.println(ngoUserInfo.getName());
-        System.out.println(ngoUserInfo.getManpower());
-
-        if( (ngoUserInfo.getName().isBlank()) && (ngoUserInfo.getManpower().isBlank()) )
-        {
-            if(NewName.isBlank() || new_manpowerField.getText().isBlank()){
-                prof_statusLabel.setText("No empty or whitespace characters");
-            }
-            else{
-                try {
-                    Integer NewManpower = Integer.parseInt(new_manpowerField.getText());
-                    if (NewManpower <= 0){
-                        prof_statusLabel.setText("Manpower must be positive");
-                    }
-                    else{
-                        boolean ngoNameIsExist = false;
-    
-                        for(int i=0; i < Acc_Info.size(); i++){
-                            if(NewName.equals(Acc_Info.get(i).get(2))){
-                                prof_statusLabel.setText("Username already exists!");
-                                ngoNameIsExist = true;
-                                break;
-                            }
-                        }
-                        if(!ngoNameIsExist){
-                            for(int i=0; i < Acc_Info.size(); i++){
-                                if(username.equals(Acc_Info.get(i).get(0))){
-                                    Acc_Info.get(i).set(2, NewName);
-                                    Acc_Info.get(i).set(3, NewManpower.toString());
-                                }
-                            }
-                            Database.updateData(DataFileName, Acc_Info);
-                            ngoUserInfo.setName(NewName);
-                            ngoUserInfo.setManpower(NewManpower.toString());
-                            reloadProfileInfo();
-                            prof_statusLabel.setText("Profile updated successfully");
-                        }
-                    }
-                    
-                }
-                catch (NumberFormatException e1) {
-                    prof_statusLabel.setText("Manpower must be an integer");
-                }
-            }
-        }
-        else{
-            prof_statusLabel.setText("Failed to update profile");
-        }
-    }
-
-    /**
      * Log out from ngo account.
      * @param e mouse click action received from user
      */
@@ -282,6 +193,22 @@ public class RequestPageController implements Initializable{
             Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
+    /**
+     * Switch to CollectionStatusPage.
+     */
+    @FXML
+    private void switch_to_CollectionStatusPage() {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionStatusPage.fxml"));
+            Parent root = loader.load();
+            mainStage.setScene(new Scene(root, 1280, 720));
+
+        } catch (IOException ioe){
             ioe.printStackTrace();
         }
     }
