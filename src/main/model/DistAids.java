@@ -8,6 +8,7 @@ public class DistAids {
     
     private DonateInfo donateInfo;
     private RequestInfo requestInfo;
+    private String status;
 
     private Integer donatedQty;
 
