@@ -126,7 +126,7 @@ public class CollectionStatusController implements Initializable{
      * Switch to the previous page according to current Login Session Identity.
      */
     @FXML
-    public void switch_to_backPage(){
+    private void switch_to_backPage(){
         String viewPath = "";
         if (identity == "Donor")
             viewPath = "/main/view/DonatePage.fxml";
@@ -141,5 +141,5 @@ public class CollectionStatusController implements Initializable{
             ioe.printStackTrace();
         }        
     }
-    
+
 }
