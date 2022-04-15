@@ -21,7 +21,7 @@
                   <TableColumn fx:id="statusCol" prefWidth="102.4000244140625" text="Status" />
               </columns>
             </TableView>
-            <Button fx:id="backBtn" layoutX="608.0" layoutY="670.0" mnemonicParsing="false" onAction="#switchToDonatePage" prefHeight="35.0" prefWidth="110.0" text="Back" />
+            <Button fx:id="backBtn" layoutX="608.0" layoutY="670.0" mnemonicParsing="false" onAction="#switch_to_backPage" prefHeight="35.0" prefWidth="110.0" text="Back" />
          </children>
       </AnchorPane>
    </top>
