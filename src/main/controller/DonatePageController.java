@@ -254,6 +254,19 @@ public class DonatePageController implements Initializable{
 
     }
 
+    @FXML
+    private void checkStatus(ActionEvent event) {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionStatusPage.fxml"));
+            Parent root = loader.load();
+            mainStage.setScene(new Scene(root, 1280, 720));
+
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+    }
+
     /**
      * Log out from donor account.
      * @param e mouse click action received from user
