@@ -286,8 +286,11 @@ public class DonatePageController implements Initializable{
         }
     }    
 
+    /**
+     * Switch to CollectionStatusPage.
+     */
     @FXML
-    private void switch_to_CollectionStatusPage(ActionEvent event) {
+    private void switch_to_CollectionStatusPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionStatusPage.fxml"));
