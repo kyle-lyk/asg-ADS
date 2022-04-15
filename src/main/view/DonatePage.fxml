@@ -109,7 +109,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Button fx:id="checkStatusBtn" layoutX="283.0" layoutY="563.0" mnemonicParsing="false" onAction="#checkStatus" text="View Status" />
+            <Button fx:id="checkStatusBtn" layoutX="253.0" layoutY="563.0" mnemonicParsing="false" onAction="#switch_to_CollectionStatusPage" text="View Collection Status" />
          </children>
       </AnchorPane>
    </right>
