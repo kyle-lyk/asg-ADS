@@ -99,6 +99,27 @@ public class DCHistoryPageController implements Initializable{
     }
 
     /**
+     * When button is clicked, scene will be 
+     * changed to Collection Page.
+     * @param event mouse click action from user
+     */
+    @FXML
+    void collectionPageBtn(ActionEvent event) {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionPage.fxml"));
+            Parent root = loader.load();
+            mainStage.setScene(new Scene(root, 1280, 720));
+
+            DistributePageController dcItemController = loader.getController();
+            dcItemController.resetFlag();        
+
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+            }
+    }
+
+    /**
      * When button is clicked, an alert window will pop up
      * to confirm log out process.
      * @param event mouse click action from user

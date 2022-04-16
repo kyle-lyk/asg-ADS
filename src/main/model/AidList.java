@@ -7,8 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
  * It contains information of aid list donated, requested by Donor and Ngo.
  */
 public class AidList {
-    private SimpleStringProperty donor, phone, aids, ngo;
-    private String status;
+    private SimpleStringProperty donor, phone, aids, ngo, status;
     private int quantity, manpower;
 
     private int rowNum;
@@ -26,6 +25,10 @@ public class AidList {
         this.manpower = manpower;
     }
 
+    /**
+     * Constructs the content for
+     * the rows of DC Records table.
+     */
     public AidList(String donor, String phone, String aids, Integer quantity, String ngo, Integer manpower, String status) {
         this.donor = new SimpleStringProperty(donor);
         this.phone = new SimpleStringProperty(phone);
@@ -33,7 +36,7 @@ public class AidList {
         this.quantity = quantity;
         this.ngo = new SimpleStringProperty(ngo);
         this.manpower = manpower;
-        this.status = status;
+        this.status = new SimpleStringProperty(status);
     }
 
     /**
@@ -172,11 +175,19 @@ public class AidList {
         this.manpower = manpower;
     }
 
+    /**
+     * Gets the status of distributed item.
+     * @return status of distributed item
+     */
     public String getStatus(){
-        return this.status;
+        return this.status.get();
     }
 
-    public void sestStatus(String status){
+    /**
+     * Sets the status of distributed item.
+     * @param status status of distributed item
+     */
+    public void setStatus(SimpleStringProperty status){
         this.status = status;
     }
 
