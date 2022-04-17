@@ -341,6 +341,27 @@ public class DistributePageController implements Initializable{
     }
 
     /**
+     * When button is clicked, scene will be 
+     * changed to Collection Page.
+     * @param event mouse click action from user
+     */
+    @FXML
+    void collectionPageBtn(ActionEvent event) {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionPage.fxml"));
+            Parent root = loader.load();
+            mainStage.setScene(new Scene(root, 1280, 720));
+
+            DistributePageController dcItemController = loader.getController();
+            dcItemController.resetFlag();        
+
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+            }
+    }
+
+    /**
      * This function will return a false boolean value if
      * the aid matching is rejected (illegal matching).
      * If the aid matching is accepted, display the results

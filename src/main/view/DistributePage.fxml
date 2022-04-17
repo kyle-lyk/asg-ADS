@@ -4,8 +4,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -49,7 +47,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="144.0" layoutY="205.0" prefHeight="425.0" prefWidth="350.0" style="-fx-border-color: #008b8b; -fx-border-width: 3;">
+            <AnchorPane layoutX="145.0" layoutY="172.0" prefHeight="425.0" prefWidth="350.0" style="-fx-border-color: #008b8b; -fx-border-width: 3;">
                <children>
                   <Button layoutX="69.0" layoutY="145.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnAidHistoryClicked3" prefWidth="210.0" style="-fx-background-color: #95A7DD;" text="View Matched Aid History">
                      <font>
@@ -90,16 +88,16 @@
                   </Button>
                </children>
             </AnchorPane>
-            <Text layoutX="149.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution Center">
+            <Text layoutX="150.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution Center">
                <font>
                   <Font name="Franklin Gothic Medium" size="42.0" />
                </font>
             </Text>
-            <ImageView fitHeight="79.0" fitWidth="85.0" layoutX="279.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../distributed.png" />
-               </image>
-            </ImageView>
+            <Button layoutX="220.0" layoutY="640.0" mnemonicParsing="false" onAction="#collectionPageBtn" prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Go To Collection Page">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>
