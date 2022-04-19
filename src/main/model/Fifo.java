@@ -11,7 +11,8 @@ public class Fifo<E> {
     private LinkedHashSet<String> NgoList = new LinkedHashSet<String>();
         
 	/**
-	 * Enqueues the NGO that is passed to the method
+	 * Enqueues the NGO that is passed to the method.
+	 * @param NGO NGO's name
 	 */
     public void enqueue(String NGO) {
 		NgoList.add(NGO);
@@ -27,7 +28,7 @@ public class Fifo<E> {
 
 	/**
 	 * Dequeues the NGO that is at the front of the queue
-	 * and returns the dequeued element
+	 * and returns the dequeued element.
 	 * @return first element of set
 	 */
 	public String dequeuePoll() {

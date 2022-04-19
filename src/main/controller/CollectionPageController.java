@@ -40,7 +40,7 @@ import main.model.AidList;
 import main.model.Database;
 import main.model.GlobalState;
 import main.model.Fifo;
-//import main.model.Priority;
+import main.model.Priority;
 
 /**
  * This controller will handle the user interaction logic for CollectionPage.fxml 
@@ -97,7 +97,7 @@ public class CollectionPageController implements Initializable {
     boolean priorityFlag = false;
 
     Fifo fifoQ = new Fifo(); 
-    //Priority priorityQ = new Priority();
+    Priority priorityQ = new Priority();
 
     LinkedHashSet<String> ngoExistListUnique = new LinkedHashSet<String>(); // unique NGOs that have "Reserved" as status
     ArrayList<String> ngoExistList = new ArrayList<String>(); // unique NGOs that have "Reserved" as status, but as ArrayList
@@ -139,8 +139,10 @@ public class CollectionPageController implements Initializable {
                 
             }
             else if (priorityFlag) {
-                // insert priority model
-                
+                int manpowerIndex = ngoExistList.indexOf(ngoName);
+                int manpowerAmount = manpowerList.get(manpowerIndex);
+                priorityQ.enqueue(ngoName, manpowerAmount);
+                queueText.setText(priorityQ.getNgoList());
             }   
         }
         else {
@@ -155,15 +157,11 @@ public class CollectionPageController implements Initializable {
      */
     @FXML
     void dequeueBtn(ActionEvent event) {
-        // 1) remove item from queue (based on if it's FIFO/Priority)
-        // 2) select item removed and update status as "Collected"
-        // 3) update in database
 
         if (!fifoFlag && !priorityFlag) {
             textErrorMsg.setText("You must select a mode of queueing first!");
         }
-        //else if (!fifoQ.getNgoList().isEmpty() || !(priorityQ.getNgoListEnqueue().equals("[]"))) {
-        else if (!fifoQ.getNgoList().isEmpty()) {
+        else if (!fifoQ.getNgoList().isEmpty() || !(priorityQ.getNgoList().equals("[]"))) {
             textErrorMsg.setText("");
             if (fifoFlag) {
                 String dequeuedNGO = fifoQ.dequeuePoll();
@@ -178,8 +176,16 @@ public class CollectionPageController implements Initializable {
                 rowSelection();
             }
             else if (priorityFlag) {
-                // insert priority model
-                
+                String dequeuedNGO = priorityQ.dequeuePoll();
+                System.out.println(dequeuedNGO); //////////////
+                updateCollectionStatus(dequeuedNGO);
+                queueText.setText(priorityQ.getNgoList());
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                // The below code returns a stacktrace error (Exception in thread "JavaFX Application Thread" java.lang.RuntimeException)
+                // but program still runs in expected/predictable manner
+                updateRecordsTable();
+                rowSelection();
             }
         }
         else {
@@ -232,19 +238,20 @@ public class CollectionPageController implements Initializable {
      */
     @SuppressWarnings("unchecked")
     private void queueChoiceListener() {
-        // to-be-implemented: clear/reset queue when choice changes
         queueChoice.setOnAction((event) -> {
             System.out.println("choice: " + queueChoice.getValue());
             queueText.setText("[]");
             if (((String)queueChoice.getValue()).equals("FIFO Queue")) {
                 fifoFlag = true;
                 priorityFlag = false;
+                fifoQ = new Fifo(); 
                 System.out.println(fifoFlag);
                 textErrorMsg.setText("");
             }
             else if (((String)queueChoice.getValue()).equals("Priority Queue")) {
                 priorityFlag = true;
                 fifoFlag = false;
+                priorityQ = new Priority();
                 System.out.println(priorityFlag);
                 textErrorMsg.setText("");
             }
@@ -253,6 +260,7 @@ public class CollectionPageController implements Initializable {
 
     /**
      * Updates the status of the distributed aid to "Collected".
+     * @param ngoName NGO's name
      */
     private void updateCollectionStatus(String ngoName) {
 
@@ -356,7 +364,7 @@ public class CollectionPageController implements Initializable {
      */
     private void resetVar() {
         fifoQ = new Fifo();
-        // priorityQ = new Priority();
+        priorityQ = new Priority();
         ngoExistListUnique = new LinkedHashSet<String>();
         ngoExistList = new ArrayList<String>();
     }

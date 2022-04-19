@@ -109,11 +109,7 @@ public class DCHistoryPageController implements Initializable{
             Stage mainStage = GlobalState.getInstance().getStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionPage.fxml"));
             Parent root = loader.load();
-            mainStage.setScene(new Scene(root, 1280, 720));
-
-            DistributePageController dcItemController = loader.getController();
-            dcItemController.resetFlag();        
-
+            mainStage.setScene(new Scene(root, 1280, 720));       
         } catch (IOException ioe){
             ioe.printStackTrace();
             }
