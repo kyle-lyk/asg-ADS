@@ -167,7 +167,7 @@ public class CollectionStatusController implements Initializable{
      * @param e mouse click action received from user
      */
     @FXML
-    public void logout(ActionEvent e){
+    private void logout(ActionEvent e){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You are about to logout");
