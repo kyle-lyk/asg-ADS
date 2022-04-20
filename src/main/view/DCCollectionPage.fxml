@@ -31,10 +31,10 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="145.0" layoutY="188.0" prefHeight="425.0" prefWidth="350.0" style="-fx-border-color: #008b8b; -fx-border-width: 3;">
+            <AnchorPane layoutX="144.0" layoutY="170.0" prefHeight="425.0" prefWidth="350.0" style="-fx-border-color: #008b8b; -fx-border-width: 3;">
                <children>
-                  <TextField fx:id="ngoNameField" alignment="CENTER" layoutX="70.0" layoutY="238.0" prefHeight="26.0" prefWidth="210.0" promptText="Enter NGO name" />
-                  <Button layoutX="70.0" layoutY="284.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#enqueueBtn" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: eee8aa; -fx-text-fill: black;" text="Enqueue">
+                  <TextField fx:id="ngoNameField" alignment="CENTER" layoutX="70.0" layoutY="227.0" prefHeight="26.0" prefWidth="210.0" promptText="Enter NGO name" />
+                  <Button layoutX="70.0" layoutY="262.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#enqueueBtn" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: eee8aa; -fx-text-fill: black;" text="Enqueue">
                      <font>
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
@@ -44,17 +44,12 @@
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="textErrorMsg" fill="#ef0404" layoutX="25.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="300.0">
+                  <Text fx:id="statusText" fill="#ef0404" layoutX="25.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="300.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button layoutX="188.0" layoutY="284.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#dequeueBtn" prefWidth="90.0" style="-fx-background-color: eee8aa; -fx-text-fill: black;" text="Dequeue">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="16.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="188.0" layoutY="381.0" mnemonicParsing="false" onAction="#logoutBtn" prefWidth="125.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE">
+                  <Button layoutX="189.0" layoutY="262.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#dequeueBtn" prefWidth="90.0" style="-fx-background-color: eee8aa; -fx-text-fill: black;" text="Dequeue">
                      <font>
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
@@ -64,24 +59,29 @@
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="queueText" layoutX="85.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[]" wrappingWidth="240.0">
+                  <Text fx:id="queueText" layoutX="86.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[]" wrappingWidth="192.800048828125">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="queueChoice" layoutX="75.0" layoutY="86.0" prefWidth="200.0" />
-                  <Button layoutX="34.0" layoutY="381.0" mnemonicParsing="false" onAction="#DCPageBtn" prefWidth="125.0" style="-fx-background-color: #95A7DD;" text="DC Page" textFill="WHITE">
+                  <ComboBox fx:id="queueChoice" layoutX="75.0" layoutY="104.0" prefWidth="200.0" AnchorPane.bottomAnchor="296.0" />
+                  <Button layoutX="75.0" layoutY="380.0" mnemonicParsing="false" onAction="#switch_to_DistributePage" prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Return to DC Page">
                      <font>
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
-            <Text layoutX="128.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Collection Simulation">
+            <Text layoutX="128.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Collection Simulation" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="128.8525390625">
                <font>
                   <Font name="Franklin Gothic Medium" size="42.0" />
                </font>
             </Text>
+            <Button layoutX="257.0" layoutY="656.0" mnemonicParsing="false" onAction="#logoutBtn" prefWidth="125.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE" AnchorPane.bottomAnchor="37.60000000000002" AnchorPane.rightAnchor="257.4">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </right>

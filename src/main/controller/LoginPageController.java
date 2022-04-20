@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import main.model.Database;
 import main.model.GlobalState;
+import main.model.Router;
 
 /**
  * This controller will handle the user interaction logic for LoginPage.fxml
@@ -67,7 +68,7 @@ public class LoginPageController implements Initializable{
     void switch_to_RegisterPage(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/RegisterPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.RegisterPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();
@@ -91,8 +92,8 @@ public class LoginPageController implements Initializable{
                 // Obtain selected identity from choicebox and convert it to database file name
                 GlobalState state = GlobalState.getInstance();
                 String identity = identityBox.getValue();
-                String filename = state.getDataFileName(identity);
-                String viewpath = state.getViewPath(identity);
+                String filename = Router.getDataFileName(identity);
+                String viewpath = Router.getViewPath(identity);
 
                 String username = "";
                 String password = "";

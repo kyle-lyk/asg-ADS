@@ -29,9 +29,10 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 import main.model.Database;
-import main.model.DonateInfo;
 import main.model.Donor;
 import main.model.GlobalState;
+import main.model.Router;
+import main.model.tablemodel.DonateInfo;
 
 /**
  * This controller will handle the user interaction logic for DonatePage.fxml
@@ -79,7 +80,7 @@ public class DonatePageController implements Initializable{
     private Donor donorUserInfo = state.getDonorSession();
     private String identity = donorUserInfo.getIdentity();
     
-    String DataFileName = state.getDataFileName(identity);
+    String DataFileName = Router.getDataFileName(identity);
     List<List<String>> Acc_Info = Database.readData(DataFileName);
 
     /**
@@ -192,7 +193,7 @@ public class DonatePageController implements Initializable{
     private void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.LoginPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();
@@ -206,7 +207,7 @@ public class DonatePageController implements Initializable{
     private void switch_to_CollectionStatusPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionStatusPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.CollectionStatusPage()));
             Parent root = loader.load();
             mainStage.setScene(new Scene(root, 1280, 720));
 

@@ -4,8 +4,8 @@ import javafx.stage.Stage;
 
 /**
  * GlobalState Class use Singleton Design Pattern to provide Global Access Point to only one instance.
- * It is use to store the Public Stage, User Information of current Login Session, and Utility Method such as to get Database and View Directory Path.
- * This allow different classes to access to the same Stage, User Information, and Utility Method.
+ * It is use to store the Public Stage, User Information of current Login Session.
+ * This allow different classes to access to the same Stage, User Information.
  */
 public class GlobalState {
 
@@ -150,52 +150,4 @@ public class GlobalState {
     }
 
     ////// end of Set login Session //////
-
-
-    ////// start of session Data and ViewPath //////
-
-    /**
-     * Get the Database Filename for current Login Session.
-     * @param identity Current Login Session User Identity (Donor/Ngo)
-     * @return Database Filename
-     */
-    public String getDataFileName(String identity){
-        String filename = "";
-        switch (identity) {
-            case "Donor":
-                filename = "donor_acc";
-                break;
-            case "NGO":
-                filename = "ngo_acc";
-                break;
-            case "DC Admin":
-                filename = "dc_admin_acc";
-                break;
-        }
-        return filename;
-    }
-
-    /**
-     * Get the View Path for current Login Session.
-     * @param identity Current Login Session User Identity (Donor/Ngo)
-     * @return View Path
-     */
-    public String getViewPath(String identity){
-        String viewpath = "";
-        switch (identity) {
-            case "Donor":
-                viewpath = "/main/view/DonatePage.fxml";
-                break;
-            case "NGO":
-                viewpath = "/main/view/RequestPage.fxml";
-                break;
-            case "DC Admin":
-                viewpath = "/main/view/DistributePage.fxml";
-                break;
-        }
-        return viewpath;
-    }
-
-    ////// end of session Data and ViewPath //////
-
 }

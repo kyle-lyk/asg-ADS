@@ -19,7 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.model.Database;
 import main.model.GlobalState;
-import main.model.AidList;
+import main.model.Router;
+import main.model.tablemodel.AidList;
 
 import java.io.IOException;
 import java.net.URL;
@@ -83,10 +84,10 @@ public class DCHistoryPageController implements Initializable{
      * @param event mouse click action from user
      */
     @FXML
-    private void btnNGODonorClicked3(ActionEvent event) {
+    private void switch_to_DistributePage(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DistributePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.DistributePage()));
             Parent root = loader.load();
             mainStage.setScene(new Scene(root, 1280, 720));
 
@@ -104,12 +105,12 @@ public class DCHistoryPageController implements Initializable{
      * @param event mouse click action from user
      */
     @FXML
-    void collectionPageBtn(ActionEvent event) {
+    void switch_to_DCCollectionPage(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DCCollectionPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.DCCollectionPage()));
             Parent root = loader.load();
-            mainStage.setScene(new Scene(root, 1280, 720));       
+            mainStage.setScene(new Scene(root, 1280, 720));
         } catch (IOException ioe){
             ioe.printStackTrace();
             }
@@ -173,7 +174,7 @@ public class DCHistoryPageController implements Initializable{
     private void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.LoginPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();

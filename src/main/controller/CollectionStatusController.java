@@ -22,10 +22,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import main.model.AidList;
 import main.model.Database;
 import main.model.Donor;
 import main.model.Ngo;
+import main.model.Router;
+import main.model.tablemodel.AidList;
 import main.model.GlobalState;
 
 /**
@@ -148,9 +149,9 @@ public class CollectionStatusController implements Initializable{
     private void switch_to_backPage(){
         String viewPath = "";
         if (identity == "Donor")
-            viewPath = "/main/view/DonatePage.fxml";
+            viewPath = Router.DonatePage();
         else if (identity == "NGO")
-            viewPath = "/main/view/RequestPage.fxml";
+            viewPath = Router.RequestPage();
 
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
@@ -186,7 +187,7 @@ public class CollectionStatusController implements Initializable{
     void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.LoginPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();

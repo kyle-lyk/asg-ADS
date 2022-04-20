@@ -1,5 +1,8 @@
 package main.model;
 
+import main.model.tablemodel.DonateInfo;
+import main.model.tablemodel.RequestInfo;
+
 /**
  * DistAids Class contains the Donate Info and Request Info.
  * It is use to format the Matched Aids Result.

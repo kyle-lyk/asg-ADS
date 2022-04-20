@@ -1,4 +1,4 @@
-package main.model;
+package main.model.tablemodel;
 
 /**
  * RequestInfo Class Contains the request information from Ngo.

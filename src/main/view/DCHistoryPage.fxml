@@ -33,7 +33,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="640.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="149.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution Center">
+            <Text layoutX="150.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution Center">
                <font>
                   <Font name="Franklin Gothic Medium" size="42.0" />
                </font>
@@ -43,30 +43,30 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <AnchorPane layoutX="145.0" layoutY="203.0" prefHeight="425.0" prefWidth="350.0" style="-fx-border-color: #008b8b; -fx-border-width: 3;">
+            <AnchorPane layoutX="145.0" layoutY="172.0" prefHeight="425.0" prefWidth="350.0" style="-fx-border-color: #008b8b; -fx-border-width: 3;">
                <children>
-                  <Button layoutX="75.0" layoutY="154.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnNGODonorClicked3" prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Return to Aid Match">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="18.0" />
-                     </font>
-                  </Button>
-                  <Text fx:id="tGeneralText3" layoutX="50.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aid matched successfully!" textAlignment="CENTER" wrappingWidth="250.0">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="18.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="logoutBtn" layoutX="100.0" layoutY="356.0" mnemonicParsing="false" onAction="#logoutBtnClicked" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE">
+                  <Button layoutX="75.0" layoutY="338.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switch_to_DistributePage" prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Return to Aid Match">
                      <font>
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                   </Button>
-                  <Button layoutX="75.0" layoutY="213.0" mnemonicParsing="false" onAction="#collectionPageBtn" prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Go To Collection Page">
+                  <Text fx:id="tGeneralText3" layoutX="50.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aid matched successfully!" textAlignment="CENTER" wrappingWidth="250.0">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="65.0" layoutY="380.0" mnemonicParsing="false" onAction="#switch_to_DCCollectionPage" prefWidth="220.0" style="-fx-background-color: #95A7DD;" text="Go To Collection Page">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
+            <Button fx:id="logoutBtn" layoutX="243.0" layoutY="656.0" mnemonicParsing="false" onAction="#logoutBtnClicked" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE" AnchorPane.bottomAnchor="33.6" AnchorPane.rightAnchor="246.6">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>

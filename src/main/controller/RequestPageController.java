@@ -29,7 +29,8 @@ import javafx.stage.Stage;
 import main.model.Database;
 import main.model.GlobalState;
 import main.model.Ngo;
-import main.model.RequestInfo;
+import main.model.Router;
+import main.model.tablemodel.RequestInfo;
 
 /**
  * This controller will handle the user interaction logic for RequestPage.fxml
@@ -77,7 +78,7 @@ public class RequestPageController implements Initializable{
     private Ngo ngoUserInfo = state.getNgoSession();
     private String identity = ngoUserInfo.getIdentity();
 
-    String DataFileName = state.getDataFileName(identity);
+    String DataFileName = Router.getDataFileName(identity);
     List<List<String>> Acc_Info = Database.readData(DataFileName);
 
     /**
@@ -193,7 +194,7 @@ public class RequestPageController implements Initializable{
     void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.LoginPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();
@@ -207,7 +208,7 @@ public class RequestPageController implements Initializable{
     private void switch_to_CollectionStatusPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/CollectionStatusPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.CollectionStatusPage()));
             Parent root = loader.load();
             mainStage.setScene(new Scene(root, 1280, 720));
 

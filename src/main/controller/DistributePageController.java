@@ -24,10 +24,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import main.model.Database;
 import main.model.DistAids;
-import main.model.DonateInfo;
 import main.model.GlobalState;
-import main.model.RequestInfo;
-import main.model.AidList;
+import main.model.Router;
+import main.model.tablemodel.AidList;
+import main.model.tablemodel.DonateInfo;
+import main.model.tablemodel.RequestInfo;
 
 import java.io.IOException;
 import java.net.URL;
@@ -240,10 +241,10 @@ public class DistributePageController implements Initializable{
      * @param event mouse click action from user
      */
     @FXML
-    private void btnAidHistoryClicked3(ActionEvent event) {
+    private void switch_to_DCHistoryPage(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DCHistoryPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.DCHistoryPage()));
             Parent root = loader.load();
             mainStage.setScene(new Scene(root, 1280, 720));
 
@@ -323,7 +324,7 @@ public class DistributePageController implements Initializable{
                 // switch scene
                 try{
                     Stage mainStage = GlobalState.getInstance().getStage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DCHistoryPage.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.DCHistoryPage()));
                     Parent root = loader.load();
                     mainStage.setScene(new Scene(root, 1280, 720));
         
@@ -346,10 +347,10 @@ public class DistributePageController implements Initializable{
      * @param event mouse click action from user
      */
     @FXML
-    void collectionPageBtn(ActionEvent event) {
+    void switch_to_DCCollectionPage(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DCCollectionPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.DCCollectionPage()));
             Parent root = loader.load();
             mainStage.setScene(new Scene(root, 1280, 720));
         } catch (IOException ioe){
@@ -734,7 +735,7 @@ public class DistributePageController implements Initializable{
     private void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.LoginPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();
@@ -747,7 +748,7 @@ public class DistributePageController implements Initializable{
     private void refreshScene() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/DistributePage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.DistributePage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();

@@ -1,4 +1,4 @@
-package main.model;
+package main.model.tablemodel;
 
 /**
  * DonateInfo Class Contains the donate information of Donor.

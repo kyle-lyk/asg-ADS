@@ -3,7 +3,6 @@ package main.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,10 +10,8 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,22 +22,19 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import main.model.AidList;
 import main.model.Database;
 import main.model.GlobalState;
 import main.model.Fifo;
 import main.model.Priority;
+import main.model.Router;
+import main.model.tablemodel.AidList;
 
 /**
  * This controller will handle the user interaction logic for DCCollectionPage.fxml 
@@ -51,40 +45,28 @@ public class DCCollectionPageController implements Initializable {
 
     @FXML
     private Text generalText;
-
     @FXML
     private ComboBox<String> queueChoice;
-
     @FXML
     private Text queueText;
-
     @FXML
     private TextField ngoNameField;
-
     @FXML
     private TableColumn<AidList, String> donorColumn;
-
     @FXML
     private TableColumn<AidList, String> phoneColumn;
-
     @FXML
     private TableColumn<AidList, String> aidColumn;
-
     @FXML
     private TableColumn<AidList, Integer> quantityColumn;
-
     @FXML
     private TableColumn<AidList, Integer> manpowerColumn;
-
     @FXML
     private TableColumn<AidList, String> ngoColumn;
-
     @FXML
     private TableColumn<AidList, String> statusColumn;
-
     @FXML
-    private Text textErrorMsg;
-
+    private Text statusText;
     @FXML
     private TableView<AidList> tableViewRecords;
 
@@ -96,8 +78,8 @@ public class DCCollectionPageController implements Initializable {
     boolean fifoFlag = false;
     boolean priorityFlag = false;
 
-    Fifo fifoQ = new Fifo(); 
-    Priority priorityQ = new Priority();
+    Fifo<String> fifoQ = new Fifo<String>(); 
+    Priority<String> priorityQ = new Priority<String>();
 
     LinkedHashSet<String> ngoExistListUnique = new LinkedHashSet<String>(); // unique NGOs that have "Reserved" as status
     ArrayList<String> ngoExistList = new ArrayList<String>(); // unique NGOs that have "Reserved" as status, but as ArrayList
@@ -127,15 +109,16 @@ public class DCCollectionPageController implements Initializable {
     @FXML
     void enqueueBtn(ActionEvent event) {
         if (!fifoFlag && !priorityFlag) {
-            textErrorMsg.setText("You must select a mode of queueing first!");
+            statusText.setText("You must select a mode of queueing first!");
         }
         else if (ngoExistList.stream().anyMatch(ngoNameField.getText()::equalsIgnoreCase)) {
-            textErrorMsg.setText("");
+            statusText.setText("");
             String ngoName = ngoNameField.getText().toString().substring(0, 1).toUpperCase() + ngoNameField.getText().toString().substring(1);
 
             if (fifoFlag) {
                 fifoQ.enqueue(ngoName);
                 queueText.setText(fifoQ.getNgoList().toString());
+                statusText.setText("Enqueued NGO:" + ngoName);
                 
             }
             else if (priorityFlag) {
@@ -143,10 +126,11 @@ public class DCCollectionPageController implements Initializable {
                 int manpowerAmount = manpowerList.get(manpowerIndex);
                 priorityQ.enqueue(ngoName, manpowerAmount);
                 queueText.setText(priorityQ.getNgoList());
+                statusText.setText("Enqueued NGO:" + ngoName);
             }   
         }
         else {
-            textErrorMsg.setText("You can only queue NGOs that exist and has 'Reserved' status!");
+            statusText.setText("You can only queue NGOs that exist and has 'Reserved' status!");
         }
     }
 
@@ -159,37 +143,33 @@ public class DCCollectionPageController implements Initializable {
     void dequeueBtn(ActionEvent event) {
 
         if (!fifoFlag && !priorityFlag) {
-            textErrorMsg.setText("You must select a mode of queueing first!");
+            statusText.setText("You must select a mode of queueing first!");
         }
         else if (!fifoQ.getNgoList().isEmpty() || !(priorityQ.getNgoList().equals("[]"))) {
-            textErrorMsg.setText("");
+            statusText.setText("");
             if (fifoFlag) {
                 String dequeuedNGO = fifoQ.dequeuePoll();
-                System.out.println(dequeuedNGO); //////////////
+                statusText.setText("Dequeued NGO: " + dequeuedNGO);
                 updateCollectionStatus(dequeuedNGO);
                 queueText.setText(fifoQ.getNgoList().toString());
 
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // The below code returns a stacktrace error (Exception in thread "JavaFX Application Thread" java.lang.RuntimeException)
-                // but program still runs in expected/predictable manner
+
                 updateRecordsTable();
                 rowSelection();
             }
             else if (priorityFlag) {
                 String dequeuedNGO = priorityQ.dequeuePoll();
-                System.out.println(dequeuedNGO); //////////////
+                statusText.setText("Dequeued NGO: " + dequeuedNGO);
                 updateCollectionStatus(dequeuedNGO);
                 queueText.setText(priorityQ.getNgoList());
 
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                // The below code returns a stacktrace error (Exception in thread "JavaFX Application Thread" java.lang.RuntimeException)
-                // but program still runs in expected/predictable manner
+
                 updateRecordsTable();
                 rowSelection();
             }
         }
         else {
-            textErrorMsg.setText("Queue is empty!");
+            statusText.setText("Queue is empty!");
         }
     }
 
@@ -218,10 +198,10 @@ public class DCCollectionPageController implements Initializable {
      * @param event mouse click action from user
      */
     @FXML
-    private void DCPageBtn(ActionEvent event) {
+    private void switch_to_DistributePage(ActionEvent event) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/view/DistributePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Router.DistributePage()));
             Parent root = loader.load();
             mainStage.setScene(new Scene(root, 1280, 720));
 
@@ -236,7 +216,6 @@ public class DCCollectionPageController implements Initializable {
     /**
      * Adds a listener to ComboBox to keep track of any selection changes.
      */
-    @SuppressWarnings("unchecked")
     private void queueChoiceListener() {
         queueChoice.setOnAction((event) -> {
             System.out.println("choice: " + queueChoice.getValue());
@@ -244,16 +223,16 @@ public class DCCollectionPageController implements Initializable {
             if (((String)queueChoice.getValue()).equals("FIFO Queue")) {
                 fifoFlag = true;
                 priorityFlag = false;
-                fifoQ = new Fifo(); 
+                fifoQ = new Fifo<String>(); 
                 System.out.println(fifoFlag);
-                textErrorMsg.setText("");
+                statusText.setText("");
             }
             else if (((String)queueChoice.getValue()).equals("Priority Queue")) {
                 priorityFlag = true;
                 fifoFlag = false;
-                priorityQ = new Priority();
+                priorityQ = new Priority<String>();
                 System.out.println(priorityFlag);
-                textErrorMsg.setText("");
+                statusText.setText("");
             }
         });
     }
@@ -352,7 +331,7 @@ public class DCCollectionPageController implements Initializable {
     private void switch_to_LoginPage() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.LoginPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();
@@ -363,8 +342,8 @@ public class DCCollectionPageController implements Initializable {
      * Reset the values of queues and lists.
      */
     private void resetVar() {
-        fifoQ = new Fifo();
-        priorityQ = new Priority();
+        fifoQ = new Fifo<String>();
+        priorityQ = new Priority<String>();
         ngoExistListUnique = new LinkedHashSet<String>();
         ngoExistList = new ArrayList<String>();
     }
@@ -375,7 +354,7 @@ public class DCCollectionPageController implements Initializable {
     private void refreshScene() {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/CollectionSimulation.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.DCCollectionPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();

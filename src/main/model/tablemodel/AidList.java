@@ -1,4 +1,4 @@
-package main.model;
+package main.model.tablemodel;
 
 import javafx.beans.property.SimpleStringProperty;
 

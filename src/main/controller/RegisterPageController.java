@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import main.model.Database;
 import main.model.GlobalState;
+import main.model.Router;
 
 /**
  * This controller will handle the user interaction logic for RegisterPage.fxml
@@ -93,7 +94,7 @@ public class RegisterPageController implements Initializable {
     void switch_to_LoginPage(ActionEvent e) {
         try{
             Stage mainStage = GlobalState.getInstance().getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(Router.LoginPage()));
             mainStage.setScene(new Scene(root, 1280, 720));
         }catch (IOException ioe){
             ioe.printStackTrace();
