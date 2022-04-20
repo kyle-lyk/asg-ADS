@@ -7,14 +7,19 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.model.AidList;
@@ -48,6 +53,12 @@ public class CollectionStatusController implements Initializable{
     private TableColumn<AidList,String> statusCol;
     @FXML
     private Button backBtn;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private Label identityLabel;
+    @FXML
+    private Label nameLabel;
 
     //////////////// end of JavaFX Components Variables ///////////////////
 
@@ -62,6 +73,14 @@ public class CollectionStatusController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadCollectionStatusTable();
+        if (identity == "Donor"){
+            identityLabel.setText("Donor Name:");
+            nameLabel.setText(state.getDonorSession().getName());
+        }
+        else if (identity == "NGO"){
+            identityLabel.setText("Ngo Name:");
+            nameLabel.setText(state.getNgoSession().getName());
+        }
     }
 
     /**
@@ -140,6 +159,38 @@ public class CollectionStatusController implements Initializable{
         }catch (IOException ioe){
             ioe.printStackTrace();
         }        
+    }
+
+    /**
+     * Log out from ngo account.
+     * @param e mouse click action received from user
+     */
+    @FXML
+    public void logout(ActionEvent e){
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You are about to logout");
+        alert.setContentText("Confirm to log out?");
+
+        if(alert.showAndWait().get() == ButtonType.OK) {
+            switch_to_LoginPage();
+            state.Init();        
+            System.out.println("Successfully logged out");
+        }
+    }
+
+    /**
+     * Switch to LoginPage after logged out from donor account.
+     */
+    @FXML
+    void switch_to_LoginPage() {
+        try{
+            Stage mainStage = GlobalState.getInstance().getStage();
+            Parent root = FXMLLoader.load(getClass().getResource("/main/view/LoginPage.fxml"));
+            mainStage.setScene(new Scene(root, 1280, 720));
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
 }

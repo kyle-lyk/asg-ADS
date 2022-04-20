@@ -53,6 +53,8 @@ public class DonatePageController implements Initializable{
     @FXML
     private Label prof_statusLabel;
     @FXML
+    private Label nameLabel;
+    @FXML
     private TextField donateItemName;
     @FXML
     private TextField donateItemQty;
@@ -88,6 +90,7 @@ public class DonatePageController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         reloadTableInfo();
+        nameLabel.setText(donorUserInfo.getName());
     }
 
     /**

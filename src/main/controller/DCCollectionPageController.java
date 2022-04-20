@@ -43,9 +43,9 @@ import main.model.Fifo;
 import main.model.Priority;
 
 /**
- * This controller will handle the user interaction logic for CollectionPage.fxml 
+ * This controller will handle the user interaction logic for DCCollectionPage.fxml 
  */
-public class CollectionPageController implements Initializable {
+public class DCCollectionPageController implements Initializable {
 
     //////////////// start of JavaFX Components Variables ///////////////////
 
@@ -53,7 +53,7 @@ public class CollectionPageController implements Initializable {
     private Text generalText;
 
     @FXML
-    private ComboBox queueChoice;
+    private ComboBox<String> queueChoice;
 
     @FXML
     private Text queueText;

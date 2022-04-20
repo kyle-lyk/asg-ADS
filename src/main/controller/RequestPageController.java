@@ -65,6 +65,8 @@ public class RequestPageController implements Initializable{
     @FXML
     private Label req_statusLabel;
     @FXML
+    private Label nameLabel;
+    @FXML
     private Button requestBtn;
     @FXML
     private Button checkStatusBtn;
@@ -86,6 +88,7 @@ public class RequestPageController implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         reloadTableInfo();
+        nameLabel.setText(ngoUserInfo.getName());
     }
 
     /**
