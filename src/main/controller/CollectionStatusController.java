@@ -147,11 +147,7 @@ public class CollectionStatusController implements Initializable{
      */
     @FXML
     private void switch_to_backPage(){
-        String viewPath = "";
-        if (identity == "Donor")
-            viewPath = Router.DonatePage();
-        else if (identity == "NGO")
-            viewPath = Router.RequestPage();
+        String viewPath = Router.getViewPath(identity);
 
         try{
             Stage mainStage = GlobalState.getInstance().getStage();

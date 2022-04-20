@@ -102,13 +102,13 @@ public class Router {
         String viewpath = "";
         switch (identity) {
             case "Donor":
-                viewpath = "/main/view/DonatePage.fxml";
+                viewpath = DonatePage();
                 break;
             case "NGO":
-                viewpath = "/main/view/RequestPage.fxml";
+                viewpath = RequestPage();
                 break;
             case "DC Admin":
-                viewpath = "/main/view/DistributePage.fxml";
+                viewpath = DistributePage();
                 break;
         }
         return viewpath;
