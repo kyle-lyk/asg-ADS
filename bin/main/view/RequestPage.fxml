@@ -7,9 +7,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -39,21 +36,21 @@
                   <Font name="Franklin Gothic Medium" size="42.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="14.0" layoutY="185.0" prefHeight="350.0" prefWidth="280.0" style="-fx-background-color: #2C73D2;" AnchorPane.rightAnchor="335.0">
+            <AnchorPane layoutX="145.0" layoutY="185.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #2C73D2;" AnchorPane.rightAnchor="144.60000000000002">
                <children>
-                  <TextField fx:id="itemNameField" layoutX="40.0" layoutY="98.0" prefWidth="200.0" />
-                  <TextField fx:id="itemQtyField" layoutX="42.0" layoutY="184.0" prefWidth="200.0" />
-                  <Button fx:id="requestBtn" layoutX="80.0" layoutY="257.0" mnemonicParsing="false" onAction="#requestAids" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Request" textFill="WHITE">
+                  <TextField fx:id="itemNameField" layoutX="74.0" layoutY="102.0" prefWidth="200.0" />
+                  <TextField fx:id="itemQtyField" layoutX="76.0" layoutY="188.0" prefWidth="200.0" />
+                  <Button fx:id="requestBtn" layoutX="100.0" layoutY="251.0" mnemonicParsing="false" onAction="#requestAids" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Request" textFill="WHITE">
                      <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
                   </Button>
-                  <Label layoutX="120.0" layoutY="67.0" text="Aids" textFill="WHITE">
+                  <Label layoutX="153.0" layoutY="71.0" text="Aids" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="100.0" layoutY="153.0" text="Quantity" textFill="WHITE">
+                  <Label layoutX="135.0" layoutY="157.0" text="Quantity" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -66,53 +63,16 @@
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
             </Button>
-            <AnchorPane layoutX="333.0" layoutY="185.0" prefHeight="350.0" prefWidth="280.0" style="-fx-background-color: #2C73D2;" AnchorPane.rightAnchor="25.0">
-               <children>
-                  <GridPane layoutX="31.0" layoutY="66.0" prefHeight="151.0" prefWidth="220.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.9999267578125" minWidth="10.0" prefWidth="89.600048828125" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.5999755859375" minWidth="10.0" prefWidth="111.999951171875" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label text="Name" />
-                        <Label text="Manpower" GridPane.rowIndex="1" />
-                        <Label fx:id="nameLabel" prefHeight="18.0" prefWidth="115.0" GridPane.columnIndex="1" />
-                        <Label fx:id="manpowerLabel" prefHeight="18.0" prefWidth="114.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="New Name" GridPane.rowIndex="2" />
-                        <Label text="New Manpower" GridPane.rowIndex="3" />
-                        <TextField fx:id="new_manpowerField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="new_nameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-                  <Button fx:id="updateBtn" layoutX="80.0" layoutY="258.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Update" textFill="WHITE">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="20.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="prof_statusLabel" alignment="CENTER" layoutX="29.0" layoutY="230.0" prefHeight="18.0" prefWidth="223.0" />
-                  <Text layoutX="36.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="**You can only update profile once**">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <Text layoutX="438.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
+            <Text layoutX="279.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="119.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request">
+            <Button fx:id="checkStatusBtn" layoutX="209.0" layoutY="559.0" mnemonicParsing="false" onAction="#switch_to_CollectionStatusPage" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #95A7DD;" text="View Collection Status" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
-            </Text>
+            </Button>
          </children>
       </AnchorPane>
    </right>

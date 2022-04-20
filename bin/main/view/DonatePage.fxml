@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -8,9 +7,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -18,21 +14,21 @@
    <right>
       <AnchorPane prefHeight="720.0" prefWidth="640.0" style="-fx-background-color: #E5F0FF;" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="14.0" layoutY="185.0" prefHeight="350.0" prefWidth="280.0" style="-fx-background-color: #2C73D2;" AnchorPane.rightAnchor="335.0">
+            <AnchorPane layoutX="145.0" layoutY="185.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #2C73D2;" AnchorPane.rightAnchor="144.60000000000002">
                <children>
-                  <TextField fx:id="donateItemName" layoutX="39.0" layoutY="93.0" prefWidth="200.0" />
-                  <TextField fx:id="donateItemQty" layoutX="41.0" layoutY="179.0" prefWidth="200.0" />
-                  <Button fx:id="donateBtn" layoutX="81.0" layoutY="252.0" mnemonicParsing="false" onAction="#donateAids" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Donate" textFill="WHITE">
+                  <TextField fx:id="donateItemName" layoutX="74.0" layoutY="102.0" prefWidth="200.0" />
+                  <TextField fx:id="donateItemQty" layoutX="76.0" layoutY="188.0" prefWidth="200.0" />
+                  <Button fx:id="donateBtn" layoutX="100.0" layoutY="251.0" mnemonicParsing="false" onAction="#donateAids" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Donate" textFill="WHITE">
                      <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
                   </Button>
-                  <Label layoutX="89.0" layoutY="62.0" text="Item Name" textFill="WHITE">
+                  <Label layoutX="153.0" layoutY="71.0" text="Aids" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="100.0" layoutY="148.0" text="Quantity" textFill="WHITE">
+                  <Label layoutX="135.0" layoutY="157.0" text="Quantity" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -44,7 +40,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Button fx:id="logoutBtn" layoutX="245.0" layoutY="632.0" mnemonicParsing="false" onAction="#logout" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE">
+            <Button fx:id="logoutBtn" layoutX="244.0" layoutY="632.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE">
                <font>
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
@@ -54,62 +50,16 @@
                   <Font name="Franklin Gothic Medium" size="42.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="333.0" layoutY="185.0" prefHeight="350.0" prefWidth="280.0" style="-fx-background-color: #2C73D2;" AnchorPane.rightAnchor="25.0">
-               <children>
-                  <Button fx:id="updateBtn" layoutX="85.0" layoutY="257.0" mnemonicParsing="false" onAction="#updateProfile" prefWidth="120.0" style="-fx-background-color: #95A7DD;" text="Update" textFill="WHITE">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="20.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="prof_statusLabel" alignment="CENTER" layoutX="19.0" layoutY="224.0" prefHeight="18.0" prefWidth="253.0">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="14.0" />
-                     </font>
-                  </Label>
-                  <GridPane layoutX="30.0" layoutY="72.0" prefHeight="151.0" prefWidth="220.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="110.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label text="Name" />
-                        <Label text="Phone no(+60)" GridPane.rowIndex="1" />
-                        <Label text="New Name" GridPane.rowIndex="2" />
-                        <Label text="New Phone No(+60)" GridPane.rowIndex="3" />
-                        <TextField fx:id="new_nameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="new_phonenumField" prefHeight="26.0" prefWidth="92.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </TextField>
-                        <Label fx:id="nameLabel" prefHeight="18.0" prefWidth="99.0" GridPane.columnIndex="1" />
-                        <Label fx:id="phonenumLabel" prefHeight="18.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-                  <Text layoutX="36.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="**You can only update profile once**">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <Text layoutX="118.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Donate">
+            <Text layoutX="279.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Donate">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="435.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
+            <Button fx:id="checkStatusBtn" layoutX="209.0" layoutY="559.0" mnemonicParsing="false" onAction="#switch_to_CollectionStatusPage" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #95A7DD;" text="View Collection Status" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
-            </Text>
-            <Button fx:id="checkStatusBtn" layoutX="253.0" layoutY="563.0" mnemonicParsing="false" onAction="#switch_to_CollectionStatusPage" text="View Collection Status" />
+            </Button>
          </children>
       </AnchorPane>
    </right>
