@@ -58,7 +58,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="req_statusLabel" alignment="CENTER" layoutX="41.0" layoutY="227.0" prefHeight="18.0" prefWidth="201.0" />
+                  <Label fx:id="req_statusLabel" alignment="CENTER" layoutX="75.0" layoutY="224.0" prefHeight="18.0" prefWidth="201.0" />
                </children>
             </AnchorPane>
             <Button fx:id="logoutBtn" layoutX="245.0" layoutY="632.0" mnemonicParsing="false" onAction="#logout" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE">
