@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="donate_statusLabel" alignment="CENTER" layoutX="18.0" layoutY="225.0" prefHeight="18.0" prefWidth="253.0">
+                  <Label fx:id="donate_statusLabel" alignment="CENTER" layoutX="47.0" layoutY="226.0" prefHeight="18.0" prefWidth="253.0">
                      <font>
                         <Font name="Franklin Gothic Medium" size="14.0" />
                      </font>
