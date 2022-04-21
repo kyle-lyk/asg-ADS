@@ -563,7 +563,7 @@ public class DistributePageController implements Initializable{
         Integer donatedQty = distAids.getDonatedQty();
         String ngoName = distAids.getRequestInfo().getNgoName();
         Integer manpower = distAids.getRequestInfo().getManpower();
-        String status = "Collected";
+        String status = "Reserved";
 
         List<String> distInfo = new ArrayList<String>(
                                                     Arrays.asList(
