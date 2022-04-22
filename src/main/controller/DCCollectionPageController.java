@@ -111,7 +111,7 @@ public class DCCollectionPageController implements Initializable {
         if (!fifoFlag && !priorityFlag) {
             statusText.setText("You must select a mode of queueing first!");
         }
-        else if (ngoExistList.stream().anyMatch(ngoNameField.getText()::equalsIgnoreCase)) {
+        else if (ngoExistList.stream().anyMatch(ngo -> ngo.equals(ngoNameField.getText()))) {
             statusText.setText("");
             String ngoName = ngoNameField.getText().toString().substring(0, 1).toUpperCase() + ngoNameField.getText().toString().substring(1);
 
