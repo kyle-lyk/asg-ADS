@@ -1,29 +1,32 @@
 package main.model;
 
 import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * This class contains the logic for the 
  * first-in-first-out queue (FIFO)
  */
 public class Fifo<E> {
-    private LinkedHashSet<String> NgoList = new LinkedHashSet<String>();
+    private Queue<String> NgoList = new LinkedList<String>();
         
 	/**
 	 * Enqueues the NGO that is passed to the method.
 	 * @param NGO NGO's name
 	 */
     public void enqueue(String NGO) {
-		NgoList.add(NGO);
+		// Ensure only unique value are added
+		if (!NgoList.contains(NGO)) 
+			NgoList.add(NGO);
     }
 
 	/**
      * Gets the NGO list.
      * @return NGO list
      */
-    public LinkedHashSet<String> getNgoList() {
-    	return NgoList;
+    public LinkedList<String> getNgoList() {
+    	return (LinkedList<String>) NgoList;
     }
 
 	/**
