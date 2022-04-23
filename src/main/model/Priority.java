@@ -2,9 +2,8 @@ package main.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
  
 /**
  * This class contains the logic for
@@ -49,7 +48,7 @@ class NgoManpower implements Comparable<NgoManpower> {
  * priority queue.
  */
 public class Priority<E> {
-    LinkedList<NgoManpower> NgoList = new LinkedList<NgoManpower>();
+    PriorityQueue<NgoManpower> NgoList = new PriorityQueue<>();
     boolean duplicateFlag = false;
 
     /**
@@ -68,7 +67,6 @@ public class Priority<E> {
 
         if (!duplicateFlag) {
             NgoList.add(new NgoManpower(NGO, Manpower));
-            Collections.sort(NgoList);
         }
     }
 
@@ -78,7 +76,7 @@ public class Priority<E> {
 	 * @return first element of list
 	 */
     public String dequeuePoll() {
-        String firstElement = NgoList.getFirst().Ngo;
+        String firstElement = NgoList.peek().Ngo;
         NgoList.remove();
         return firstElement;
     }
