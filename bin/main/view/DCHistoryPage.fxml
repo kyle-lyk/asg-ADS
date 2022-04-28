@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: E5F0FF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.DCHistoryPageController">
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="640.0" style="-fx-background-color: #95A7DD;" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tvMainAidHistory" layoutX="70.0" layoutY="92.0" prefHeight="600.0" prefWidth="500.0">
+              <columns>
+                <TableColumn fx:id="donorColumn5" prefWidth="60.0" text="Donor" />
+                  <TableColumn fx:id="phoneColumn5" prefWidth="125.0" text="Phone" />
+                <TableColumn fx:id="aidColumn5" prefWidth="100.0" text="Aid" />
+                  <TableColumn fx:id="quantityColumn5" prefWidth="60.0" text="Quantity" />
+                  <TableColumn fx:id="ngoColumn5" prefWidth="60.0" text="NGO" />
+                  <TableColumn fx:id="manpowerColumn5" prefWidth="100.0" text="Manpower" />
+              </columns>
+            </TableView>
+            <Text fx:id="tTableName3" layoutX="217.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matched Aid History">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="150.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distribution Center">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="42.0" />
+               </font>
+            </Text>
+            <Text fx:id="tErrorMsg3" fill="#ef0404" layoutX="120.0" layoutY="646.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="400.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="145.0" layoutY="172.0" prefHeight="425.0" prefWidth="350.0" style="-fx-border-color: #008b8b; -fx-border-width: 3;">
+               <children>
+                  <Button layoutX="75.0" layoutY="338.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switch_to_DistributePage" prefWidth="200.0" style="-fx-background-color: #95A7DD;" text="Return to Aid Match">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="16.0" />
+                     </font>
+                  </Button>
+                  <Text fx:id="tGeneralText3" layoutX="50.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aid matched successfully!" textAlignment="CENTER" wrappingWidth="250.0">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="18.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="65.0" layoutY="380.0" mnemonicParsing="false" onAction="#switch_to_DCCollectionPage" prefWidth="220.0" style="-fx-background-color: #95A7DD;" text="Go To Collection Page">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <Button fx:id="logoutBtn" layoutX="243.0" layoutY="656.0" mnemonicParsing="false" onAction="#logoutBtnClicked" prefWidth="150.0" style="-fx-background-color: #95A7DD;" text="Log Out" textFill="WHITE" AnchorPane.bottomAnchor="33.6" AnchorPane.rightAnchor="246.6">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
